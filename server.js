@@ -107,7 +107,7 @@ const DEFAULT_NOTIFICATIONS = [
 
     title: 'آخرین بروزرسانی',
 
-    message: 'نسخه 1.0 سیستم منتشر شد. ویژگی‌های جدید شامل مدیریت پیشرفته سهمیه و گزارش‌گیری اضافه شده است.',
+    message: 'ui جدید اپلیکیشن راه اندازی شد!',
 
     date: new Date().toISOString(),
 
@@ -115,9 +115,22 @@ const DEFAULT_NOTIFICATIONS = [
 
   },
 
+   {
+
+    id: 3,
+
+    title: 'آخرین بروزرسانی',
+
+    message: 'نسخه جدید شامل بهینه شدن تمام بخش ها ',
+
+    date: new Date().toISOString(),
+
+    read: false
+
+  },
+
+
 ];
-
-
 
 // Middleware
 
