@@ -957,13 +957,30 @@
     
     .drug-quantity-input {
       margin-right: 10px;
-      width: 80px;
-      padding: 8px;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
+      width: 120px;
+      padding: 12px;
+      border: 2px solid var(--neon-color);
+      border-radius: 8px;
       display: none;
       background: var(--input-bg);
       color: var(--text-color);
+      font-size: 16px;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .drug-quantity-input:focus {
+      outline: none;
+      border-color: var(--neon-purple);
+      box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+      transform: scale(1.05);
+    }
+    
+    .drug-quantity-input::placeholder {
+      color: #94a3b8;
+      font-weight: 500;
     }
     
     .drug-summary {
@@ -1167,11 +1184,13 @@
     .track-delivery-search {
       flex: 1;
       min-width: 300px;
+      max-width: 500px;
     }
     
     .track-delivery-history {
-      flex: 2;
+      flex: 1;
       min-width: 300px;
+      max-width: 600px;
     }
     
     /* استایل‌های جدید برای بخش‌های جستجو */
@@ -1276,6 +1295,15 @@
         position: static;
         margin-bottom: 20px;
         width: 100%;
+      }
+      
+      .drug-quantity-input {
+        width: 100px;
+      }
+      
+      .track-delivery-search,
+      .track-delivery-history {
+        max-width: 100%;
       }
     }
   </style>
@@ -1588,6 +1616,7 @@
           <h2><i class="fas fa-pills"></i> تحویل دارو</h2>
           
           <div class="track-delivery-container">
+            <!-- بخش جستجو و اطلاعات بیمار -->
             <div class="track-delivery-search">
               <div class="form-container">
                 <div class="form-group">
@@ -1618,60 +1647,61 @@
                     <div class="detail-value" id="delivery-drug"></div>
                   </div>
                 </div>
-                
-                <div id="deliveryForm" class="hidden">
-                  <h3 style="margin-top: 20px;">ثبت تحویل دارو</h3>
-                  
-                  <div class="form-group">
-                    <label for="deliveryDate">تاریخ تحویل:</label>
-                    <input type="text" id="deliveryDate" required />
-                  </div>
-                  
-                  <div class="form-group">
-                    <label>انتخاب داروها و مقدار:</label>
-                    <div class="drug-selection">
-                      <label>
-                        <input type="checkbox" name="deliveryDrugs" value="شربت متادون" onchange="toggleQuantityInput(this)">
-                        شربت متادون
-                        <input type="number" id="quantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
-                      </label>
-                      <label>
-                        <input type="checkbox" name="deliveryDrugs" value="شربت اپیوم" onchange="toggleQuantityInput(this)">
-                        شربت اپیوم
-                        <input type="number" id="quantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
-                      </label>
-                      <label>
-                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 5" onchange="toggleQuantityInput(this)">
-                        قرص متادون 5
-                        <input type="number" id="quantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
-                      </label>
-                      <label>
-                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 30" onchange="toggleQuantityInput(this)">
-                        قرص متادون 30
-                        <input type="number" id="quantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
-                      </label>
-                      <label>
-                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 40" onchange="toggleQuantityInput(this)">
-                        قرص متادون 40
-                        <input type="number" id="quantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
-                      </label>
-                    </div>
-                  </div>
-                  
-                  <div class="form-group">
-                    <label for="deliveryReason">دلیل تحویل:</label>
-                    <textarea id="deliveryReason" rows="3" required></textarea>
-                  </div>
-                  
-                  <button type="button" class="btn btn-block" onclick="submitDrugDelivery()">
-                    <i class="fas fa-save"></i> ثبت تحویل دارو
-                  </button>
-                </div>
               </div>
             </div>
             
+            <!-- بخش فرم تحویل دارو و تاریخچه -->
             <div class="track-delivery-history">
-              <div id="deliveryHistory" class="hidden">
+              <div id="deliveryForm" class="form-container hidden">
+                <h3>ثبت تحویل دارو</h3>
+                
+                <div class="form-group">
+                  <label for="deliveryDate">تاریخ تحویل:</label>
+                  <input type="text" id="deliveryDate" required />
+                </div>
+                
+                <div class="form-group">
+                  <label>انتخاب داروها و مقدار:</label>
+                  <div class="drug-selection">
+                    <label>
+                      <input type="checkbox" name="deliveryDrugs" value="شربت متادون" onchange="toggleQuantityInput(this)">
+                      شربت متادون
+                      <input type="number" id="quantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+                    </label>
+                    <label>
+                      <input type="checkbox" name="deliveryDrugs" value="شربت اپیوم" onchange="toggleQuantityInput(this)">
+                      شربت اپیوم
+                      <input type="number" id="quantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+                    </label>
+                    <label>
+                      <input type="checkbox" name="deliveryDrugs" value="قرص متادون 5" onchange="toggleQuantityInput(this)">
+                      قرص متادون 5
+                      <input type="number" id="quantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
+                    </label>
+                    <label>
+                      <input type="checkbox" name="deliveryDrugs" value="قرص متادون 30" onchange="toggleQuantityInput(this)">
+                      قرص متادون 30
+                      <input type="number" id="quantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
+                    </label>
+                    <label>
+                      <input type="checkbox" name="deliveryDrugs" value="قرص متادون 40" onchange="toggleQuantityInput(this)">
+                      قرص متادون 40
+                      <input type="number" id="quantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
+                    </label>
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="deliveryReason">دلیل تحویل:</label>
+                  <textarea id="deliveryReason" rows="3" required></textarea>
+                </div>
+                
+                <button type="button" class="btn btn-block" onclick="submitDrugDelivery()">
+                  <i class="fas fa-save"></i> ثبت تحویل دارو
+                </button>
+              </div>
+              
+              <div id="deliveryHistory" class="hidden" style="margin-top: 30px;">
                 <h3>تاریخچه تحویل دارو</h3>
                 <div id="deliveryHistoryList" class="quota-history-container"></div>
               </div>
