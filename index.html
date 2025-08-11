@@ -8,16 +8,47 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
   <style>
     :root {
-      --primary-color: #2c7a7b;
-      --secondary-color: #2d3748;
-      --light-color: #f7fafc;
-      --dark-color: #1a202c;
-      --danger-color: #e53e3e;
-      --success-color: #38a169;
-      --warning-color: #d69e2e;
-      --medical-blue: #3182ce;
-      --medical-green: #38a169;
-      --medical-light: #ebf8ff;
+      --primary-color: #2563eb;
+      --secondary-color: #334155;
+      --light-color: #f8fafc;
+      --dark-color: #1e293b;
+      --danger-color: #dc2626;
+      --success-color: #16a34a;
+      --warning-color: #d97706;
+      --medical-blue: #2563eb;
+      --medical-green: #16a34a;
+      --medical-light: #eff6ff;
+      --neon-color: #3b82f6;
+      --neon-purple: #8b5cf6;
+      --neon-pink: #ec4899;
+      
+      /* Dark mode variables (default) */
+       --bg-color: #f8fafc;
+      --text-color: #1e293b;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border-color: rgba(0, 0, 0, 0.1);
+      --header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --input-bg: rgba(255, 255, 255, 0.9);
+      --table-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --btn-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --section-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --section-header-padding: 7.5px 0; /* 1/4 of original */
+      --section-header-font-size: 1.2rem;
+    }
+    
+    /* Light mode variables */
+    body.light-mode {
+      --bg-color: #f8fafc;
+      --text-color: #1e293b;
+      --card-bg: rgba(255, 255, 255, 0.9);
+      --border-color: rgba(0, 0, 0, 0.1);
+      --header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --input-bg: rgba(255, 255, 255, 0.9);
+      --table-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --btn-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --section-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+      --section-header-padding: 7.5px 0; /* 1/4 of original */
+      --section-header-font-size: 1.2rem;
     }
     
     * {
@@ -28,24 +59,33 @@
     
     body {
       font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f0f4f8;
+      background-color: var(--bg-color);
       margin: 0;
       padding: 0;
       direction: rtl;
       text-align: right;
-      color: #333;
-      background-image: linear-gradient(135deg, #f5f7fa 0%, #e4e9f2 100%);
+      color: var(--text-color);
+      background-image: 
+        radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 20%),
+        radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      transition: background-color 0.3s, color 0.3s;
     }
     
     header {
-      background-color: var(--primary-color);
+      background: var(--header-bg);
       color: white;
-      padding: 20px 0;
+      padding: var(--section-header-padding);
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       margin-bottom: 30px;
       position: relative;
       overflow: hidden;
+      transform-style: preserve-3d;
+      perspective: 1000px;
+      transition: background 0.3s;
     }
     
     header::before {
@@ -55,19 +95,85 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.05)" width="50" height="50" x="0" y="0"></rect><rect fill="rgba(255,255,255,0.05)" width="50" height="50" x="50" y="50"></rect></svg>');
+      background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="0" y="0"></rect><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="50" y="50"></rect></svg>');
       z-index: 0;
     }
     
     header h1 {
       position: relative;
       z-index: 1;
+      font-size: var(--section-header-font-size);
+      font-weight: 700;
+      transform: translateZ(30px);
+      transition: transform 0.5s ease;
+    }
+    
+    header:hover h1 {
+      transform: translateZ(50px) rotateX(5deg);
+    }
+    
+    .rotating-text {
+      display: inline-block;
+      animation: textRotate 20s infinite;
+      color: var(--neon-color);
+    }
+    
+    @keyframes textRotate {
+      0%, 50% { opacity: 1; }
+      25%, 75% { opacity: 0; }
     }
     
     .container {
       max-width: 1200px;
       margin: 0 auto;
       padding: 0 20px;
+    }
+    
+    /* New theme toggle button */
+    .theme-toggle {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background: var(--btn-bg);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1001;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    
+    .theme-toggle:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+    }
+    
+    .theme-toggle i {
+      font-size: 20px;
+      transition: transform 0.5s, opacity 0.3s;
+    }
+    
+    .theme-toggle .sun-icon {
+      position: absolute;
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+    
+    body.light-mode .theme-toggle .moon-icon {
+      opacity: 0;
+      transform: rotate(90deg);
+    }
+    
+    body.light-mode .theme-toggle .sun-icon {
+      opacity: 1;
+      transform: rotate(0deg);
     }
     
     /* صفحه لاگین جدید */
@@ -77,37 +183,69 @@
       align-items: center;
       min-height: 100vh;
       padding: 20px;
+      background: radial-gradient(circle at center, rgba(30, 58, 138, 0.2) 0%, transparent 70%);
     }
     
     .auth-card {
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 
+                  0 0 20px rgba(59, 130, 246, 0.1);
       overflow: hidden;
       width: 100%;
       max-width: 450px;
       position: relative;
+      border: 1px solid var(--border-color);
+      transform: translateY(0);
+      transition: transform 0.5s ease, box-shadow 0.5s ease;
+    }
+    
+    .auth-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                  0 0 30px rgba(59, 130, 246, 0.2);
     }
     
     .auth-header {
-      background: linear-gradient(135deg, var(--primary-color) 0%, var(--medical-blue) 100%);
-      padding: 30px;
+      background: var(--header-bg);
+      padding: 30px 25px;
       text-align: center;
       color: white;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .auth-header::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      animation: gradientMove 3s linear infinite;
+    }
+    
+    @keyframes gradientMove {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
     }
     
     .auth-header h2 {
       font-size: 28px;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      font-weight: 700;
     }
     
     .auth-header p {
       opacity: 0.9;
-      font-size: 16px;
+      font-size: 15px;
+      color: #cbd5e1;
     }
     
     .auth-body {
-      padding: 40px 30px;
+      padding: 35px 25px;
     }
     
     .auth-form {
@@ -118,57 +256,78 @@
     
     .form-group {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 5px;
     }
     
     .form-group label {
       display: block;
       margin-bottom: 8px;
       font-weight: 600;
-      color: var(--dark-color);
-      font-size: 15px;
+      color: var(--text-color);
+      font-size: 14px;
     }
     
     .form-group input,
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 15px;
       transition: all 0.3s;
-      background-color: #fff;
+      background-color: var(--input-bg);
+      color: var(--text-color);
     }
     
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.2);
+      border-color: var(--neon-color);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      background-color: var(--input-bg);
     }
     
     .btn {
-      padding: 14px 24px;
-      background-color: var(--primary-color);
+      padding: 14px 20px;
+      background: var(--btn-bg);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       transition: all 0.3s;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+    }
+    
+    .btn::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: -1;
+    }
+    
+    .btn:hover::before {
+      opacity: 1;
     }
     
     .btn:hover {
-      background-color: var(--secondary-color);
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
     }
     
     .btn-block {
@@ -179,12 +338,13 @@
     .auth-footer {
       text-align: center;
       margin-top: 20px;
-      color: #718096;
-      font-size: 14px;
+      color: var(--text-color);
+      font-size: 13px;
+      opacity: 0.8;
     }
     
     .auth-footer a {
-      color: var(--primary-color);
+      color: var(--neon-color);
       text-decoration: none;
       font-weight: 600;
     }
@@ -200,36 +360,37 @@
     }
     
     .medical-icon i {
-      font-size: 48px;
-      color: var(--primary-color);
-      background: rgba(44, 122, 123, 0.1);
+      font-size: 46px;
+      color: var(--neon-color);
+      background: rgba(59, 130, 246, 0.1);
       width: 80px;
       height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
       border-radius: 50%;
+      box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
     }
     
     /* منوی همبرگری */
     .hamburger-menu {
       display: none;
       position: fixed;
-      top: 15px;
-      left: 15px;
+      top: 20px;
+      left: 20px;
       z-index: 1000;
-      background: var(--primary-color);
+      background: var(--btn-bg);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       padding: 12px;
       cursor: pointer;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       transition: all 0.3s;
     }
     
     .hamburger-menu:hover {
-      background: var(--secondary-color);
+      transform: scale(1.05);
     }
     
     .sidebar {
@@ -238,12 +399,14 @@
       right: -300px;
       width: 300px;
       height: 100vh;
-      background-color: white;
-      box-shadow: -2px 0 10px rgba(0,0,0,0.1);
-      transition: right 0.3s ease;
+      background-color: var(--card-bg);
+      backdrop-filter: blur(20px);
+      box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+      transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
       z-index: 999;
-      padding: 20px;
+      padding: 30px 20px;
       overflow-y: auto;
+      border-left: 1px solid var(--border-color);
     }
     
     .sidebar.active {
@@ -262,14 +425,14 @@
     .sidebar-nav button {
       width: 100%;
       text-align: right;
-      padding: 14px 20px;
-      background: none;
-      border: none;
-      color: var(--dark-color);
+      padding: 14px 18px;
+      background: var(--input-bg);
+      border: 1px solid var(--border-color);
+      color: var(--text-color);
       cursor: pointer;
-      border-radius: 8px;
+      border-radius: 10px;
       transition: all 0.3s;
-      font-size: 16px;
+      font-size: 15px;
       display: flex;
       align-items: center;
       justify-content: flex-end;
@@ -277,8 +440,10 @@
     }
     
     .sidebar-nav button:hover {
-      background-color: #f0f9ff;
-      color: var(--primary-color);
+      background: rgba(59, 130, 246, 0.1);
+      border-color: var(--neon-color);
+      color: var(--neon-color);
+      box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
     }
     
     .sidebar-nav button i {
@@ -292,7 +457,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.6);
       z-index: 998;
       opacity: 0;
       visibility: hidden;
@@ -306,26 +471,27 @@
     
     .back-btn {
       display: block;
-      margin: 30px auto 0;
-      padding: 12px 24px;
-      background-color: var(--secondary-color);
+      margin: 25px auto 0;
+      padding: 12px 20px;
+      background: var(--btn-bg);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
       cursor: pointer;
-      font-size: 16px;
-      transition: background-color 0.3s;
+      font-size: 15px;
+      transition: all 0.3s;
     }
     
     .back-btn:hover {
-      background-color: var(--primary-color);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
     }
     
     /* محتوای اصلی */
     .main-content {
       margin-right: 0;
-      transition: margin-right 0.3s ease;
-      padding: 20px;
+      transition: margin-right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+      padding: 15px;
     }
     
     .main-content.sidebar-open {
@@ -335,58 +501,84 @@
     /* باکس‌های منو */
     .menu-boxes {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 25px;
       margin-bottom: 40px;
     }
     
     .menu-box {
-      background-color: white;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.15);
       cursor: pointer;
-      transition: all 0.3s;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       text-align: center;
-      border-top: 5px solid var(--primary-color);
+      border: 1px solid var(--border-color);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .menu-box::before {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      transform: translateY(100%);
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    
+    .menu-box:hover::before {
+      transform: translateY(0);
     }
     
     .menu-box:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 12px 25px rgba(0,0,0,0.12);
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2),
+                  0 0 25px rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.4);
     }
     
     .menu-box i {
       font-size: 48px;
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin-bottom: 20px;
+      filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
     }
     
     .menu-box h3 {
-      color: var(--dark-color);
+      color: var(--text-color);
       margin-bottom: 12px;
       font-size: 20px;
+      font-weight: 700;
     }
     
     .menu-box p {
-      color: #718096;
+      color: var(--text-color);
       font-size: 15px;
       line-height: 1.5;
+      opacity: 0.9;
     }
     
     /* فرم‌ها */
     .form-container {
-      background-color: white;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       margin: 0 auto 30px;
-      max-width: 800px;
+      max-width: 900px;
       position: relative;
+      border: 1px solid var(--border-color);
     }
     
     .form-container h2 {
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin-bottom: 25px;
       font-size: 24px;
       display: flex;
@@ -399,14 +591,14 @@
     }
     
     .form-group {
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
     
     .form-group label {
       display: block;
       margin-bottom: 10px;
       font-weight: 600;
-      color: var(--dark-color);
+      color: var(--text-color);
       font-size: 15px;
     }
     
@@ -414,44 +606,54 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 14px 16px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      font-size: 16px;
+      padding: 14px 18px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 15px;
       transition: all 0.3s;
-      background-color: #fff;
+      background-color: var(--input-bg);
+      color: var(--text-color);
     }
     
     .form-group input:focus,
     .form-group select:focus,
     .form-group textarea:focus {
       outline: none;
-      border-color: var(--primary-color);
-      box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.2);
+      border-color: var(--neon-color);
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+      background-color: var(--input-bg);
     }
     
     /* دکمه بازگشت */
     .back-to-dashboard {
+      background: var(--btn-bg);
+      color: white;
+      padding: 10px 16px;
+      font-size: 13px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       position: absolute;
       top: 20px;
       left: 20px;
-      background-color: var(--warning-color);
-      color: #212529;
-      padding: 10px 16px;
-      font-size: 14px;
+      z-index: 10;
     }
     
     /* جدول بیماران */
     .table-container {
       overflow-x: auto;
-      background-color: white;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       padding: 20px;
       margin-bottom: 30px;
       position: relative;
       max-height: 500px;
       overflow-y: auto;
+      border: 1px solid var(--border-color);
     }
     
     table {
@@ -462,30 +664,31 @@
     
     table th,
     table td {
-      padding: 15px;
+      padding: 14px;
       text-align: right;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
     }
     
     table th {
-      background-color: var(--primary-color);
+      background: var(--table-header-bg);
       color: white;
       font-weight: 600;
       position: sticky;
       top: 0;
       z-index: 10;
+      font-size: 14px;
     }
     
     table tr:nth-child(even) {
-      background-color: #f8fafc;
+      background-color: var(--input-bg);
     }
     
     table tr:hover {
-      background-color: #f0f9ff;
+      background-color: rgba(59, 130, 246, 0.08);
     }
     
     .national-code-link {
-      color: var(--primary-color);
+      color: var(--neon-color);
       text-decoration: none;
       cursor: pointer;
       font-weight: 500;
@@ -498,13 +701,13 @@
     /* وضعیت دیتابیس */
     .db-status {
       position: fixed;
-      bottom: 15px;
-      left: 15px;
+      bottom: 20px;
+      left: 20px;
       padding: 10px 16px;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 10px;
+      font-size: 13px;
       z-index: 1000;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
       font-weight: 500;
     }
     
@@ -520,20 +723,23 @@
     
     /* صفحه رهگیری و جزئیات بیمار */
     .patient-details {
-      background-color: white;
+      background: var(--card-bg);
+      backdrop-filter: blur(10px);
       border-radius: 16px;
       padding: 30px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
       margin-top: 30px;
       position: relative;
+      border: 1px solid var(--border-color);
     }
     
     .patient-details h3 {
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin-bottom: 25px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-color);
       padding-bottom: 15px;
       font-size: 22px;
+      font-weight: 700;
     }
     
     .detail-row {
@@ -545,14 +751,14 @@
     .detail-label {
       font-weight: 600;
       width: 180px;
-      color: var(--dark-color);
-      font-size: 16px;
+      color: var(--text-color);
+      font-size: 15px;
     }
     
     .detail-value {
       flex: 1;
-      font-size: 16px;
-      color: #4a5568;
+      font-size: 15px;
+      color: var(--text-color);
     }
     
     .action-buttons {
@@ -570,19 +776,21 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background-color: rgba(0,0,0,0.5);
+      background-color: rgba(0,0,0,0.7);
       z-index: 1001;
       align-items: center;
       justify-content: center;
     }
     
     .modal-content {
-      background-color: white;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
       border-radius: 16px;
       padding: 30px;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+      border: 1px solid var(--border-color);
     }
     
     .modal-header {
@@ -591,11 +799,11 @@
       align-items: center;
       margin-bottom: 20px;
       padding-bottom: 15px;
-      border-bottom: 1px solid #e2e8f0;
+      border-bottom: 1px solid var(--border-color);
     }
     
     .modal-title {
-      color: var(--primary-color);
+      color: var(--neon-color);
       font-size: 22px;
       font-weight: bold;
     }
@@ -605,7 +813,8 @@
       border: none;
       font-size: 24px;
       cursor: pointer;
-      color: #a0aec0;
+      color: var(--text-color);
+      transition: color 0.3s;
     }
     
     .close-modal:hover {
@@ -614,11 +823,12 @@
     
     /* تاریخچه سهمیه */
     .quota-history-item {
-      background-color: white;
+      background: var(--input-bg);
       border-radius: 12px;
       padding: 20px;
       margin-bottom: 20px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      border: 1px solid var(--border-color);
     }
     
     .quota-history-item.add {
@@ -631,17 +841,18 @@
     
     /* سهمیه کل */
     .global-quota-card {
-      background-color: white;
+      background: var(--input-bg);
       border-radius: 16px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
     }
     
     .global-quota-value {
       font-size: 36px;
       font-weight: bold;
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin: 15px 0;
     }
     
@@ -653,26 +864,26 @@
     }
     
     .monthly-quota-item {
-      background-color: #f8fafc;
+      background: var(--input-bg);
       border-radius: 12px;
       padding: 18px;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       border-left: 4px solid var(--success-color);
     }
     
     .adjustment-item {
-      background-color: #f8fafc;
+      background: var(--input-bg);
       border-radius: 12px;
       padding: 18px;
-      margin-bottom: 15px;
+      margin-bottom: 18px;
       border-left: 4px solid var(--warning-color);
     }
     
     .quota-history-container {
-      max-height: 400px;
+      max-height: 350px;
       overflow-y: auto;
       margin-top: 25px;
-      padding-right: 10px;
+      padding-right: 12px;
     }
     
     .persian-month-selector {
@@ -684,31 +895,34 @@
     
     .persian-month-selector button {
       padding: 12px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
       border-radius: 8px;
-      background-color: white;
+      background: var(--input-bg);
       cursor: pointer;
       transition: all 0.3s;
       font-weight: 500;
+      color: var(--text-color);
     }
     
     .persian-month-selector button:hover {
-      background-color: var(--primary-color);
-      color: white;
+      background: rgba(59, 130, 246, 0.08);
+      border-color: var(--neon-color);
+      color: var(--neon-color);
     }
     
     .persian-month-selector button.active {
-      background-color: var(--primary-color);
+      background: var(--btn-bg);
       color: white;
     }
     
     /* استایل‌های جدید برای بخش تحویل دارو */
     .drug-delivery-card {
-      background-color: white;
+      background: var(--input-bg);
       border-radius: 16px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
     }
     
     .drug-selection {
@@ -722,31 +936,34 @@
       display: flex;
       align-items: center;
       padding: 15px;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.3s;
+      background: var(--input-bg);
     }
     
     .drug-selection label:hover {
-      background-color: #f0f9ff;
-      border-color: var(--primary-color);
+      background: rgba(59, 130, 246, 0.08);
+      border-color: var(--neon-color);
     }
     
     .drug-selection input[type="checkbox"] {
       margin-left: 10px;
       width: 18px;
       height: 18px;
-      accent-color: var(--primary-color);
+      accent-color: var(--neon-color);
     }
     
     .drug-quantity-input {
       margin-right: 10px;
       width: 80px;
       padding: 8px;
-      border: 1px solid #e2e8f0;
+      border: 1px solid var(--border-color);
       border-radius: 6px;
       display: none;
+      background: var(--input-bg);
+      color: var(--text-color);
     }
     
     .drug-summary {
@@ -757,17 +974,18 @@
     }
     
     .drug-summary-item {
-      background-color: #f0f9ff;
+      background: var(--input-bg);
       border-radius: 12px;
       padding: 20px;
       flex: 1;
       min-width: 150px;
       text-align: center;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+      border: 1px solid var(--border-color);
     }
     
     .drug-summary-item h4 {
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin-bottom: 12px;
       font-size: 18px;
     }
@@ -779,29 +997,30 @@
     
     /* گزارش ماهانه */
     .monthly-report-container {
-      background-color: white;
+      background: var(--input-bg);
       border-radius: 16px;
       padding: 25px;
       margin-bottom: 25px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+      border: 1px solid var(--border-color);
     }
     
     .monthly-report-drug {
       margin-bottom: 20px;
       padding: 20px;
-      background-color: #f8fafc;
+      background: var(--input-bg);
       border-radius: 12px;
     }
     
     .monthly-report-drug h4 {
-      color: var(--primary-color);
+      color: var(--neon-color);
       margin-bottom: 12px;
     }
     
     .monthly-report-summary {
       margin-top: 25px;
       padding: 20px;
-      background-color: #e6fffa;
+      background: rgba(59, 130, 246, 0.08);
       border-radius: 12px;
     }
     
@@ -809,24 +1028,25 @@
     #quotaAlert {
       position: fixed;
       top: 20px;
-      right: 20px;
-      background-color: #ff5252;
+      right: 80px;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
       color: white;
-      padding: 18px;
-      border-radius: 8px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.25);
       z-index: 1002;
       display: flex;
       justify-content: space-between;
       align-items: center;
       max-width: 400px;
-      animation: pulse 1s infinite;
+      animation: pulse 1.5s infinite;
+      border: 1px solid rgba(255, 255, 255, 0.2);
     }
     
     @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+      0% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+      50% { transform: scale(1.03); box-shadow: 0 12px 30px rgba(220, 38, 38, 0.35); }
+      100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
     }
     
     /* استایل‌های جدید برای پیام‌رسان و اعلانات */
@@ -836,14 +1056,14 @@
       align-items: center;
       margin-top: 30px;
       padding-top: 15px;
-      border-top: 1px solid #e2e8f0;
+      border-top: 1px solid var(--border-color);
     }
     
     .messenger-icon {
       position: relative;
       width: 44px;
       height: 44px;
-      background-color: var(--primary-color);
+      background: var(--btn-bg);
       color: white;
       border-radius: 50%;
       display: flex;
@@ -855,15 +1075,14 @@
     }
     
     .messenger-icon:hover {
-      background-color: var(--secondary-color);
-      transform: scale(1.1);
+      transform: scale(1.08);
     }
     
     .notification-badge {
       position: absolute;
-      top: -5px;
-      left: -5px;
-      background-color: var(--danger-color);
+      top: -4px;
+      left: -4px;
+      background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
       color: white;
       border-radius: 50%;
       width: 22px;
@@ -871,37 +1090,39 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 12px;
+      font-size: 11px;
       font-weight: bold;
     }
     
     /* استایل‌های مدال اعلانات */
     .notification-item {
-      padding: 15px;
-      margin-bottom: 15px;
-      border-bottom: 1px solid #e2e8f0;
-      border-radius: 8px;
+      padding: 18px;
+      margin-bottom: 18px;
+      border-bottom: 1px solid var(--border-color);
+      border-radius: 10px;
       transition: all 0.3s;
+      background: var(--input-bg);
     }
     
     .notification-item:hover {
-      background-color: #f8fafc;
+      background: rgba(59, 130, 246, 0.08);
     }
     
     .notification-item.unread {
-      background-color: #f0f9ff;
-      border-right: 3px solid var(--primary-color);
+      background: rgba(59, 130, 246, 0.08);
+      border-right: 3px solid var(--neon-color);
     }
     
     .notification-item h4 {
-      color: var(--primary-color);
-      margin-bottom: 8px;
+      color: var(--neon-color);
+      margin-bottom: 10px;
       font-size: 16px;
     }
     
     .notification-item .notification-date {
       font-size: 13px;
-      color: #718096;
+      color: var(--text-color);
+      opacity: 0.8;
     }
     
     /* استایل‌های جدید برای تقویم فارسی */
@@ -910,18 +1131,20 @@
     }
     
     .pwt-datepicker .pwt-datepicker-input {
-      padding: 14px 16px !important;
-      border: 1px solid #e2e8f0 !important;
-      border-radius: 8px !important;
-      font-size: 16px !important;
+      padding: 14px 18px !important;
+      border: 1px solid var(--border-color) !important;
+      border-radius: 10px !important;
+      font-size: 15px !important;
       width: 100% !important;
-      background-color: #fff !important;
+      background-color: var(--input-bg) !important;
+      color: var(--text-color) !important;
     }
     
     .pwt-datepicker .pwt-datepicker-input:focus {
       outline: none !important;
-      border-color: var(--primary-color) !important;
-      box-shadow: 0 0 0 3px rgba(44, 122, 123, 0.2) !important;
+      border-color: var(--neon-color) !important;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+      background-color: var(--input-bg) !important;
     }
     
     /* کلاس برای پنهان کردن بخش‌ها */
@@ -932,6 +1155,41 @@
     /* کلاس برای بخش‌های فعال */
     .section {
       display: block;
+    }
+    
+    /* استایل‌های جدید برای بخش رهگیری تحویل دارو */
+    .track-delivery-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+    
+    .track-delivery-search {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .track-delivery-history {
+      flex: 2;
+      min-width: 300px;
+    }
+    
+    /* استایل‌های جدید برای بخش‌های جستجو */
+    .search-container {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-bottom: 30px;
+    }
+    
+    .search-form {
+      flex: 1;
+      min-width: 300px;
+    }
+    
+    .search-results {
+      flex: 2;
+      min-width: 300px;
     }
     
     /* رسپانسیو */
@@ -980,27 +1238,50 @@
         margin-right: 0;
       }
       
-      .back-to-dashboard {
-        position: static;
-        margin-bottom: 20px;
-        width: 100%;
-      }
-      
       .drug-selection {
         grid-template-columns: 1fr;
       }
       
       .menu-boxes {
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
       }
       
       .auth-card {
         max-width: 100%;
       }
+      
+      header h1 {
+        font-size: 1.8rem;
+      }
+      
+      #quotaAlert {
+        right: 20px;
+        max-width: calc(100% - 40px);
+      }
+      
+      .theme-toggle {
+        top: 15px;
+        right: 15px;
+        width: 44px;
+        height: 44px;
+      }
+      
+      .track-delivery-container,
+      .search-container {
+        flex-direction: column;
+      }
+      
+      .back-to-dashboard {
+        position: static;
+        margin-bottom: 20px;
+        width: 100%;
+      }
     }
   </style>
 </head>
 <body>
+  
   
   <!-- منوی همبرگری -->
   <button class="hamburger-menu hidden" id="hamburgerMenu">
@@ -1027,7 +1308,7 @@
   <!-- هشدار سهمیه کم -->
   <div id="quotaAlert" class="hidden">
     <span>هشدار: سهمیه کل به زیر 200 واحد رسیده است!</span>
-    <button onclick="closeQuotaAlert()" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; margin-right: 10px;">×</button>
+    <button onclick="closeQuotaAlert()" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; margin-right: 12px;">×</button>
   </div>
   
   <!-- Overlay -->
@@ -1136,36 +1417,45 @@
       <!-- ثبت نام بیمار -->
       <section id="registerPatient" class="section hidden">
         <div class="container">
+          <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+            <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+          </button>
           <div class="form-container">
-            <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
-              <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
-            </button>
             <h2><i class="fas fa-user-plus"></i> ثبت نام بیمار</h2>
             <form id="patientForm">
-              <div class="form-group">
-                <label for="fullName">نام و نام خانوادگی:</label>
-                <input type="text" id="fullName" required />
+              <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="fullName">نام و نام خانوادگی:</label>
+                  <input type="text" id="fullName" required />
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="nationalCode">کد ملی 10 رقمی:</label>
+                  <input type="text" id="nationalCode" maxlength="10" required />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="nationalCode">کد ملی 10 رقمی:</label>
-                <input type="text" id="nationalCode" maxlength="10" required />
+              
+              <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="birthDate">تاریخ تولد (شمسی):</label>
+                  <input type="text" id="birthDate" required />
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="visitDate">تاریخ مراجعه:</label>
+                  <input type="text" id="visitDate" required />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="birthDate">تاریخ تولد (شمسی):</label>
-                <input type="text" id="birthDate" required />
+              
+              <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="recordNumber">کد رهگیری/شماره پرونده:</label>
+                  <input type="text" id="recordNumber" required />
+                </div>
+                <div class="form-group" style="flex: 1; min-width: 280px;">
+                  <label for="quota">سهمیه این ماه (واحد):</label>
+                  <input type="number" id="quota" value="1000" required />
+                </div>
               </div>
-              <div class="form-group">
-                <label for="visitDate">تاریخ مراجعه:</label>
-                <input type="text" id="visitDate" required />
-              </div>
-              <div class="form-group">
-                <label for="recordNumber">کد رهگیری/شماره پرونده:</label>
-                <input type="text" id="recordNumber" required />
-              </div>
-              <div class="form-group">
-                <label for="quota">سهمیه این ماه (واحد):</label>
-                <input type="number" id="quota" value="1000" required />
-              </div>
+              
               <div class="form-group">
                 <label for="drug">انتخاب دارو:</label>
                 <select id="drug" required>
@@ -1176,6 +1466,7 @@
                   <option value="قرص متادون 40">قرص متادون 40</option>
                 </select>
               </div>
+              
               <button type="button" class="btn btn-block" onclick="savePatient()">
                 <i class="fas fa-save"></i> ثبت بیمار
               </button>
@@ -1190,13 +1481,14 @@
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
           </button>
-          <button type="button" class="btn btn-success" onclick="exportPatientsToExcel()" style="margin-bottom: 20px;">
+          <button type="button" class="btn btn-success" onclick="exportPatientsToExcel()" style="margin-bottom: 15px;">
             <i class="fas fa-file-excel"></i> دانلود لیست بیماران (Excel)
           </button>
           <div class="table-container">
             <table id="patientsTable">
               <thead>
                 <tr>
+                  <th>ردیف</th>
                   <th>نام و خانوادگی</th>
                   <th>کد ملی</th>
                   <th>تاریخ تولد</th>
@@ -1216,65 +1508,69 @@
       <!-- رهگیری بیمار -->
       <section id="trackPatient" class="section hidden">
         <div class="container">
-          <div class="form-container">
-            <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
-              <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
-            </button>
-            <h2><i class="fas fa-search"></i> رهگیری بیمار</h2>
-            <div class="form-group">
-              <label for="searchInput">جستجو با کد ملی یا کد رهگیری:</label>
-              <input type="text" id="searchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
-            </div>
-            <button type="button" class="btn btn-block" onclick="searchPatient()">
-              <i class="fas fa-search"></i> جستجو
-            </button>
-          </div>
+          <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+            <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+          </button>
+          <h2><i class="fas fa-search"></i> رهگیری بیمار</h2>
           
-          <div id="patientDetails" class="patient-details hidden">
-            <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
-              <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
-            </button>
-            <h3>اطلاعات بیمار</h3>
-            <div class="detail-row">
-              <div class="detail-label">نام و نام خانوادگی:</div>
-              <div class="detail-value" id="detail-fullName"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">کد ملی:</div>
-              <div class="detail-value" id="detail-nationalCode"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">تاریخ تولد:</div>
-              <div class="detail-value" id="detail-birthDate"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">تاریخ مراجعه:</div>
-              <div class="detail-value" id="detail-visitDate"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">شماره پرونده:</div>
-              <div class="detail-value" id="detail-recordNumber"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">سهمیه:</div>
-              <div class="detail-value" id="detail-quota"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">دارو:</div>
-              <div class="detail-value" id="detail-drug"></div>
-            </div>
-            <div class="detail-row">
-              <div class="detail-label">تاریخ ثبت:</div>
-              <div class="detail-value" id="detail-createdAt"></div>
+          <div class="search-container">
+            <div class="search-form">
+              <div class="form-container">
+                <div class="form-group">
+                  <label for="searchInput">جستجو با کد ملی یا کد رهگیری:</label>
+                  <input type="text" id="searchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
+                </div>
+                <button type="button" class="btn btn-block" onclick="searchPatient()">
+                  <i class="fas fa-search"></i> جستجو
+                </button>
+              </div>
             </div>
             
-            <div class="action-buttons">
-              <button type="button" class="btn btn-warning" onclick="showEditQuotaModal()">
-                <i class="fas fa-edit"></i> ویرایش سهمیه
-              </button>
-              <button type="button" class="btn btn-success" onclick="showAddQuotaModal()">
-                <i class="fas fa-plus-circle"></i> ثبت سهمیه جدید
-              </button>
+            <div class="search-results">
+              <div id="patientDetails" class="patient-details hidden">
+                <h3>اطلاعات بیمار</h3>
+                <div class="detail-row">
+                  <div class="detail-label">نام و نام خانوادگی:</div>
+                  <div class="detail-value" id="detail-fullName"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">کد ملی:</div>
+                  <div class="detail-value" id="detail-nationalCode"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">تاریخ تولد:</div>
+                  <div class="detail-value" id="detail-birthDate"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">تاریخ مراجعه:</div>
+                  <div class="detail-value" id="detail-visitDate"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">شماره پرونده:</div>
+                  <div class="detail-value" id="detail-recordNumber"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">سهمیه:</div>
+                  <div class="detail-value" id="detail-quota"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">دارو:</div>
+                  <div class="detail-value" id="detail-drug"></div>
+                </div>
+                <div class="detail-row">
+                  <div class="detail-label">تاریخ ثبت:</div>
+                  <div class="detail-value" id="detail-createdAt"></div>
+                </div>
+                
+                <div class="action-buttons">
+                  <button type="button" class="btn btn-warning" onclick="showEditQuotaModal()">
+                    <i class="fas fa-edit"></i> ویرایش سهمیه
+                  </button>
+                  <button type="button" class="btn btn-success" onclick="showAddQuotaModal()">
+                    <i class="fas fa-plus-circle"></i> ثبت سهمیه جدید
+                  </button>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -1286,93 +1582,99 @@
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
           </button>
-          <button type="button" class="btn btn-success" onclick="exportDrugDeliveriesToExcel()" style="margin-bottom: 20px;">
+          <button type="button" class="btn btn-success" onclick="exportDrugDeliveriesToExcel()" style="margin-bottom: 15px;">
             <i class="fas fa-file-excel"></i> دانلود تاریخچه تحویل دارو (Excel)
           </button>
           <h2><i class="fas fa-pills"></i> تحویل دارو</h2>
           
-          <div class="form-container">
-            <div class="form-group">
-              <label for="deliverySearchInput">جستجو با کد رهگیری/پرونده:</label>
-              <input type="text" id="deliverySearchInput" placeholder="کد رهگیری یا شماره پرونده را وارد کنید" />
-            </div>
-            
-            <button type="button" class="btn btn-block" onclick="searchForDelivery()">
-              <i class="fas fa-search"></i> جستجو بیمار
-            </button>
-            
-            <div id="deliveryPatientInfo" class="patient-details hidden" style="margin-top: 20px;">
-              <h3>اطلاعات بیمار</h3>
-              <div class="detail-row">
-                <div class="detail-label">نام و نام خانوادگی:</div>
-                <div class="detail-value" id="delivery-fullName"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">کد ملی:</div>
-                <div class="detail-value" id="delivery-nationalCode"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">شماره پرونده:</div>
-                <div class="detail-value" id="delivery-recordNumber"></div>
-              </div>
-              <div class="detail-row">
-                <div class="detail-label">داروی انتخابی:</div>
-                <div class="detail-value" id="delivery-drug"></div>
-              </div>
-            </div>
-            
-            <div id="deliveryForm" class="hidden">
-              <h3 style="margin-top: 20px;">ثبت تحویل دارو</h3>
-              
-              <div class="form-group">
-                <label for="deliveryDate">تاریخ تحویل:</label>
-                <input type="text" id="deliveryDate" required />
-              </div>
-              
-              <div class="form-group">
-                <label>انتخاب داروها و مقدار:</label>
-                <div class="drug-selection">
-                  <label>
-                    <input type="checkbox" name="deliveryDrugs" value="شربت متادون" onchange="toggleQuantityInput(this)">
-                    شربت متادون
-                    <input type="number" id="quantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
-                  </label>
-                  <label>
-                    <input type="checkbox" name="deliveryDrugs" value="شربت اپیوم" onchange="toggleQuantityInput(this)">
-                    شربت اپیوم
-                    <input type="number" id="quantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
-                  </label>
-                  <label>
-                    <input type="checkbox" name="deliveryDrugs" value="قرص متادون 5" onchange="toggleQuantityInput(this)">
-                    قرص متادون 5
-                    <input type="number" id="quantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
-                  </label>
-                  <label>
-                    <input type="checkbox" name="deliveryDrugs" value="قرص متادون 30" onchange="toggleQuantityInput(this)">
-                    قرص متادون 30
-                    <input type="number" id="quantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
-                  </label>
-                  <label>
-                    <input type="checkbox" name="deliveryDrugs" value="قرص متادون 40" onchange="toggleQuantityInput(this)">
-                    قرص متادون 40
-                    <input type="number" id="quantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
-                  </label>
+          <div class="track-delivery-container">
+            <div class="track-delivery-search">
+              <div class="form-container">
+                <div class="form-group">
+                  <label for="deliverySearchInput">جستجو با کد رهگیری/پرونده:</label>
+                  <input type="text" id="deliverySearchInput" placeholder="کد رهگیری یا شماره پرونده را وارد کنید" />
+                </div>
+                
+                <button type="button" class="btn btn-block" onclick="searchForDelivery()">
+                  <i class="fas fa-search"></i> جستجو بیمار
+                </button>
+                
+                <div id="deliveryPatientInfo" class="patient-details hidden" style="margin-top: 20px;">
+                  <h3>اطلاعات بیمار</h3>
+                  <div class="detail-row">
+                    <div class="detail-label">نام و نام خانوادگی:</div>
+                    <div class="detail-value" id="delivery-fullName"></div>
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-label">کد ملی:</div>
+                    <div class="detail-value" id="delivery-nationalCode"></div>
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-label">شماره پرونده:</div>
+                    <div class="detail-value" id="delivery-recordNumber"></div>
+                  </div>
+                  <div class="detail-row">
+                    <div class="detail-label">داروی انتخابی:</div>
+                    <div class="detail-value" id="delivery-drug"></div>
+                  </div>
+                </div>
+                
+                <div id="deliveryForm" class="hidden">
+                  <h3 style="margin-top: 20px;">ثبت تحویل دارو</h3>
+                  
+                  <div class="form-group">
+                    <label for="deliveryDate">تاریخ تحویل:</label>
+                    <input type="text" id="deliveryDate" required />
+                  </div>
+                  
+                  <div class="form-group">
+                    <label>انتخاب داروها و مقدار:</label>
+                    <div class="drug-selection">
+                      <label>
+                        <input type="checkbox" name="deliveryDrugs" value="شربت متادون" onchange="toggleQuantityInput(this)">
+                        شربت متادون
+                        <input type="number" id="quantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+                      </label>
+                      <label>
+                        <input type="checkbox" name="deliveryDrugs" value="شربت اپیوم" onchange="toggleQuantityInput(this)">
+                        شربت اپیوم
+                        <input type="number" id="quantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+                      </label>
+                      <label>
+                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 5" onchange="toggleQuantityInput(this)">
+                        قرص متادون 5
+                        <input type="number" id="quantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
+                      </label>
+                      <label>
+                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 30" onchange="toggleQuantityInput(this)">
+                        قرص متادون 30
+                        <input type="number" id="quantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
+                      </label>
+                      <label>
+                        <input type="checkbox" name="deliveryDrugs" value="قرص متادون 40" onchange="toggleQuantityInput(this)">
+                        قرص متادون 40
+                        <input type="number" id="quantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
+                      </label>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label for="deliveryReason">دلیل تحویل:</label>
+                    <textarea id="deliveryReason" rows="3" required></textarea>
+                  </div>
+                  
+                  <button type="button" class="btn btn-block" onclick="submitDrugDelivery()">
+                    <i class="fas fa-save"></i> ثبت تحویل دارو
+                  </button>
                 </div>
               </div>
-              
-              <div class="form-group">
-                <label for="deliveryReason">دلیل تحویل:</label>
-                <textarea id="deliveryReason" rows="3" required></textarea>
-              </div>
-              
-              <button type="button" class="btn btn-block" onclick="submitDrugDelivery()">
-                <i class="fas fa-save"></i> ثبت تحویل دارو
-              </button>
             </div>
             
-            <div id="deliveryHistory" class="hidden" style="margin-top: 30px;">
-              <h3>تاریخچه تحویل دارو</h3>
-              <div id="deliveryHistoryList" class="quota-history-container"></div>
+            <div class="track-delivery-history">
+              <div id="deliveryHistory" class="hidden">
+                <h3>تاریخچه تحویل دارو</h3>
+                <div id="deliveryHistoryList" class="quota-history-container"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1381,28 +1683,34 @@
       <!-- مدیریت سهمیه -->
       <section id="quotaManagement" class="section hidden">
         <div class="container">
-          <div class="form-container">
-            <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
-              <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
-            </button>
-            <h2><i class="fas fa-calculator"></i> مدیریت سهمیه</h2>
-            
-            <div class="form-group">
-              <label for="historySearchInput">جستجو با کد ملی یا کد رهگیری:</label>
-              <input type="text" id="historySearchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
+          <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+            <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+          </button>
+          <h2><i class="fas fa-calculator"></i> مدیریت سهمیه</h2>
+          
+          <div class="search-container">
+            <div class="search-form">
+              <div class="form-container">
+                <div class="form-group">
+                  <label for="historySearchInput">جستجو با کد ملی یا کد رهگیری:</label>
+                  <input type="text" id="historySearchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
+                </div>
+                <button type="button" class="btn btn-block" onclick="searchQuotaHistory()">
+                  <i class="fas fa-search"></i> جستجو تاریخچه سهمیه
+                </button>
+              </div>
             </div>
-            <button type="button" class="btn btn-block" onclick="searchQuotaHistory()">
-              <i class="fas fa-search"></i> جستجو تاریخچه سهمیه
-            </button>
             
-            <div id="quotaHistoryResults" class="hidden">
-              <h3 style="margin-top: 30px;">تاریخچه سهمیه‌ها</h3>
-              <div id="quotaHistoryList" class="quota-history-container"></div>
-            </div>
-            
-            <div id="allQuotaHistory" style="margin-top: 30px;">
-              <h3>همه تغییرات سهمیه‌ها</h3>
-              <div id="allQuotaHistoryList" class="quota-history-container"></div>
+            <div class="search-results">
+              <div id="quotaHistoryResults" class="hidden">
+                <h3 style="margin-top: 30px;">تاریخچه سهمیه‌ها</h3>
+                <div id="quotaHistoryList" class="quota-history-container"></div>
+              </div>
+              
+              <div id="allQuotaHistory" style="margin-top: 30px;">
+                <h3>همه تغییرات سهمیه‌ها</h3>
+                <div id="allQuotaHistoryList" class="quota-history-container"></div>
+              </div>
             </div>
           </div>
         </div>
@@ -1474,7 +1782,7 @@
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
           </button>
-          <button type="button" class="btn btn-success" onclick="exportMonthlyReportToExcel()" style="margin-bottom: 20px;">
+          <button type="button" class="btn btn-success" onclick="exportMonthlyReportToExcel()" style="margin-bottom: 15px;">
             <i class="fas fa-file-excel"></i> دانلود گزارش ماهانه (Excel)
           </button>
           <h2><i class="fas fa-file-invoice"></i> صورتحساب داروهای ماهانه</h2>
@@ -1518,10 +1826,10 @@
       <!-- خروج بیمار -->
       <section id="dischargePatient" class="section hidden">
         <div class="container">
+          <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+            <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+          </button>
           <div class="form-container">
-            <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
-              <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
-            </button>
             <h2><i class="fas fa-user-minus"></i> خروج بیمار</h2>
             <div class="form-group">
               <label for="dischargeNationalCode">کد ملی بیمار:</label>
@@ -1546,32 +1854,38 @@
           </button>
           <h2><i class="fas fa-search"></i> رهگیری تحویل دارو</h2>
           
-          <div class="form-container">
-            <div class="form-group">
-              <label for="trackDeliveryInput">جستجو با کد ملی یا شماره پرونده:</label>
-              <input type="text" id="trackDeliveryInput" placeholder="کد ملی یا شماره پرونده را وارد کنید" />
+          <div class="track-delivery-container">
+            <div class="track-delivery-search">
+              <div class="form-container">
+                <div class="form-group">
+                  <label for="trackDeliveryInput">جستجو با کد ملی یا شماره پرونده:</label>
+                  <input type="text" id="trackDeliveryInput" placeholder="کد ملی یا شماره پرونده را وارد کنید" />
+                </div>
+                <button type="button" class="btn btn-block" onclick="trackDelivery()">
+                  <i class="fas fa-search"></i> جستجو
+                </button>
+              </div>
             </div>
-            <button type="button" class="btn btn-block" onclick="trackDelivery()">
-              <i class="fas fa-search"></i> جستجو
-            </button>
             
-            <div id="deliveryTrackingResults" class="hidden" style="margin-top: 30px;">
-              <h3>تاریخچه تحویل دارو</h3>
-              <div class="table-container">
-                <table id="deliveryTrackingTable">
-                  <thead>
-                    <tr>
-                      <th>نام بیمار</th>
-                      <th>کد ملی</th>
-                      <th>شماره پرونده</th>
-                      <th>تاریخ تحویل</th>
-                      <th>داروها</th>
-                      <th>مقادیر</th>
-                      <th>دلیل تحویل</th>
-                    </tr>
-                  </thead>
-                  <tbody></tbody>
-                </table>
+            <div class="track-delivery-history">
+              <div id="deliveryTrackingResults" class="hidden">
+                <h3>تاریخچه تحویل دارو</h3>
+                <div class="table-container">
+                  <table id="deliveryTrackingTable">
+                    <thead>
+                      <tr>
+                        <th>نام بیمار</th>
+                        <th>کد ملی</th>
+                        <th>شماره پرونده</th>
+                        <th>تاریخ تحویل</th>
+                        <th>داروها</th>
+                        <th>مقادیر</th>
+                        <th>دلیل تحویل</th>
+                      </tr>
+                    </thead>
+                    <tbody></tbody>
+                  </table>
+                </div>
               </div>
             </div>
           </div>
@@ -1739,6 +2053,7 @@
       checkDbStatus();
       loadNotifications();
       setupPersianDatePickers();
+      setupThemeToggle();
       
       // تنظیم سال و ماه جاری به عنوان پیشفرض
       const currentYear = new Date().getFullYear();
@@ -1747,6 +2062,28 @@
       const currentMonthIndex = new Date().getMonth();
       document.getElementById('reportMonth').value = PERSIAN_MONTHS[currentMonthIndex];
     });
+    
+    // تنظیم حالت تاریک/روشن
+    function setupThemeToggle() {
+      const themeToggle = document.getElementById('themeToggle');
+      
+      // بررسی حالت ذخیره شده در localStorage
+      const savedTheme = localStorage.getItem('theme');
+      if (savedTheme === 'light') {
+        document.body.classList.add('light-mode');
+      }
+      
+      themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('light-mode');
+        
+        // ذخیره حالت در localStorage
+        if (document.body.classList.contains('light-mode')) {
+          localStorage.setItem('theme', 'light');
+        } else {
+          localStorage.setItem('theme', 'dark');
+        }
+      });
+    }
     
     // تنظیم تقویم فارسی
     function setupPersianDatePickers() {
@@ -1992,9 +2329,10 @@
         const tbody = document.querySelector('#patientsTable tbody');
         tbody.innerHTML = '';
         
-        patients.forEach(p => {
+        patients.forEach((p, index) => {
           const tr = document.createElement('tr');
           tr.innerHTML = `
+            <td>${index + 1}</td>
             <td>${p.fullName}</td>
             <td><span class="national-code-link" onclick="showPatientDetails('${p.nationalCode}')">${p.nationalCode}</span></td>
             <td>${p.birthDate}</td>
@@ -2915,7 +3253,7 @@
         
         if (!dbStatus) {
           const statusElement = document.createElement('div');
-        //  statusElement.id = 'dbStatus';
+         // statusElement.id = 'dbStatus';
          // statusElement.className = 'db-status connected';
           //statusElement.textContent = 'ساخته شده توسط سینا محمدی v1.0';
           document.body.appendChild(statusElement);
@@ -2925,9 +3263,9 @@
         }
       } catch (err) {
         const dbStatus = document.getElementById('dbStatus') || document.createElement('div');
-       // dbStatus.id = 'dbStatus';
-       // dbStatus.className = 'db-status disconnected';
-        //dbStatus.textContent = 'عدم اتصال به پایگاه داده';
+        dbStatus.id = 'dbStatus';
+        dbStatus.className = 'db-status disconnected';
+        dbStatus.textContent = 'عدم اتصال به پایگاه داده';
         document.body.appendChild(dbStatus);
       }
     }
