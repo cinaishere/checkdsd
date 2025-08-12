@@ -1266,6 +1266,69 @@
       min-width: 250px; 
     } /* دلیل تحویل */
     
+    /* استایل‌های جدید برای تاریخچه تحویل دارو */
+    .delivery-history-item {
+      background: var(--input-bg);
+      border-radius: 10px;
+      padding: 10px;
+      margin-bottom: 8px;
+      border: 1px solid var(--border-color);
+      font-size: 13px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    
+    .delivery-history-item:hover {
+      background: rgba(59, 130, 246, 0.08);
+    }
+    
+    .delivery-history-info {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      flex: 1;
+    }
+    
+    .delivery-history-field {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    
+    .delivery-history-field strong {
+      color: var(--neon-color);
+    }
+    
+    .delivery-history-actions {
+      display: flex;
+      gap: 5px;
+    }
+    
+    .compact-history-container {
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+    
+    .compact-history-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    .compact-history-container::-webkit-scrollbar-track {
+      background: var(--input-bg);
+      border-radius: 3px;
+    }
+    
+    .compact-history-container::-webkit-scrollbar-thumb {
+      background: var(--neon-color);
+      border-radius: 3px;
+    }
+    
+    .compact-history-container::-webkit-scrollbar-thumb:hover {
+      background: var(--neon-purple);
+    }
+    
     /* رسپانسیو */
     @media (max-width: 768px) {
       .container {
@@ -1372,6 +1435,17 @@
         margin-bottom: 10px;
         font-size: 12px;
       }
+      
+      .delivery-history-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      
+      .delivery-history-actions {
+        margin-top: 8px;
+        width: 100%;
+        justify-content: flex-end;
+      }
     }
   </style>
 </head>
@@ -1465,7 +1539,6 @@
               <p>ثبت تحویل دارو به بیماران</p>
             </div>
 
-
             <div class="menu-box" onclick="showSection('globalQuota')">
               <i class="fas fa-chart-pie"></i>
               <h3>سهمیه کل</h3>
@@ -1485,15 +1558,12 @@
             </div>
             
           
-
-            
             
               <div class="menu-box" onclick="showSection('monthlyReport')">
               <i class="fas fa-file-invoice"></i>
               <h3>صورتحساب ماهانه</h3>
               <p>گزارش داروهای تحویل داده شده در ماه</p>
             </div>
-
                  <div class="menu-box" onclick="showSection('dischargePatient')">
               <i class="fas fa-user-minus"></i>
               <h3>خروج بیمار</h3>
@@ -1506,13 +1576,11 @@
               <p>جستجوی تاریخچه تحویل دارو</p>
             </div>
             
-
              <div class="menu-box" onclick="showSection('quotaManagement')">
               <i class="fas fa-calculator"></i>
               <h3>مدیریت سهمیه</h3>
               <p>مدیریت سهمیه دارویی بیماران</p>
             </div>
-
           </div>
         </div>
       </section>
@@ -1781,7 +1849,7 @@
               
               <div id="deliveryHistory" class="hidden" style="margin-top: 30px;">
                 <h3>تاریخچه تحویل دارو</h3>
-                <div id="deliveryHistoryList" class="quota-history-container" style="max-height: 300px; overflow-y: auto; padding-right: 10px;"></div>
+                <div id="deliveryHistoryList" class="compact-history-container"></div>
               </div>
             </div>
           </div>
@@ -3324,20 +3392,52 @@
         if (deliveries.length > 0) {
           deliveries.forEach(delivery => {
             const deliveryItem = document.createElement('div');
-            deliveryItem.className = 'quota-history-item';
-            deliveryItem.innerHTML = `
-              <div><strong>تاریخ تحویل:</strong> ${delivery.persianDate}</div>
-              <div><strong>زمان تحویل:</strong> ${delivery.deliveryTime}</div>
-              <div><strong>داروها:</strong> ${delivery.drugs.join('، ')}</div>
-              <div><strong>مقادیر:</strong> 
-                ${Object.entries(delivery.drugQuantities).map(([drug, qty]) => 
-                  `${drug}: ${qty} ${drug.includes('شربت') ? 'cc' : 'عدد'}`).join('، ')}
-              </div>
-              <div><strong>دلیل تحویل:</strong> ${delivery.reason}</div>
-              <button class="edit-btn" onclick="showEditDeliveryModal('${delivery._id}')">
-                <i class="fas fa-edit"></i> ویرایش تاریخچه
-              </button>
-            `;
+            deliveryItem.className = 'delivery-history-item';
+            
+            // ایجاد بخش اطلاعات
+            const infoDiv = document.createElement('div');
+            infoDiv.className = 'delivery-history-info';
+            
+            // افزودن تاریخ و زمان
+            const dateField = document.createElement('div');
+            dateField.className = 'delivery-history-field';
+            dateField.innerHTML = `<strong>تاریخ:</strong> ${delivery.persianDate}`;
+            infoDiv.appendChild(dateField);
+            
+            const timeField = document.createElement('div');
+            timeField.className = 'delivery-history-field';
+            timeField.innerHTML = `<strong>زمان:</strong> ${delivery.deliveryTime}`;
+            infoDiv.appendChild(timeField);
+            
+            // افزودن داروها و مقادیر
+            const drugsField = document.createElement('div');
+            drugsField.className = 'delivery-history-field';
+            drugsField.innerHTML = `<strong>داروها:</strong> ${delivery.drugs.join('، ')}`;
+            infoDiv.appendChild(drugsField);
+            
+            // افزودن مقادیر
+            const quantitiesField = document.createElement('div');
+            quantitiesField.className = 'delivery-history-field';
+            const quantitiesText = Object.entries(delivery.drugQuantities || {})
+              .map(([drug, qty]) => `${drug}: ${qty} ${drug.includes('شربت') ? 'cc' : 'عدد'}`)
+              .join('، ');
+            quantitiesField.innerHTML = `<strong>مقادیر:</strong> ${quantitiesText}`;
+            infoDiv.appendChild(quantitiesField);
+            
+            deliveryItem.appendChild(infoDiv);
+            
+            // ایجاد بخش دکمه‌ها
+            const actionsDiv = document.createElement('div');
+            actionsDiv.className = 'delivery-history-actions';
+            
+            const editBtn = document.createElement('button');
+            editBtn.className = 'edit-btn';
+            editBtn.innerHTML = '<i class="fas fa-edit"></i> ویرایش';
+            editBtn.onclick = () => showEditDeliveryModal(delivery._id);
+            actionsDiv.appendChild(editBtn);
+            
+            deliveryItem.appendChild(actionsDiv);
+            
             historyList.appendChild(deliveryItem);
           });
           
