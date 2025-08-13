@@ -1,4044 +1,8088 @@
 <!DOCTYPE html>
+
 <html lang="fa" dir="rtl">
+
 <head>
+
   <meta charset="UTF-8" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
  <title>C Application</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/css/persian-datepicker.min.css">
+
   <style>
+
     /* Existing styles remain unchanged */
+
     :root {
+
       --primary-color: #2563eb;
+
       --secondary-color: #334155;
+
       --light-color: #f8fafc;
+
       --dark-color: #1e293b;
+
       --danger-color: #dc2626;
+
       --success-color: #16a34a;
+
       --warning-color: #d97706;
+
       --medical-blue: #2563eb;
+
       --medical-green: #16a34a;
+
       --medical-light: #eff6ff;
+
       --neon-color: #3b82f6;
+
       --neon-purple: #8b5cf6;
+
       --neon-pink: #ec4899;
+
       
+
       /* Dark mode variables (default) */
+
        --bg-color: #f8fafc;
+
       --text-color: #1e293b;
+
       --card-bg: rgba(255, 255, 255, 0.9);
+
       --border-color: rgba(0, 0, 0, 0.1);
+
       --header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --input-bg: rgba(255, 255, 255, 0.9);
+
       --table-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --btn-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --section-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --section-header-padding: 7.5px 0; /* 1/4 of original */
+
       --section-header-font-size: 1.2rem;
+
     }
+
     
+
     /* Light mode variables */
+
     body.light-mode {
+
       --bg-color: #f8fafc;
+
       --text-color: #1e293b;
+
       --card-bg: rgba(255, 255, 255, 0.9);
+
       --border-color: rgba(0, 0, 0, 0.1);
+
       --header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --input-bg: rgba(255, 255, 255, 0.9);
+
       --table-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --btn-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --section-header-bg: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+
       --section-header-padding: 7.5px 0; /* 1/4 of original */
+
       --section-header-font-size: 1.2rem;
+
     }
+
     
+
     * {
+
       box-sizing: border-box;
+
       margin: 0;
+
       padding: 0;
+
     }
+
     
+
     body {
+
       font-family: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
       background-color: var(--bg-color);
+
       margin: 0;
+
       padding: 0;
+
       direction: rtl;
+
       text-align: right;
+
       color: var(--text-color);
+
       background-image: 
+
         radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 20%),
+
         radial-gradient(circle at 90% 80%, rgba(236, 72, 153, 0.05) 0%, transparent 20%),
+
         radial-gradient(circle at 50% 50%, rgba(139, 92, 246, 0.03) 0%, transparent 50%);
+
       min-height: 100vh;
+
       overflow-x: hidden;
+
       transition: background-color 0.3s, color 0.3s;
+
     }
+
     
+
     header {
+
       background: var(--header-bg);
+
       color: white;
+
       padding: var(--section-header-padding);
+
       text-align: center;
+
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
       margin-bottom: 30px;
+
       position: relative;
+
       overflow: hidden;
+
       transform-style: preserve-3d;
+
       perspective: 1000px;
+
       transition: background 0.3s;
+
     }
+
     
+
     header::before {
+
       content: "";
+
       position: absolute;
+
       top: 0;
+
       left: 0;
+
       width: 100%;
+
       height: 100%;
+
       background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="0" y="0"></rect><rect fill="rgba(255,255,255,0.03)" width="50" height="50" x="50" y="50"></rect></svg>');
+
       z-index: 0;
+
     }
+
     
+
     header h1 {
+
       position: relative;
+
       z-index: 1;
+
       font-size: var(--section-header-font-size);
+
       font-weight: 700;
+
       transform: translateZ(30px);
+
       transition: transform 0.5s ease;
+
     }
+
     
+
     header:hover h1 {
+
       transform: translateZ(50px) rotateX(5deg);
+
     }
+
     
+
     .rotating-text {
+
       display: inline-block;
+
       animation: textRotate 20s infinite;
+
       color: var(--neon-color);
+
     }
+
     
+
     @keyframes textRotate {
+
       0%, 50% { opacity: 1; }
+
       25%, 75% { opacity: 0; }
+
     }
+
     
+
     .container {
+
       max-width: 1200px;
+
       margin: 0 auto;
+
       padding: 0 20px;
+
     }
+
     
+
     /* New theme toggle button */
+
     .theme-toggle {
+
       position: fixed;
+
       top: 20px;
+
       right: 20px;
+
       width: 50px;
+
       height: 50px;
+
       border-radius: 50%;
+
       background: var(--btn-bg);
+
       color: white;
+
       border: none;
+
       cursor: pointer;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
       z-index: 1001;
+
       transition: all 0.3s ease;
+
       overflow: hidden;
+
     }
+
     
+
     .theme-toggle:hover {
+
       transform: scale(1.1);
+
       box-shadow: 0 6px 16px rgba(0,0,0,0.3);
+
     }
+
     
+
     .theme-toggle i {
+
       font-size: 20px;
+
       transition: transform 0.5s, opacity 0.3s;
+
     }
+
     
+
     .theme-toggle .sun-icon {
+
       position: absolute;
+
       opacity: 0;
+
       transform: rotate(90deg);
+
     }
+
     
+
     body.light-mode .theme-toggle .moon-icon {
+
       opacity: 0;
+
       transform: rotate(90deg);
+
     }
+
     
+
     body.light-mode .theme-toggle .sun-icon {
+
       opacity: 1;
+
       transform: rotate(0deg);
+
     }
+
     
+
     /* صفحه لاگین جدید */
+
     .auth-container {
+
       display: flex;
+
       justify-content: center;
+
       align-items: center;
+
       min-height: 100vh;
+
       padding: 20px;
+
       background: radial-gradient(circle at center, rgba(30, 58, 138, 0.2) 0%, transparent 70%);
+
     }
+
     
+
     .auth-card {
+
       background: var(--card-bg);
+
       backdrop-filter: blur(20px);
+
       border-radius: 20px;
+
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 
+
                   0 0 20px rgba(59, 130, 246, 0.1);
+
       overflow: hidden;
+
       width: 100%;
+
       max-width: 450px;
+
       position: relative;
+
       border: 1px solid var(--border-color);
+
       transform: translateY(0);
+
       transition: transform 0.5s ease, box-shadow 0.5s ease;
+
     }
+
     
+
     .auth-card:hover {
+
       transform: translateY(-5px);
+
       box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+
                   0 0 30px rgba(59, 130, 246, 0.2);
+
     }
+
     
+
     .auth-header {
+
       background: var(--header-bg);
+
       padding: 30px 25px;
+
       text-align: center;
+
       color: white;
+
       position: relative;
+
       overflow: hidden;
+
     }
+
     
+
     .auth-header::after {
+
       content: "";
+
       position: absolute;
+
       bottom: 0;
+
       left: 0;
+
       width: 100%;
+
       height: 4px;
+
       background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+
       animation: gradientMove 3s linear infinite;
+
     }
+
     
+
     @keyframes gradientMove {
+
       0% { transform: translateX(-100%); }
+
       100% { transform: translateX(100%); }
+
     }
+
     
+
     .auth-header h2 {
+
       font-size: 28px;
+
       margin-bottom: 12px;
+
       font-weight: 700;
+
     }
+
     
+
     .auth-header p {
+
       opacity: 0.9;
+
       font-size: 15px;
+
       color: #cbd5e1;
+
     }
+
     
+
     .auth-body {
+
       padding: 35px 25px;
+
     }
+
     
+
     .auth-form {
+
       display: flex;
+
       flex-direction: column;
+
       gap: 20px;
+
     }
+
     
+
     .form-group {
+
       position: relative;
+
       margin-bottom: 5px;
+
     }
+
     
+
     .form-group label {
+
       display: block;
+
       margin-bottom: 8px;
+
       font-weight: 600;
+
       color: var(--text-color);
+
       font-size: 14px;
+
     }
+
     
+
     .form-group input,
+
     .form-group select,
+
     .form-group textarea {
+
       width: 100%;
+
       padding: 14px 18px;
+
       border: 1px solid var(--border-color);
+
       border-radius: 10px;
+
       font-size: 15px;
+
       transition: all 0.3s;
+
       background-color: var(--input-bg);
+
       color: var(--text-color);
+
     }
+
     
+
     .form-group input:focus,
+
     .form-group select:focus,
+
     .form-group textarea:focus {
+
       outline: none;
+
       border-color: var(--neon-color);
+
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+
       background-color: var(--input-bg);
+
     }
+
     
+
     .btn {
+
       padding: 14px 20px;
+
       background: var(--btn-bg);
+
       color: white;
+
       border: none;
+
       border-radius: 10px;
+
       cursor: pointer;
+
       font-size: 15px;
+
       font-weight: 600;
+
       transition: all 0.3s;
+
       display: inline-flex;
+
       align-items: center;
+
       justify-content: center;
+
       gap: 8px;
+
       position: relative;
+
       overflow: hidden;
+
       z-index: 1;
+
     }
+
     
+
     .btn::before {
+
       content: "";
+
       position: absolute;
+
       top: 0;
+
       left: 0;
+
       width: 100%;
+
       height: 100%;
+
       background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+
       opacity: 0;
+
       transition: opacity 0.3s;
+
       z-index: -1;
+
     }
+
     
+
     .btn:hover::before {
+
       opacity: 1;
+
     }
+
     
+
     .btn:hover {
+
       transform: translateY(-2px);
+
       box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+
     }
+
     
+
     .btn-block {
+
       display: block;
+
       width: 100%;
+
     }
+
     
+
     .auth-footer {
+
       text-align: center;
+
       margin-top: 20px;
+
       color: var(--text-color);
+
       font-size: 13px;
+
       opacity: 0.8;
+
     }
+
     
+
     .auth-footer a {
+
       color: var(--neon-color);
+
       text-decoration: none;
+
       font-weight: 600;
+
     }
+
     
+
     .auth-footer a:hover {
+
       text-decoration: underline;
+
     }
+
     
+
     .medical-icon {
+
       display: flex;
+
       justify-content: center;
+
       margin-bottom: 20px;
+
     }
+
     
+
     .medical-icon i {
+
       font-size: 46px;
+
       color: var(--neon-color);
+
       background: rgba(59, 130, 246, 0.1);
+
       width: 80px;
+
       height: 80px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       border-radius: 50%;
+
       box-shadow: 0 0 15px rgba(59, 130, 246, 0.3);
+
     }
+
     
+
     /* منوی همبرگری */
+
     .hamburger-menu {
+
       display: none;
+
       position: fixed;
+
       top: 20px;
+
       left: 20px;
+
       z-index: 1000;
+
       background: var(--btn-bg);
+
       color: white;
+
       border: none;
+
       border-radius: 10px;
+
       padding: 12px;
+
       cursor: pointer;
+
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
       transition: all 0.3s;
+
     }
+
     
+
     .hamburger-menu:hover {
+
       transform: scale(1.05);
+
     }
+
     
+
     .sidebar {
+
       position: fixed;
+
       top: 0;
+
       right: -300px;
+
       width: 300px;
+
       height: 100vh;
+
       background-color: var(--card-bg);
+
       backdrop-filter: blur(20px);
+
       box-shadow: -5px 0 20px rgba(0,0,0,0.2);
+
       transition: right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
       z-index: 999;
+
       padding: 30px 20px;
+
       overflow-y: auto;
+
       border-left: 1px solid var(--border-color);
+
     }
+
     
+
     .sidebar.active {
+
       right: 0;
+
     }
+
     
+
     .sidebar-nav {
+
       list-style: none;
+
       padding: 0;
+
     }
+
     
+
     .sidebar-nav li {
+
       margin-bottom: 15px;
+
     }
+
     
+
     .sidebar-nav button {
+
       width: 100%;
+
       text-align: right;
+
       padding: 14px 18px;
+
       background: var(--input-bg);
+
       border: 1px solid var(--border-color);
+
       color: var(--text-color);
+
       cursor: pointer;
+
       border-radius: 10px;
+
       transition: all 0.3s;
+
       font-size: 15px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: flex-end;
+
       font-weight: 500;
+
     }
+
     .sidebar-nav button:hover {
+
       background: rgba(59, 130, 246, 0.1);
+
       border-color: var(--neon-color);
+
       color: var(--neon-color);
+
       box-shadow: 0 0 12px rgba(59, 130, 246, 0.15);
+
     }
+
     .sidebar-nav button i {
+
       margin-left: 12px;
+
       font-size: 18px;
+
     }
+
     .overlay {
+
       position: fixed;
+
       top: 0;
+
       left: 0;
+
       right: 0;
+
       bottom: 0;
+
       background-color: rgba(0,0,0,0.6);
+
       z-index: 998;
+
       opacity: 0;
+
       visibility: hidden;
+
       transition: all 0.3s ease;
+
     }
+
     
+
     .overlay.active {
+
       opacity: 1;
+
       visibility: visible;
+
     }
+
     
+
     .back-btn {
+
       display: block;
+
       margin: 25px auto 0;
+
       padding: 12px 20px;
+
       background: var(--btn-bg);
+
       color: white;
+
       border: none;
+
       border-radius: 10px;
+
       cursor: pointer;
+
       font-size: 15px;
+
       transition: all 0.3s;
+
     }
+
     
+
     .back-btn:hover {
+
       transform: translateY(-2px);
+
       box-shadow: 0 8px 16px rgba(59, 130, 246, 0.25);
+
     }
+
     
+
     /* محتوای اصلی */
+
     .main-content {
+
       margin-right: 0;
+
       transition: margin-right 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+
       padding: 15px;
+
     }
+
     
+
     .main-content.sidebar-open {
+
       margin-right: 300px;
+
     }
+
     
+
     /* باکس‌های منو */
+
     .menu-boxes {
+
       display: grid;
+
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+
       gap: 25px;
+
       margin-bottom: 40px;
+
     }
+
     
+
     .menu-box {
+
       background: var(--card-bg);
+
       backdrop-filter: blur(10px);
+
       border-radius: 16px;
+
       padding: 30px;
+
       box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+
       cursor: pointer;
+
       transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
       text-align: center;
+
       border: 1px solid var(--border-color);
+
       position: relative;
+
       overflow: hidden;
+
     }
+
     
+
     .menu-box::before {
+
       content: "";
+
       position: absolute;
+
       bottom: 0;
+
       left: 0;
+
       width: 100%;
+
       height: 3px;
+
       background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+
       transform: translateY(100%);
+
       transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
     }
+
     
+
     .menu-box:hover::before {
+
       transform: translateY(0);
+
     }
+
     
+
     .menu-box:hover {
+
       transform: translateY(-8px) scale(1.02);
+
       box-shadow: 0 12px 30px rgba(59, 130, 246, 0.2),
+
                   0 0 25px rgba(59, 130, 246, 0.15);
+
       border-color: rgba(59, 130, 246, 0.4);
+
     }
+
     
+
     .menu-box i {
+
       font-size: 48px;
+
       color: var(--neon-color);
+
       margin-bottom: 20px;
+
       filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.6));
+
     }
+
     
+
     .menu-box h3 {
+
       color: var(--text-color);
+
       margin-bottom: 12px;
+
       font-size: 20px;
+
       font-weight: 700;
+
     }
+
     
+
     .menu-box p {
+
       color: var(--text-color);
+
       font-size: 15px;
+
       line-height: 1.5;
+
       opacity: 0.9;
+
     }
+
     
+
     /* فرم‌ها */
+
     .form-container {
+
       background: var(--card-bg);
+
       backdrop-filter: blur(10px);
+
       border-radius: 16px;
+
       padding: 30px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       margin: 0 auto 30px;
+
       max-width: 900px;
+
       position: relative;
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .form-container h2 {
+
       color: var(--neon-color);
+
       margin-bottom: 25px;
+
       font-size: 24px;
+
       display: flex;
+
       align-items: center;
+
       gap: 12px;
+
     }
+
     
+
     .form-container h2 i {
+
       font-size: 28px;
+
     }
+
     
+
     .form-group {
+
       margin-bottom: 20px;
+
     }
+
     
+
     .form-group label {
+
       display: block;
+
       margin-bottom: 10px;
+
       font-weight: 600;
+
       color: var(--text-color);
+
       font-size: 15px;
+
     }
+
     
+
     .form-group input,
+
     .form-group select,
+
     .form-group textarea {
+
       width: 100%;
+
       padding: 14px 18px;
+
       border: 1px solid var(--border-color);
+
       border-radius: 10px;
+
       font-size: 15px;
+
       transition: all 0.3s;
+
       background-color: var(--input-bg);
+
       color: var(--text-color);
+
     }
+
     
+
     .form-group input:focus,
+
     .form-group select:focus,
+
     .form-group textarea:focus {
+
       outline: none;
+
       border-color: var(--neon-color);
+
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+
       background-color: var(--input-bg);
+
     }
+
     
+
     /* دکمه بازگشت */
+
     .back-to-dashboard {
+
       background: var(--btn-bg);
+
       color: white;
+
       padding: 10px 16px;
+
       font-size: 13px;
+
       border-radius: 8px;
+
       margin-bottom: 20px;
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 8px;
+
       position: absolute;
+
       top: 20px;
+
       left: 20px;
+
       z-index: 10;
+
     }
+
     
+
     /* جدول بیماران */
+
     .table-container {
+
       overflow-x: auto;
+
       background: var(--card-bg);
+
       backdrop-filter: blur(10px);
+
       border-radius: 16px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       padding: 20px;
+
       margin-bottom: 30px;
+
       position: relative;
+
       max-height: 500px;
+
       overflow-y: auto;
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     table {
+
       width: 100%;
+
       border-collapse: collapse;
+
       margin-bottom: 0;
+
     }
+
     
+
     table th,
+
     table td {
+
       padding: 14px;
+
       text-align: right;
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     table th {
+
       background: var(--table-header-bg);
+
       color: white;
+
       font-weight: 600;
+
       position: sticky;
+
       top: 0;
+
       z-index: 10;
+
       font-size: 14px;
+
     }
+
     
+
     table tr:nth-child(even) {
+
       background-color: var(--input-bg);
+
     }
+
     
+
     table tr:hover {
+
       background-color: rgba(59, 130, 246, 0.08);
+
     }
+
     
+
     .national-code-link {
+
       color: var(--neon-color);
+
       text-decoration: none;
+
       cursor: pointer;
+
       font-weight: 500;
+
     }
+
     
+
     .national-code-link:hover {
+
       text-decoration: underline;
+
     }
+
     
+
     /* وضعیت دیتابیس */
+
     .db-status {
+
       position: fixed;
+
       bottom: 20px;
+
       left: 20px;
+
       padding: 10px 16px;
+
       border-radius: 10px;
+
       font-size: 13px;
+
       z-index: 1000;
+
       box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
       font-weight: 500;
+
     }
+
     
+
     .db-status.connected {
+
       background-color: var(--success-color);
+
       color: white;
+
     }
+
     
+
     .db-status.disconnected {
+
       background-color: var(--danger-color);
+
       color: white;
+
     }
+
     
+
     /* صفحه رهگیری و جزئیات بیمار */
+
     .patient-details {
+
       background: var(--card-bg);
+
       backdrop-filter: blur(10px);
+
       border-radius: 16px;
+
       padding: 30px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       margin-top: 30px;
+
       position: relative;
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .patient-details h3 {
+
       color: var(--neon-color);
+
       margin-bottom: 25px;
+
       border-bottom: 1px solid var(--border-color);
+
       padding-bottom: 15px;
+
       font-size: 22px;
+
       font-weight: 700;
+
     }
+
     
+
     .detail-row {
+
       display: flex;
+
       margin-bottom: 18px;
+
       align-items: center;
+
     }
+
     
+
     .detail-label {
+
       font-weight: 600;
+
       width: 180px;
+
       color: var(--text-color);
+
       font-size: 15px;
+
     }
+
     
+
     .detail-value {
+
       flex: 1;
+
       font-size: 15px;
+
       color: var(--text-color);
+
     }
+
     
+
     .action-buttons {
+
       display: flex;
+
       gap: 15px;
+
       margin-top: 30px;
+
       justify-content: flex-start;
+
     }
+
     
+
     /* مدال */
+
     .modal {
+
       display: none;
+
       position: fixed;
+
       top: 0;
+
       left: 0;
+
       right: 0;
+
       bottom: 0;
+
       background-color: rgba(0,0,0,0.7);
+
       z-index: 1001;
+
       align-items: center;
+
       justify-content: center;
+
     }
+
     
+
     .modal-content {
+
       background: var(--card-bg);
+
       backdrop-filter: blur(20px);
+
       border-radius: 16px;
+
       padding: 30px;
+
       width: 90%;
+
       max-width: 500px;
+
       box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .modal-header {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-bottom: 20px;
+
       padding-bottom: 15px;
+
       border-bottom: 1px solid var(--border-color);
+
     }
+
     
+
     .modal-title {
+
       color: var(--neon-color);
+
       font-size: 22px;
+
       font-weight: bold;
+
     }
+
     
+
     .close-modal {
+
       background: none;
+
       border: none;
+
       font-size: 24px;
+
       cursor: pointer;
+
       color: var(--text-color);
+
       transition: color 0.3s;
+
     }
+
     
+
     .close-modal:hover {
+
       color: var(--danger-color);
+
     }
+
     
+
     /* تاریخچه سهمیه */
+
     .quota-history-item {
+
       background: var(--input-bg);
+
       border-radius: 12px;
+
       padding: 15px;
+
       margin-bottom: 12px;
+
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+
       border: 1px solid var(--border-color);
+
       font-size: 13px;
+
     }
+
     
+
     .quota-history-item.add {
+
       border-right: 4px solid var(--success-color);
+
     }
+
     
+
     .quota-history-item.subtract {
+
       border-right: 4px solid var(--danger-color);
+
     }
+
     
+
     /* سهمیه کل */
+
     .global-quota-card {
+
       background: var(--input-bg);
+
       border-radius: 16px;
+
       padding: 25px;
+
       margin-bottom: 25px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .global-quota-value {
+
       font-size: 36px;
+
       font-weight: bold;
+
       color: var(--neon-color);
+
       margin: 15px 0;
+
     }
+
     
+
     .quota-actions {
+
       display: flex;
+
       gap: 12px;
+
       margin-top: 20px;
+
       flex-wrap: wrap;
+
     }
+
     
+
     .monthly-quota-item {
+
       background: var(--input-bg);
+
       border-radius: 12px;
+
       padding: 15px;
+
       margin-bottom: 12px;
+
       border-left: 4px solid var(--success-color);
+
       font-size: 13px;
+
     }
+
     
+
     .adjustment-item {
+
       background: var(--input-bg);
+
       border-radius: 12px;
+
       padding: 15px;
+
       margin-bottom: 12px;
+
       border-left: 4px solid var(--warning-color);
+
       font-size: 13px;
+
     }
+
     
+
     .quota-history-container {
+
       max-height: 350px;
+
       overflow-y: auto;
+
       margin-top: 25px;
+
       padding-right: 12px;
+
     }
+
     
+
     .persian-month-selector {
+
       display: grid;
+
       grid-template-columns: repeat(4, 1fr);
+
       gap: 10px;
+
       margin: 20px 0;
+
     }
+
     
+
     .persian-month-selector button {
+
       padding: 12px;
+
       border: 1px solid var(--border-color);
+
       border-radius: 8px;
+
       background: var(--input-bg);
+
       cursor: pointer;
+
       transition: all 0.3s;
+
       font-weight: 500;
+
       color: var(--text-color);
+
     }
+
     
+
     .persian-month-selector button:hover {
+
       background: rgba(59, 130, 246, 0.08);
+
       border-color: var(--neon-color);
+
       color: var(--neon-color);
+
     }
+
     
+
     .persian-month-selector button.active {
+
       background: var(--btn-bg);
+
       color: white;
+
     }
+
     
+
     /* استایل‌های جدید برای بخش تحویل دارو */
+
     .drug-delivery-card {
+
       background: var(--input-bg);
+
       border-radius: 16px;
+
       padding: 25px;
+
       margin-bottom: 25px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .drug-selection {
+
       display: grid;
+
       grid-template-columns: repeat(2, 1fr);
+
       gap: 15px;
+
       margin: 20px 0;
+
     }
+
     
+
     .drug-selection label {
+
       display: flex;
+
       align-items: center;
+
       padding: 15px;
+
       border: 1px solid var(--border-color);
+
       border-radius: 10px;
+
       cursor: pointer;
+
       transition: all 0.3s;
+
       background: var(--input-bg);
+
     }
+
     
+
     .drug-selection label:hover {
+
       background: rgba(59, 130, 246, 0.08);
+
       border-color: var(--neon-color);
+
     }
+
     
+
     .drug-selection input[type="checkbox"] {
+
       margin-left: 10px;
+
       width: 18px;
+
       height: 18px;
+
       accent-color: var(--neon-color);
+
     }
+
     
+
     .drug-quantity-input {
+
       margin-right: 10px;
+
       width: 120px;
+
       padding: 12px;
+
       border: 2px solid var(--neon-color);
+
       border-radius: 8px;
+
       display: none;
+
       background: var(--input-bg);
+
       color: var(--text-color);
+
       font-size: 16px;
+
       font-weight: 600;
+
       text-align: center;
+
       box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+
       transition: all 0.3s;
+
     }
+
     
+
     .drug-quantity-input:focus {
+
       outline: none;
+
       border-color: var(--neon-purple);
+
       box-shadow: 0 0 12px rgba(139, 92, 246, 0.4);
+
       transform: scale(1.05);
+
     }
+
     
+
     .drug-quantity-input::placeholder {
+
       color: #94a3b8;
+
       font-weight: 500;
+
     }
+
     
+
     .drug-summary {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 20px;
+
       margin-top: 25px;
+
     }
+
     
+
     .drug-summary-item {
+
       background: var(--input-bg);
+
       border-radius: 12px;
+
       padding: 20px;
+
       flex: 1;
+
       min-width: 150px;
+
       text-align: center;
+
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .drug-summary-item h4 {
+
       color: var(--neon-color);
+
       margin-bottom: 12px;
+
       font-size: 18px;
+
     }
+
     
+
     .drug-summary-value {
+
       font-size: 28px;
+
       font-weight: bold;
+
     }
+
     
+
     /* گزارش ماهانه */
+
     .monthly-report-container {
+
       background: var(--input-bg);
+
       border-radius: 16px;
+
       padding: 25px;
+
       margin-bottom: 25px;
+
       box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     .monthly-report-drug {
+
       margin-bottom: 20px;
+
       padding: 20px;
+
       background: var(--input-bg);
+
       border-radius: 12px;
+
     }
+
     
+
     .monthly-report-drug h4 {
+
       color: var(--neon-color);
+
       margin-bottom: 12px;
+
     }
+
     
+
     .monthly-report-summary {
+
       margin-top: 25px;
+
       padding: 20px;
+
       background: rgba(59, 130, 246, 0.08);
+
       border-radius: 12px;
+
     }
+
     
+
     /* هشدار سهمیه کم */
+
     #quotaAlert {
+
       position: fixed;
+
       top: 20px;
+
       right: 80px;
+
       background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+
       color: white;
+
       padding: 15px;
+
       border-radius: 10px;
+
       box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+
       z-index: 1002;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       max-width: 400px;
+
       animation: pulse 1.5s infinite;
+
       border: 1px solid rgba(255, 255, 255, 0.2);
+
     }
+
     
+
     @keyframes pulse {
+
       0% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+
       50% { transform: scale(1.03); box-shadow: 0 12px 30px rgba(220, 38, 38, 0.35); }
+
       100% { transform: scale(1); box-shadow: 0 8px 20px rgba(0,0,0,0.25); }
+
     }
+
     
+
     /* استایل‌های جدید برای پیام‌رسان و اعلانات */
+
     .auth-footer {
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
       margin-top: 30px;
+
       padding-top: 15px;
+
       border-top: 1px solid var(--border-color);
+
     }
+
     
+
     .messenger-icon {
+
       position: relative;
+
       width: 44px;
+
       height: 44px;
+
       background: var(--btn-bg);
+
       color: white;
+
       border-radius: 50%;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       cursor: pointer;
+
       transition: all 0.3s;
+
       animation: pulse 2s infinite;
+
     }
+
     
+
     .messenger-icon:hover {
+
       transform: scale(1.08);
+
     }
+
     
+
     .notification-badge {
+
       position: absolute;
+
       top: -4px;
+
       left: -4px;
+
       background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+
       color: white;
+
       border-radius: 50%;
+
       width: 22px;
+
       height: 22px;
+
       display: flex;
+
       align-items: center;
+
       justify-content: center;
+
       font-size: 11px;
+
       font-weight: bold;
+
     }
+
     
+
     /* استایل‌های مدال اعلانات */
+
     .notification-item {
+
       padding: 18px;
+
       margin-bottom: 18px;
+
       border-bottom: 1px solid var(--border-color);
+
       border-radius: 10px;
+
       transition: all 0.3s;
+
       background: var(--input-bg);
+
     }
+
     
+
     .notification-item:hover {
+
       background: rgba(59, 130, 246, 0.08);
+
     }
+
     
+
     .notification-item.unread {
+
       background: rgba(59, 130, 246, 0.08);
+
       border-right: 3px solid var(--neon-color);
+
     }
+
     
+
     .notification-item h4 {
+
       color: var(--neon-color);
+
       margin-bottom: 10px;
+
       font-size: 16px;
+
     }
+
     
+
     .notification-item .notification-date {
+
       font-size: 13px;
+
       color: var(--text-color);
+
       opacity: 0.8;
+
     }
+
     
+
     /* استایل‌های جدید برای تقویم فارسی */
+
     .pwt-datepicker {
+
       font-family: 'Vazirmatn', sans-serif !important;
+
     }
+
     
+
     .pwt-datepicker .pwt-datepicker-input {
+
       padding: 14px 18px !important;
+
       border: 1px solid var(--border-color) !important;
+
       border-radius: 10px !important;
+
       font-size: 15px !important;
+
       width: 100% !important;
+
       background-color: var(--input-bg) !important;
+
       color: var(--text-color) !important;
+
     }
+
     
+
     .pwt-datepicker .pwt-datepicker-input:focus {
+
       outline: none !important;
+
       border-color: var(--neon-color) !important;
+
       box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2) !important;
+
       background-color: var(--input-bg) !important;
+
     }
+
     
+
     /* کلاس برای پنهان کردن بخش‌ها */
+
     .hidden {
+
       display: none !important;
+
     }
+
     
+
     /* کلاس برای بخش‌های فعال */
+
     .section {
+
       display: block;
+
     }
+
     
+
     /* استایل‌های جدید برای بخش رهگیری تحویل دارو */
+
     .track-delivery-container {
+
       display: flex;
+
       gap: 30px;
+
       flex-wrap: wrap;
+
     }
+
     
+
     .track-delivery-search {
+
       flex: 1;
+
       min-width: 300px;
+
       max-width: 500px;
+
     }
+
     
+
     .track-delivery-history {
+
       flex: 1;
+
       min-width: 300px;
+
       max-width: 600px;
+
     }
+
     
+
     /* استایل‌های جدید برای بخش‌های جستجو */
+
     .search-container {
+
       display: flex;
+
       gap: 30px;
+
       flex-wrap: wrap;
+
       margin-bottom: 30px;
+
     }
+
     
+
     .search-form {
+
       flex: 1;
+
       min-width: 300px;
+
     }
+
     
+
     .search-results {
+
       flex: 2;
+
       min-width: 300px;
+
     }
+
     
+
     /* استایل‌های جدید برای دکمه‌های ویرایش */
+
     .edit-btn {
+
       background: var(--warning-color);
+
       color: white;
+
       padding: 6px 10px;
+
       border: none;
+
       border-radius: 6px;
+
       cursor: pointer;
+
       font-size: 12px;
+
       transition: all 0.3s;
+
       display: inline-flex;
+
       align-items: center;
+
       gap: 6px;
+
       margin-top: 8px;
+
     }
+
     
+
     .edit-btn:hover {
+
       background: #b45309;
+
       transform: translateY(-2px);
+
       box-shadow: 0 4px 8px rgba(217, 119, 6, 0.3);
+
     }
+
     
+
     /* استایل‌های جدید برای جدول رهگیری تحویل دارو */
+
     #deliveryTrackingTable {
+
       min-width: 1200px;
+
     }
+
     
+
     #deliveryTrackingTable th, 
+
     #deliveryTrackingTable td {
+
       padding: 12px;
+
       text-align: right;
+
       border: 1px solid var(--border-color);
+
     }
+
     
+
     #deliveryTrackingTable th:nth-child(1), 
+
     #deliveryTrackingTable td:nth-child(1) { 
+
       min-width: 150px; 
+
     } /* نام بیمار */
+
     
+
     #deliveryTrackingTable th:nth-child(5), 
+
     #deliveryTrackingTable td:nth-child(5) { 
+
       min-width: 200px; 
+
     } /* داروها */
+
     
+
     #deliveryTrackingTable th:nth-child(6), 
+
     #deliveryTrackingTable td:nth-child(6) { 
+
       min-width: 200px; 
+
     } /* مقادیر */
+
     
+
     #deliveryTrackingTable th:nth-child(7), 
+
     #deliveryTrackingTable td:nth-child(7) { 
+
       min-width: 250px; 
+
     } /* دلیل تحویل */
+
     
+
     /* استایل‌های جدید برای تاریخچه تحویل دارو */
+
     .delivery-history-item {
+
       background: var(--input-bg);
+
       border-radius: 10px;
+
       padding: 10px;
+
       margin-bottom: 8px;
+
       border: 1px solid var(--border-color);
+
       font-size: 13px;
+
       display: flex;
+
       justify-content: space-between;
+
       align-items: center;
+
     }
+
     
+
     .delivery-history-item:hover {
+
       background: rgba(59, 130, 246, 0.08);
+
     }
+
     
+
     .delivery-history-info {
+
       display: flex;
+
       flex-wrap: wrap;
+
       gap: 10px;
+
       flex: 1;
+
     }
+
     
+
     .delivery-history-field {
+
       display: flex;
+
       align-items: center;
+
       gap: 5px;
+
     }
+
     
+
     .delivery-history-field strong {
+
       color: var(--neon-color);
+
     }
+
     
+
     .delivery-history-actions {
+
       display: flex;
+
       gap: 5px;
+
     }
+
     
+
     .compact-history-container {
+
       max-height: 300px;
+
       overflow-y: auto;
+
       padding-right: 5px;
+
     }
+
     
+
     .compact-history-container::-webkit-scrollbar {
+
       width: 6px;
+
     }
+
     
+
     .compact-history-container::-webkit-scrollbar-track {
+
       background: var(--input-bg);
+
       border-radius: 3px;
+
     }
+
     
+
     .compact-history-container::-webkit-scrollbar-thumb {
+
       background: var(--neon-color);
+
       border-radius: 3px;
+
     }
+
     
+
     .compact-history-container::-webkit-scrollbar-thumb:hover {
+
       background: var(--neon-purple);
+
     }
+
     
+
     /* رسپانسیو */
+
     @media (max-width: 768px) {
+
       .container {
+
         padding: 0 15px;
+
       }
+
       
+
       .form-container,
+
       .patient-details {
+
         padding: 20px;
+
       }
+
       
+
       .detail-row {
+
         flex-direction: column;
+
         align-items: flex-start;
+
       }
+
       
+
       .detail-label {
+
         width: 100%;
+
         margin-bottom: 8px;
+
       }
+
       
+
       .action-buttons {
+
         flex-direction: column;
+
         gap: 12px;
+
       }
+
       
+
       .btn {
+
         width: 100%;
+
       }
+
       
+
       .hamburger-menu {
+
         display: block;
+
       }
+
       
+
       .sidebar {
+
         right: -300px;
+
       }
+
       
+
       .sidebar.active {
+
         right: 0;
+
       }
+
       
+
       .main-content.sidebar-open {
+
         margin-right: 0;
+
       }
+
       
+
       .drug-selection {
+
         grid-template-columns: 1fr;
+
       }
+
       
+
       .menu-boxes {
+
         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
         gap: 20px;
+
       }
+
       
+
       .auth-card {
+
         max-width: 100%;
+
       }
+
       
+
       header h1 {
+
         font-size: 1.8rem;
+
       }
+
       
+
       #quotaAlert {
+
         right: 20px;
+
         max-width: calc(100% - 40px);
+
       }
+
       
+
       .theme-toggle {
+
         top: 15px;
+
         right: 15px;
+
         width: 44px;
+
         height: 44px;
+
       }
+
       
+
       .track-delivery-container,
+
       .search-container {
+
         flex-direction: column;
+
       }
+
       
+
       .back-to-dashboard {
+
         position: static;
+
         margin-bottom: 20px;
+
         width: 100%;
+
       }
+
       
+
       .drug-quantity-input {
+
         width: 100px;
+
       }
+
       
+
       .track-delivery-search,
+
       .track-delivery-history {
+
         max-width: 100%;
+
       }
+
       
+
       #deliveryTrackingTable {
+
         min-width: 800px;
+
       }
+
       
+
       .quota-history-item,
+
       .monthly-quota-item,
+
       .adjustment-item {
+
         padding: 12px;
+
         margin-bottom: 10px;
+
         font-size: 12px;
+
       }
+
       
+
       .delivery-history-item {
+
         flex-direction: column;
+
         align-items: flex-start;
+
       }
+
       
+
       .delivery-history-actions {
+
         margin-top: 8px;
+
         width: 100%;
+
         justify-content: flex-end;
+
       }
+
     }
+
   </style>
+
 </head>
+
 <body>
+
   
+
   <!-- منوی همبرگری -->
+
   <button class="hamburger-menu hidden" id="hamburgerMenu">
+
     <i class="fas fa-bars"></i>
+
   </button>
+
   
+
   <!-- سایدبار -->
+
   <div class="sidebar" id="sidebar">
+
     <ul class="sidebar-nav">
+
       <li><button onclick="showSection('dashboard')"><i class="fas fa-home"></i> صفحه اصلی</button></li>
+
       <li><button onclick="showSection('registerPatient')"><i class="fas fa-user-plus"></i> ثبت نام بیمار</button></li>
+
       <li><button onclick="loadPatients()"><i class="fas fa-users"></i> لیست بیماران</button></li>
+
       <li><button onclick="showSection('trackPatient')"><i class="fas fa-search"></i> رهگیری بیمار</button></li>
+
       <li><button onclick="showSection('drugDelivery')"><i class="fas fa-pills"></i> تحویل دارو</button></li>
+
       <li><button onclick="showSection('quotaManagement')"><i class="fas fa-calculator"></i> مدیریت سهمیه</button></li>
+
       <li><button onclick="showSection('monthlyReport')"><i class="fas fa-file-invoice"></i> صورتحساب ماهانه</button></li>
+
       <li><button onclick="showSection('dischargePatient')"><i class="fas fa-user-minus"></i> خروج بیمار</button></li>
+
       <li><button onclick="showSection('trackDelivery')"><i class="fas fa-search"></i> رهگیری تحویل دارو</button></li>
+
       <li><button onclick="logout()"><i class="fas fa-sign-out-alt"></i> خروج</button></li>
+
     </ul>
+
     <button class="back-btn" id="closeSidebar"><i class="fas fa-times"></i> بستن منو</button>
+
   </div>
+
   
+
   <!-- هشدار سهمیه کم -->
+
   <div id="quotaAlert" class="hidden">
+
     <span>هشدار: سهمیه کل به زیر 200 واحد رسیده است!</span>
+
     <button onclick="closeQuotaAlert()" style="background: none; border: none; color: white; font-size: 18px; cursor: pointer; margin-right: 12px;">×</button>
+
   </div>
+
   
+
   <!-- Overlay -->
+
   <div class="overlay" id="overlay"></div>
+
   
+
   <!-- محتوای اصلی -->
+
   <div class="main-content" id="main-content">
+
     <!-- بخش احراز هویت -->
+
     <div class="auth-container" id="auth-section">
+
       <div class="auth-card">
+
         <div class="auth-header">
+
           <h2>ورود به سیستم</h2>
+
           <p>سیستم مدیریت مرکز ترک اعتیاد دکتر محمدی</p>
+
         </div>
+
         <div class="auth-body">
+
           <div class="medical-icon">
+
             <i class="fas fa-hospital"></i>
+
           </div>
+
           <form id="authForm" class="auth-form">
+
             <div class="form-group">
+
               <label for="username">نام کاربری</label>
+
               <input type="text" id="username" placeholder="نام کاربری" required />
-            </div>
-            <div class="form-group">
-              <label for="password">رمز عبور</label>
-              <input type="password" id="password" placeholder="رمز عبور" required />
-            </div>
-            <button type="button" class="btn btn-block" onclick="login()">
-              <i class="fas fa-sign-in-alt"></i> ورود
-            </button>
-          </form>
-          <div class="auth-footer">
-             <div>نسخه 1.8 | ساخته شده توسط سینا محمدی</div>
-            <div class="messenger-icon" onclick="showNotifications()">
-              <i class="fas fa-bell"></i>
-              <div id="notificationBadge" class="notification-badge hidden"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- بخش اصلی بعد از لاگین -->
-    <div id="main" class="hidden">
-      <!-- داشبورد اصلی با باکس‌های منو -->
-      <section id="dashboard" class="section">
-        <div class="container">
-          <h2><i class="fas fa-home"></i>داشبورد مدیریتی</h2>
-          
-          <div class="menu-boxes">
-            <div class="menu-box" onclick="showSection('registerPatient')">
-              <i class="fas fa-user-plus"></i>
-              <h3>ثبت نام بیمار</h3>
-              <p>ثبت اطلاعات بیمار جدید در سیستم</p>
-            </div>
-            
-  <div class="menu-box" onclick="showSection('drugDelivery')">
-              <i class="fas fa-pills"></i>
-              <h3>تحویل دارو</h3>
-              <p>ثبت تحویل دارو به بیماران</p>
+
             </div>
 
+            <div class="form-group">
+
+              <label for="password">رمز عبور</label>
+
+              <input type="password" id="password" placeholder="رمز عبور" required />
+
+            </div>
+
+            <button type="button" class="btn btn-block" onclick="login()">
+
+              <i class="fas fa-sign-in-alt"></i> ورود
+
+            </button>
+
+          </form>
+
+          <div class="auth-footer">
+
+             <div>نسخه 1.8 | ساخته شده توسط سینا محمدی</div>
+
+            <div class="messenger-icon" onclick="showNotifications()">
+
+              <i class="fas fa-bell"></i>
+
+              <div id="notificationBadge" class="notification-badge hidden"></div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    
+
+    <!-- بخش اصلی بعد از لاگین -->
+
+    <div id="main" class="hidden">
+
+      <!-- داشبورد اصلی با باکس‌های منو -->
+
+      <section id="dashboard" class="section">
+
+        <div class="container">
+
+          <h2><i class="fas fa-home"></i>داشبورد مدیریتی</h2>
+
+          
+
+          <div class="menu-boxes">
+
+            <div class="menu-box" onclick="showSection('registerPatient')">
+
+              <i class="fas fa-user-plus"></i>
+
+              <h3>ثبت نام بیمار</h3>
+
+              <p>ثبت اطلاعات بیمار جدید در سیستم</p>
+
+            </div>
+
+            
+
+  <div class="menu-box" onclick="showSection('drugDelivery')">
+
+              <i class="fas fa-pills"></i>
+
+              <h3>تحویل دارو</h3>
+
+              <p>ثبت تحویل دارو به بیماران</p>
+
+            </div>
+
+
+
             <div class="menu-box" onclick="showSection('globalQuota')">
+
               <i class="fas fa-chart-pie"></i>
+
               <h3>سهمیه کل</h3>
+
               <p>مدیریت سهمیه کل مرکز</p>
+
             </div>
+
             
+
             <div class="menu-box" onclick="loadPatients()">
+
               <i class="fas fa-users"></i>
+
               <h3>لیست بیماران</h3>
+
               <p>مشاهده و مدیریت لیست بیماران</p>
+
             </div>
+
             
+
             <div class="menu-box" onclick="showSection('trackPatient')">
+
               <i class="fas fa-search"></i>
+
               <h3>رهگیری بیمار</h3>
+
               <p>جستجو و مشاهده اطلاعات بیماران</p>
+
             </div>
+
             
+
           
+
             
+
               <div class="menu-box" onclick="showSection('monthlyReport')">
+
               <i class="fas fa-file-invoice"></i>
+
               <h3>صورتحساب ماهانه</h3>
+
               <p>گزارش داروهای تحویل داده شده در ماه</p>
+
             </div>
+
                  <div class="menu-box" onclick="showSection('dischargePatient')">
+
               <i class="fas fa-user-minus"></i>
+
               <h3>خروج بیمار</h3>
+
               <p>ثبت خروج بیمار از سیستم</p>
+
             </div>
+
   
+
             <div class="menu-box" onclick="showSection('trackDelivery')">
+
               <i class="fas fa-search"></i>
+
               <h3>رهگیری تحویل دارو</h3>
+
               <p>جستجوی تاریخچه تحویل دارو</p>
+
             </div>
+
             
+
              <div class="menu-box" onclick="showSection('quotaManagement')">
+
               <i class="fas fa-calculator"></i>
+
               <h3>مدیریت سهمیه</h3>
+
               <p>مدیریت سهمیه دارویی بیماران</p>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- ثبت نام بیمار -->
+
       <section id="registerPatient" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <div class="form-container">
+
             <h2><i class="fas fa-user-plus"></i> ثبت نام بیمار</h2>
+
             <form id="patientForm">
+
               <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="fullName">نام و نام خانوادگی:</label>
+
                   <input type="text" id="fullName" required />
+
                 </div>
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="nationalCode">کد ملی 10 رقمی:</label>
+
                   <input type="text" id="nationalCode" maxlength="10" required />
+
                 </div>
+
               </div>
+
               
+
               <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="birthDate">تاریخ تولد (شمسی):</label>
+
                   <input type="text" id="birthDate" required />
+
                 </div>
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="visitDate">تاریخ مراجعه:</label>
+
                   <input type="text" id="visitDate" required />
+
                 </div>
+
               </div>
+
               
+
               <div class="form-row" style="display: flex; gap: 20px; flex-wrap: wrap;">
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="recordNumber">کد رهگیری/شماره پرونده:</label>
+
                   <input type="text" id="recordNumber" required />
+
                 </div>
+
                 <div class="form-group" style="flex: 1; min-width: 280px;">
+
                   <label for="quota">سهمیه این ماه (واحد):</label>
-                  <input type="number" id="quota" value="1000" required />
+
+                  <input type="number" id="quota" value="500" required />
+
                 </div>
+
               </div>
+
               
+
               <div class="form-group">
+
                 <label for="drug">انتخاب دارو:</label>
+
                 <select id="drug" required>
+
                   <option value="شربت متادون">شربت متادون</option>
+
                   <option value="شربت اپیوم">شربت اپیوم</option>
+
                   <option value="قرص متادون 5">قرص متادون 5</option>
+
                   <option value="قرص متادون 30">قرص متادون 30</option>
+
                   <option value="قرص متادون 40">قرص متادون 40</option>
+
                 </select>
+
               </div>
+
               
+
               <button type="button" class="btn btn-block" onclick="savePatient()">
+
                 <i class="fas fa-save"></i> ثبت بیمار
+
               </button>
+
             </form>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- لیست بیماران -->
+
       <section id="patientsList" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <button type="button" class="btn btn-success" onclick="exportPatientsToExcel()" style="margin-bottom: 15px;">
+
             <i class="fas fa-file-excel"></i> دانلود لیست بیماران (Excel)
+
           </button>
+
           <div class="table-container">
+
             <table id="patientsTable">
+
               <thead>
+
                 <tr>
+
                   <th>ردیف</th>
+
                   <th>نام و خانوادگی</th>
+
                   <th>کد ملی</th>
+
                   <th>تاریخ تولد</th>
+
                   <th>تاریخ مراجعه</th>
+
                   <th>شماره پرونده</th>
+
                   <th>سهمیه</th>
+
                   <th>دارو</th>
+
                   <th>تاریخ ثبت</th>
+
                 </tr>
+
               </thead>
+
               <tbody></tbody>
+
             </table>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- رهگیری بیمار -->
+
       <section id="trackPatient" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <h2><i class="fas fa-search"></i> رهگیری بیمار</h2>
+
           
+
           <div class="search-container">
+
             <div class="search-form">
+
               <div class="form-container">
+
                 <div class="form-group">
+
                   <label for="searchInput">جستجو با کد ملی یا کد رهگیری:</label>
+
                   <input type="text" id="searchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
+
                 </div>
+
                 <button type="button" class="btn btn-block" onclick="searchPatient()">
+
                   <i class="fas fa-search"></i> جستجو
+
                 </button>
+
               </div>
+
             </div>
+
             
+
             <div class="search-results">
+
               <div id="patientDetails" class="patient-details hidden">
+
                 <h3>اطلاعات بیمار</h3>
+
                 <div class="detail-row">
+
                   <div class="detail-label">نام و نام خانوادگی:</div>
+
                   <div class="detail-value" id="detail-fullName"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">کد ملی:</div>
+
                   <div class="detail-value" id="detail-nationalCode"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">تاریخ تولد:</div>
+
                   <div class="detail-value" id="detail-birthDate"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">تاریخ مراجعه:</div>
+
                   <div class="detail-value" id="detail-visitDate"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">شماره پرونده:</div>
+
                   <div class="detail-value" id="detail-recordNumber"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">سهمیه:</div>
+
                   <div class="detail-value" id="detail-quota"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">دارو:</div>
+
                   <div class="detail-value" id="detail-drug"></div>
+
                 </div>
+
                 <div class="detail-row">
+
                   <div class="detail-label">تاریخ ثبت:</div>
+
                   <div class="detail-value" id="detail-createdAt"></div>
+
                 </div>
+
                 
+
                 <div class="action-buttons">
+
                   <button type="button" class="btn btn-warning" onclick="showEditQuotaModal()">
+
                     <i class="fas fa-edit"></i> ویرایش سهمیه
+
                   </button>
+
                   <button type="button" class="btn btn-success" onclick="showAddQuotaModal()">
+
                     <i class="fas fa-plus-circle"></i> ثبت سهمیه جدید
+
                   </button>
+
                   <button type="button" class="btn btn-info" onclick="showEditPatientModal()">
+
                     <i class="fas fa-user-edit"></i> ویرایش اطلاعات بیمار
+
                   </button>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- تحویل دارو -->
+
       <section id="drugDelivery" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <button type="button" class="btn btn-success" onclick="exportDrugDeliveriesToExcel()" style="margin-bottom: 15px;">
+
             <i class="fas fa-file-excel"></i> دانلود تاریخچه تحویل دارو (Excel)
+
           </button>
+
           <h2><i class="fas fa-pills"></i> تحویل دارو</h2>
+
           
+
           <div class="track-delivery-container">
+
             <!-- بخش جستجو و اطلاعات بیمار -->
+
             <div class="track-delivery-search">
+
               <div class="form-container">
+
                 <div class="form-group">
+
                   <label for="deliverySearchInput">جستجو با کد رهگیری/پرونده:</label>
+
                   <input type="text" id="deliverySearchInput" placeholder="کد رهگیری یا شماره پرونده را وارد کنید" />
+
                 </div>
+
                 
+
                 <button type="button" class="btn btn-block" onclick="searchForDelivery()">
+
                   <i class="fas fa-search"></i> جستجو بیمار
+
                 </button>
+
                 
+
                 <div id="deliveryPatientInfo" class="patient-details hidden" style="margin-top: 20px;">
+
                   <h3>اطلاعات بیمار</h3>
+
                   <div class="detail-row">
+
                     <div class="detail-label">نام و نام خانوادگی:</div>
+
                     <div class="detail-value" id="delivery-fullName"></div>
+
                   </div>
+
                   <div class="detail-row">
+
                     <div class="detail-label">کد ملی:</div>
+
                     <div class="detail-value" id="delivery-nationalCode"></div>
+
                   </div>
+
                   <div class="detail-row">
+
                     <div class="detail-label">شماره پرونده:</div>
+
                     <div class="detail-value" id="delivery-recordNumber"></div>
+
                   </div>
+
                   <div class="detail-row">
+
                     <div class="detail-label">داروی انتخابی:</div>
+
                     <div class="detail-value" id="delivery-drug"></div>
+
                   </div>
+
                 </div>
+
               </div>
+
             </div>
+
             
+
             <!-- بخش فرم تحویل دارو و تاریخچه -->
+
             <div class="track-delivery-history">
+
               <div id="deliveryForm" class="form-container hidden">
+
                 <h3>ثبت تحویل دارو</h3>
+
                 
+
                 <div class="form-group">
+
                   <label for="deliveryDate">تاریخ تحویل:</label>
+
                   <input type="text" id="deliveryDate" required />
+
                 </div>
+
                 
+
                 <div class="form-group">
+
                   <label>انتخاب داروها و مقدار:</label>
+
                   <div class="drug-selection">
+
                     <label>
+
                       <input type="checkbox" name="deliveryDrugs" value="شربت متادون" onchange="toggleQuantityInput(this)">
+
                       شربت متادون
+
                       <input type="number" id="quantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+
                     </label>
+
                     <label>
+
                       <input type="checkbox" name="deliveryDrugs" value="شربت اپیوم" onchange="toggleQuantityInput(this)">
+
                       شربت اپیوم
+
                       <input type="number" id="quantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+
                     </label>
+
                     <label>
+
                       <input type="checkbox" name="deliveryDrugs" value="قرص متادون 5" onchange="toggleQuantityInput(this)">
+
                       قرص متادون 5
+
                       <input type="number" id="quantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
+
                     </label>
+
                     <label>
+
                       <input type="checkbox" name="deliveryDrugs" value="قرص متادون 30" onchange="toggleQuantityInput(this)">
+
                       قرص متادون 30
+
                       <input type="number" id="quantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
+
                     </label>
+
                     <label>
+
                       <input type="checkbox" name="deliveryDrugs" value="قرص متادون 40" onchange="toggleQuantityInput(this)">
+
                       قرص متادون 40
+
                       <input type="number" id="quantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
+
                     </label>
+
                   </div>
+
                 </div>
+
                 
+
                 <div class="form-group">
+
                   <label for="deliveryReason">دلیل تحویل:</label>
+
                   <textarea id="deliveryReason" rows="3" required></textarea>
+
                 </div>
+
                 
+
                 <button type="button" class="btn btn-block" onclick="submitDrugDelivery()">
+
                   <i class="fas fa-save"></i> ثبت تحویل دارو
+
                 </button>
+
               </div>
+
               
+
               <div id="deliveryHistory" class="hidden" style="margin-top: 30px;">
+
                 <h3>تاریخچه تحویل دارو</h3>
+
                 <div id="deliveryHistoryList" class="compact-history-container"></div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- مدیریت سهمیه -->
+
       <section id="quotaManagement" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <button type="button" class="btn btn-success" onclick="exportQuotaHistoryToExcel()" style="margin-bottom: 15px;">
+
             <i class="fas fa-file-excel"></i> دانلود تاریخچه سهمیه (Excel)
+
           </button>
+
           <h2><i class="fas fa-calculator"></i> مدیریت سهمیه</h2>
+
           
+
           <div class="search-container">
+
             <div class="search-form">
+
               <div class="form-container">
+
                 <div class="form-group">
+
                   <label for="historySearchInput">جستجو با کد ملی یا کد رهگیری:</label>
+
                   <input type="text" id="historySearchInput" placeholder="کد ملی یا کد رهگیری را وارد کنید" />
+
                 </div>
+
                 <button type="button" class="btn btn-block" onclick="searchQuotaHistory()">
+
                   <i class="fas fa-search"></i> جستجو تاریخچه سهمیه
+
                 </button>
+
               </div>
+
             </div>
+
             
+
             <div class="search-results">
+
               <div id="quotaHistoryResults" class="hidden">
+
                 <h3 style="margin-top: 30px;">تاریخچه سهمیه‌ها</h3>
+
                 <div id="quotaHistoryList" class="quota-history-container"></div>
+
               </div>
+
               
+
               <div id="allQuotaHistory" style="margin-top: 30px;">
+
                 <h3>همه تغییرات سهمیه‌ها</h3>
+
                 <div id="allQuotaHistoryList" class="quota-history-container"></div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- سهمیه کل -->
+
       <section id="globalQuota" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <h2><i class="fas fa-chart-pie"></i> مدیریت سهمیه کل</h2>
+
           
+
           <div class="form-container">
+
             <div class="drug-summary" id="drugSummary"></div>
+
             
+
             <div class="global-quota-card">
+
               <h3>انتخاب دارو برای مدیریت</h3>
+
               <div class="form-group">
+
                 <select id="quotaDrugSelect" class="form-control" onchange="loadDrugQuota()">
+
                   <option value="شربت متادون">شربت متادون</option>
+
                   <option value="شربت اپیوم">شربت اپیوم</option>
+
                   <option value="قرص متادون 5">قرص متادون 5</option>
+
                   <option value="قرص متادون 30">قرص متادون 30</option>
+
                   <option value="قرص متادون 40">قرص متادون 40</option>
+
                 </select>
+
               </div>
+
             </div>
+
             
+
             <div class="global-quota-card">
+
               <h3>سهمیه کل باقیمانده <span id="currentDrugName"></span></h3>
+
               <div class="global-quota-value" id="totalQuotaValue">0</div>
+
               <div class="quota-actions">
+
                 <button class="btn btn-success" onclick="showAddQuotaModal()">
+
                   <i class="fas fa-plus"></i> افزودن سهمیه
+
                 </button>
+
                 <button class="btn btn-warning" onclick="showAdjustQuotaModal('add')">
+
                   <i class="fas fa-plus-circle"></i> افزایش دستی
+
                 </button>
+
                 <button class="btn btn-warning" onclick="showAdjustQuotaModal('subtract')">
+
                   <i class="fas fa-minus-circle"></i> کاهش دستی
+
                 </button>
+
                 <button class="btn btn-danger" onclick="showAdjustQuotaModal('set')">
+
                   <i class="fas fa-edit"></i> تنظیم دستی
+
                 </button>
+
               </div>
+
             </div>
+
             
+
             <div class="global-quota-card">
+
               <h3>سهمیه‌های ماهانه <span id="currentDrugName2"></span></h3>
+
               <div id="monthlyQuotasList" class="quota-history-container"></div>
+
               
+
               <button class="btn" onclick="showAddMonthlyQuotaModal()" style="margin-top: 15px;">
+
                 <i class="fas fa-plus"></i> ثبت سهمیه ماهانه جدید
+
               </button>
+
             </div>
+
             
+
             <div class="global-quota-card">
+
               <h3>تغییرات دستی سهمیه <span id="currentDrugName3"></span></h3>
+
               <div id="manualAdjustmentsList" class="quota-history-container"></div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- صورتحساب ماهانه -->
+
       <section id="monthlyReport" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <button type="button" class="btn btn-success" onclick="exportMonthlyReportToExcel()" style="margin-bottom: 15px;">
+
             <i class="fas fa-file-excel"></i> دانلود گزارش ماهانه (Excel)
+
           </button>
+
           <h2><i class="fas fa-file-invoice"></i> صورتحساب داروهای ماهانه</h2>
+
           
+
           <div class="form-container">
+
             <div class="form-group">
+
               <label for="reportMonth">ماه:</label>
+
               <select id="reportMonth" class="form-control">
+
                 <option value="فروردین">فروردین</option>
+
                 <option value="اردیبهشت">اردیبهشت</option>
+
                 <option value="خرداد">خرداد</option>
+
                 <option value="تیر">تیر</option>
+
                 <option value="مرداد">مرداد</option>
+
                 <option value="شهریور">شهریور</option>
+
                 <option value="مهر">مهر</option>
+
                 <option value="آبان">آبان</option>
+
                 <option value="آذر">آذر</option>
+
                 <option value="دی">دی</option>
+
                 <option value="بهمن">بهمن</option>
+
                 <option value="اسفند">اسفند</option>
+
               </select>
+
             </div>
+
             
+
             <div class="form-group">
+
               <label for="reportYear">سال:</label>
+
               <input type="number" id="reportYear" min="1400" max="1500" value="2025" class="form-control" />
+
             </div>
+
             
+
             <button type="button" class="btn btn-block" onclick="loadMonthlyReport()">
+
               <i class="fas fa-search"></i> نمایش گزارش
+
             </button>
+
             
+
             <div id="monthlyReportResults" class="hidden">
+
               <h3 style="margin-top: 30px;">گزارش ماهانه داروها</h3>
+
               <div id="monthlyReportDetails" class="monthly-report-container"></div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- خروج بیمار -->
+
       <section id="dischargePatient" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <div class="form-container">
+
             <h2><i class="fas fa-user-minus"></i> خروج بیمار</h2>
+
             <div class="form-group">
+
               <label for="dischargeNationalCode">کد ملی بیمار:</label>
+
               <input type="text" id="dischargeNationalCode" placeholder="کد ملی 10 رقمی را وارد کنید" maxlength="10" />
+
             </div>
+
             <div class="form-group">
+
               <label for="dischargeRecordNumber">کد رهگیری/شماره پرونده:</label>
+
               <input type="text" id="dischargeRecordNumber" placeholder="کد رهگیری را وارد کنید" />
+
             </div>
+
             <button type="button" class="btn btn-danger btn-block" onclick="dischargePatient()">
+
               <i class="fas fa-user-minus"></i> ثبت خروج بیمار
+
             </button>
+
           </div>
+
         </div>
+
       </section>
+
       
+
       <!-- رهگیری تحویل دارو -->
+
       <section id="trackDelivery" class="section hidden">
+
         <div class="container">
+
           <button class="btn back-to-dashboard" onclick="showSection('dashboard')">
+
             <i class="fas fa-arrow-right"></i> بازگشت به صفحه اصلی
+
           </button>
+
           <button type="button" class="btn btn-success" onclick="exportTrackDeliveryToExcel()" style="margin-bottom: 15px;">
+
             <i class="fas fa-file-excel"></i> دانلود تاریخچه تحویل دارو (Excel)
+
           </button>
+
           <h2><i class="fas fa-search"></i> رهگیری تحویل دارو</h2>
+
           
+
           <div class="track-delivery-container">
+
             <div class="track-delivery-search">
+
               <div class="form-container">
+
                 <div class="form-group">
+
                   <label for="trackDeliveryInput">جستجو با کد ملی یا شماره پرونده:</label>
+
                   <input type="text" id="trackDeliveryInput" placeholder="کد ملی یا شماره پرونده را وارد کنید" />
+
                 </div>
+
                 <button type="button" class="btn btn-block" onclick="trackDelivery()">
+
                   <i class="fas fa-search"></i> جستجو
+
                 </button>
+
               </div>
+
             </div>
+
             
+
             <div class="track-delivery-history">
+
               <div id="deliveryTrackingResults" class="hidden">
+
                 <h3>تاریخچه تحویل دارو</h3>
+
                 <div class="table-container" style="max-height: none;">
+
                   <table id="deliveryTrackingTable">
+
                     <thead>
+
                       <tr>
+
                         <th>نام بیمار</th>
+
                         <th>کد ملی</th>
+
                         <th>شماره پرونده</th>
+
                         <th>تاریخ تحویل</th>
+
                         <th>داروها</th>
+
                         <th>مقادیر</th>
+
                         <th>دلیل تحویل</th>
+
                         <th>عملیات</th>
+
                       </tr>
+
                     </thead>
+
                     <tbody></tbody>
+
                   </table>
+
                 </div>
+
               </div>
+
             </div>
+
           </div>
+
         </div>
+
       </section>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال ویرایش سهمیه -->
+
   <div id="editQuotaModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title"><i class="fas fa-edit"></i> ویرایش سهمیه</h3>
+
         <button class="close-modal" onclick="closeModal('editQuotaModal')">&times;</button>
+
       </div>
+
       <div class="form-group">
+
         <label for="editQuotaAmount">مقدار جدید سهمیه:</label>
+
         <input type="number" id="editQuotaAmount" min="0" required />
+
       </div>
+
       <button type="button" class="btn btn-block" onclick="updatePatientQuota()">
+
         <i class="fas fa-save"></i> ذخیره تغییرات
+
       </button>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال ثبت سهمیه جدید -->
+
   <div id="addQuotaModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title"><i class="fas fa-plus-circle"></i> ثبت سهمیه جدید</h3>
+
         <button class="close-modal" onclick="closeModal('addQuotaModal')">&times;</button>
+
       </div>
+
       <div class="form-group">
+
         <label for="quotaMonth">ماه:</label>
+
         <input type="text" id="quotaMonth" placeholder="مثال: فروردین" required />
+
       </div>
+
       <div class="form-group">
+
         <label for="quotaDate">تاریخ:</label>
+
         <input type="text" id="quotaDate" required />
+
       </div>
+
       <div class="form-group">
+
         <label for="quotaAmount">مقدار سهمیه (حداقل 125 واحد):</label>
+
         <input type="number" id="quotaAmount" min="125" required />
+
       </div>
+
       <div class="form-group">
+
         <label for="quotaOperation">نوع عملیات:</label>
+
         <select id="quotaOperation" required>
+
           <option value="add">افزایش سهمیه</option>
+
           <option value="subtract">کاهش سهمیه</option>
+
         </select>
+
       </div>
+
       <button type="button" class="btn btn-block" onclick="addQuotaToPatient()">
+
         <i class="fas fa-save"></i> ثبت سهمیه
+
       </button>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال ویرایش اطلاعات بیمار -->
+
   <div id="editPatientModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title"><i class="fas fa-user-edit"></i> ویرایش اطلاعات بیمار</h3>
+
         <button class="close-modal" onclick="closeModal('editPatientModal')">&times;</button>
+
       </div>
+
       <form id="editPatientForm">
+
         <div class="form-group">
+
           <label for="editFullName">نام و نام خانوادگی:</label>
+
           <input type="text" id="editFullName" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editNationalCode">کد ملی 10 رقمی:</label>
+
           <input type="text" id="editNationalCode" maxlength="10" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editBirthDate">تاریخ تولد (شمسی):</label>
+
           <input type="text" id="editBirthDate" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editVisitDate">تاریخ مراجعه:</label>
+
           <input type="text" id="editVisitDate" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editRecordNumber">کد رهگیری/شماره پرونده:</label>
+
           <input type="text" id="editRecordNumber" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editQuota">سهمیه این ماه (واحد):</label>
+
           <input type="number" id="editQuota" min="0" required />
+
         </div>
+
         <div class="form-group">
+
           <label for="editDrug">انتخاب دارو:</label>
+
           <select id="editDrug" required>
+
             <option value="شربت متادون">شربت متادون</option>
+
             <option value="شربت اپیوم">شربت اپیوم</option>
+
             <option value="قرص متادون 5">قرص متادون 5</option>
+
             <option value="قرص متادون 30">قرص متادون 30</option>
+
             <option value="قرص متادون 40">قرص متادون 40</option>
+
           </select>
+
         </div>
+
         <button type="button" class="btn btn-block" onclick="updatePatientInfo()">
+
           <i class="fas fa-save"></i> ذخیره تغییرات
+
         </button>
+
       </form>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال ویرایش تاریخچه تحویل دارو -->
+
   <div id="editDeliveryModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title"><i class="fas fa-edit"></i> ویرایش تاریخچه تحویل دارو</h3>
+
         <button class="close-modal" onclick="closeModal('editDeliveryModal')">&times;</button>
+
       </div>
+
       <form id="editDeliveryForm">
+
         <div class="form-group">
+
           <label for="editDeliveryDate">تاریخ تحویل:</label>
+
           <input type="text" id="editDeliveryDate" required />
+
         </div>
+
         <div class="form-group">
+
           <label>انتخاب داروها و مقدار:</label>
+
           <div class="drug-selection">
+
             <label>
+
               <input type="checkbox" name="editDeliveryDrugs" value="شربت متادون" onchange="toggleEditQuantityInput(this)">
+
               شربت متادون
+
               <input type="number" id="editQuantity-شربت متادون" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+
             </label>
+
             <label>
+
               <input type="checkbox" name="editDeliveryDrugs" value="شربت اپیوم" onchange="toggleEditQuantityInput(this)">
+
               شربت اپیوم
+
               <input type="number" id="editQuantity-شربت اپیوم" class="drug-quantity-input" min="1" max="1000" placeholder="cc">
+
             </label>
+
             <label>
+
               <input type="checkbox" name="editDeliveryDrugs" value="قرص متادون 5" onchange="toggleEditQuantityInput(this)">
+
               قرص متادون 5
+
               <input type="number" id="editQuantity-قرص متادون 5" class="drug-quantity-input" min="1" placeholder="عدد">
+
             </label>
+
             <label>
+
               <input type="checkbox" name="editDeliveryDrugs" value="قرص متادون 30" onchange="toggleEditQuantityInput(this)">
+
               قرص متادون 30
+
               <input type="number" id="editQuantity-قرص متادون 30" class="drug-quantity-input" min="1" placeholder="عدد">
+
             </label>
+
             <label>
+
               <input type="checkbox" name="editDeliveryDrugs" value="قرص متادون 40" onchange="toggleEditQuantityInput(this)">
+
               قرص متادون 40
+
               <input type="number" id="editQuantity-قرص متادون 40" class="drug-quantity-input" min="1" placeholder="عدد">
+
             </label>
+
           </div>
+
         </div>
+
         <div class="form-group">
+
           <label for="editDeliveryReason">دلیل تحویل:</label>
+
           <textarea id="editDeliveryReason" rows="3" required></textarea>
+
         </div>
+
         <button type="button" class="btn btn-block" onclick="updateDeliveryRecord()">
+
           <i class="fas fa-save"></i> ذخیره تغییرات
+
         </button>
+
       </form>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال‌های جدید برای مدیریت سهمیه کل -->
+
   <div id="adjustQuotaModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title" id="adjustQuotaModalTitle">تنظیم سهمیه</h3>
+
         <button class="close-modal" onclick="closeModal('adjustQuotaModal')">&times;</button>
+
       </div>
+
       <div class="form-group">
+
         <label for="adjustQuotaAmount">مقدار:</label>
+
         <input type="number" id="adjustQuotaAmount" min="0" required />
+
       </div>
+
       <div class="form-group">
+
         <label for="adjustQuotaDescription">توضیحات (اختیاری):</label>
+
         <textarea id="adjustQuotaDescription" rows="3"></textarea>
+
       </div>
+
       <button type="button" class="btn btn-block" onclick="adjustGlobalQuota()">
+
         <i class="fas fa-save"></i> ذخیره تغییرات
+
       </button>
+
     </div>
+
   </div>
+
   
+
   <div id="addMonthlyQuotaModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title">ثبت سهمیه ماهانه</h3>
+
         <button class="close-modal" onclick="closeModal('addMonthlyQuotaModal')">&times;</button>
+
       </div>
+
       <div class="form-group">
+
         <label>ماه:</label>
+
         <div class="persian-month-selector" id="monthSelector">
+
           <button onclick="selectMonth('فروردین')">فروردین</button>
+
           <button onclick="selectMonth('اردیبهشت')">اردیبهشت</button>
+
           <button onclick="selectMonth('خرداد')">خرداد</button>
+
           <button onclick="selectMonth('تیر')">تیر</button>
+
           <button onclick="selectMonth('مرداد')">مرداد</button>
+
           <button onclick="selectMonth('شهریور')">شهریور</button>
+
           <button onclick="selectMonth('مهر')">مهر</button>
+
           <button onclick="selectMonth('آبان')">آبان</button>
+
           <button onclick="selectMonth('آذر')">آذر</button>
+
           <button onclick="selectMonth('دی')">دی</button>
+
           <button onclick="selectMonth('بهمن')">بهمن</button>
+
           <button onclick="selectMonth('اسفند')">اسفند</button>
+
         </div>
+
       </div>
+
       <div class="form-group">
+
         <label for="monthlyQuotaAmount">مقدار سهمیه:</label>
+
         <input type="number" id="monthlyQuotaAmount" min="1" required />
+
       </div>
+
       <div class="form-group">
+
         <label for="monthlyQuotaExpiry">مدت اعتبار (روز):</label>
+
         <input type="number" id="monthlyQuotaExpiry" min="1" value="30" required />
+
       </div>
+
       <button type="button" class="btn btn-block" onclick="addMonthlyQuota()">
+
         <i class="fas fa-save"></i> ثبت سهمیه ماهانه
+
       </button>
+
     </div>
+
   </div>
+
   
+
   <!-- مدال اعلانات -->
+
   <div id="notificationsModal" class="modal">
+
     <div class="modal-content">
+
       <div class="modal-header">
+
         <h3 class="modal-title"><i class="fas fa-bell"></i> اعلانات</h3>
+
         <button class="close-modal" onclick="closeModal('notificationsModal')">&times;</button>
+
       </div>
+
       <div id="notificationsList"></div>
+
     </div>
+
   </div>
+
   
+
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/persian-date@1.1.0/dist/persian-date.min.js"></script>
+
   <script src="https://cdn.jsdelivr.net/npm/persian-datepicker@1.2.0/dist/js/persian-datepicker.min.js"></script>
+
   <script>
+
     // حالت‌های سیستم
+
     const AppState = {
+
       isLoggedIn: false,
+
       currentUser: null,
+
       currentPatientId: null,
+
       currentDrug: 'شربت متادون',
+
       currentDeliveryPatient: null,
+
       quotaAlertShown: false,
+
       quotaCheckInterval: null,
+
       currentQuotaAction: null,
+
       selectedMonth: null,
+
       notifications: [],
+
       unreadNotifications: 0,
+
       currentDeliveryId: null
+
     };
+
     
+
     // داروهای معتبر
+
     const VALID_DRUGS = [
+
       'شربت متادون',
+
       'شربت اپیوم',
+
       'قرص متادون 5',
+
       'قرص متادون 30',
+
       'قرص متادون 40'
+
     ];
+
     
+
     // ماه‌های شمسی
+
     const PERSIAN_MONTHS = [
+
       'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+
       'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+
     ];
+
     
+
     // مقداردهی اولیه هنگام لود صفحه
+
     document.addEventListener('DOMContentLoaded', () => {
+
       showAuth();
+
       setupMenu();
+
       checkDbStatus();
+
       loadNotifications();
+
       setupPersianDatePickers();
+
       setupThemeToggle();
+
       
+
       // تنظیم سال و ماه جاری به عنوان پیشفرض
+
       const currentYear = new Date().getFullYear();
+
       document.getElementById('reportYear').value = currentYear;
+
       
+
       const currentMonthIndex = new Date().getMonth();
+
       document.getElementById('reportMonth').value = PERSIAN_MONTHS[currentMonthIndex];
+
     });
+
     
+
     // تنظیم حالت تاریک/روشن
+
     function setupThemeToggle() {
+
       const themeToggle = document.getElementById('themeToggle');
+
       
+
       // بررسی حالت ذخیره شده در localStorage
+
       const savedTheme = localStorage.getItem('theme');
+
       if (savedTheme === 'light') {
+
         document.body.classList.add('light-mode');
+
       }
+
       
+
       themeToggle.addEventListener('click', () => {
+
         document.body.classList.toggle('light-mode');
+
         
+
         // ذخیره حالت در localStorage
+
         if (document.body.classList.contains('light-mode')) {
+
           localStorage.setItem('theme', 'light');
+
         } else {
+
           localStorage.setItem('theme', 'dark');
+
         }
+
       });
+
     }
+
     
+
     // تنظیم تقویم فارسی
+
     function setupPersianDatePickers() {
+
       // تقویم برای تاریخ تولد
+
       $("#birthDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#birthDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای تاریخ مراجعه
+
       $("#visitDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#visitDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای تاریخ تحویل دارو
+
       $("#deliveryDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#deliveryDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای تاریخ سهمیه
+
       $("#quotaDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#quotaDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای ویرایش تاریخ تحویل دارو
+
       $("#editDeliveryDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#editDeliveryDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای ویرایش تاریخ تولد
+
       $("#editBirthDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#editBirthDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
       
+
       // تقویم برای ویرایش تاریخ مراجعه
+
       $("#editVisitDate").pwtDatepicker({
+
         formatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         altField: '#editVisitDate',
+
         altFieldFormatter: function(unix) {
+
           return new persianDate(unix).format("YYYY/MM/DD");
+
         },
+
         observer: true,
+
         initialValue: false,
+
         initialValueType: 'persian',
+
         autoClose: true,
+
         toolbox: {
+
           calendarSwitch: {
+
             enabled: false
+
           },
+
           todayButton: {
+
             enabled: true,
+
             title: "امروز"
+
           }
+
         }
+
       });
+
     }
+
     
+
     // تنظیم منو
+
     function setupMenu() {
+
       const hamburgerMenu = document.getElementById('hamburgerMenu');
+
       const closeSidebar = document.getElementById('closeSidebar');
+
       const overlay = document.getElementById('overlay');
+
       const sidebar = document.querySelector('.sidebar');
+
       
+
       hamburgerMenu.addEventListener('click', toggleSidebar);
+
       closeSidebar.addEventListener('click', toggleSidebar);
+
       overlay.addEventListener('click', toggleSidebar);
+
       
+
       window.addEventListener('resize', handleResize);
+
       handleResize();
+
     }
+
     
+
     // مدیریت تغییر سایز صفحه
+
     function handleResize() {
+
       const hamburgerMenu = document.getElementById('hamburgerMenu');
+
       
+
       if (window.innerWidth <= 768) {
+
         hamburgerMenu.classList.remove('hidden');
+
       } else {
+
         hamburgerMenu.classList.add('hidden');
+
       }
+
     }
+
     
+
     // نمایش/پنهان کردن سایدبار
+
     function toggleSidebar() {
+
       const sidebar = document.querySelector('.sidebar');
+
       const overlay = document.getElementById('overlay');
+
       const mainContent = document.getElementById('main-content');
+
       
+
       sidebar.classList.toggle('active');
+
       overlay.classList.toggle('active');
+
       
+
       if (window.innerWidth <= 768) {
+
         mainContent.classList.toggle('sidebar-open');
+
       }
+
     }
+
     
+
     // نمایش بخش‌های مختلف
+
     function showSection(sectionId) {
+
       // پنهان کردن تمام بخش‌ها
+
       document.querySelectorAll('.section').forEach(section => {
+
         section.classList.add('hidden');
+
       });
+
       
+
       // نمایش بخش مورد نظر
+
       const section = document.getElementById(sectionId);
+
       if (section) {
+
         section.classList.remove('hidden');
+
       }
+
       
+
       // بستن سایدبار در موبایل
+
       if (window.innerWidth <= 768) {
+
         toggleSidebar();
+
       }
+
       
+
       // بارگیری داده‌های مورد نیاز برای هر بخش
+
       switch(sectionId) {
+
         case 'quotaManagement':
+
           loadAllQuotaHistory();
+
           break;
+
         case 'globalQuota':
+
           loadDrugQuota();
+
           break;
+
         case 'monthlyReport':
+
           document.getElementById('monthlyReportResults').classList.add('hidden');
+
           break;
+
       }
+
     }
+
     
+
     // نمایش/پنهان کردن فیلد مقدار دارو
+
     function toggleQuantityInput(checkbox) {
+
       const drugName = checkbox.value;
+
       const quantityInput = document.getElementById(`quantity-${drugName}`);
+
       
+
       if (checkbox.checked) {
+
         quantityInput.style.display = 'inline-block';
+
         quantityInput.value = drugName.includes('شربت') ? '1' : '1';
+
       } else {
+
         quantityInput.style.display = 'none';
+
         quantityInput.value = '';
+
       }
+
     }
+
     
+
     // نمایش/پنهان کردن فیلد مقدار دارو در مدال ویرایش
+
     function toggleEditQuantityInput(checkbox) {
+
       const drugName = checkbox.value;
+
       const quantityInput = document.getElementById(`editQuantity-${drugName}`);
+
       
+
       if (checkbox.checked) {
+
         quantityInput.style.display = 'inline-block';
+
         quantityInput.value = drugName.includes('شربت') ? '1' : '1';
+
       } else {
+
         quantityInput.style.display = 'none';
+
         quantityInput.value = '';
+
       }
+
     }
+
     
+
     // ==================== توابع مربوط به بیماران ====================
+
     // ذخیره بیمار جدید
+
     async function savePatient() {
+
       if (!AppState.isLoggedIn) {
+
         alert('لطفاً ابتدا وارد سیستم شوید');
+
         return;
+
       }
+
       
+
       const patientData = {
+
         fullName: document.getElementById('fullName').value,
+
         nationalCode: document.getElementById('nationalCode').value,
+
         birthDate: document.getElementById('birthDate').value,
+
         visitDate: document.getElementById('visitDate').value,
+
         recordNumber: document.getElementById('recordNumber').value,
+
         quota: parseInt(document.getElementById('quota').value),
+
         drug: document.getElementById('drug').value,
+
       };
+
       
+
       // اعتبارسنجی کد ملی
+
       if (!/^\d{10}$/.test(patientData.nationalCode)) {
+
         alert('کد ملی باید 10 رقم باشد');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch('/api/patients', {
+
           method: 'POST',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify(patientData),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('بیمار با موفقیت ثبت شد');
+
           document.getElementById('patientForm').reset();
+
           showSection('dashboard');
+
         } else {
+
           throw new Error(result.error || 'خطا در ثبت بیمار');
+
         }
+
       } catch (err) {
+
         showError('خطا در ثبت بیمار: ' + err.message);
+
       }
+
     }
+
     
+
     // بارگیری لیست بیماران
+
     async function loadPatients() {
+
       if (!AppState.isLoggedIn) {
+
         alert('لطفاً ابتدا وارد سیستم شوید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch('/api/patients');
+
         if (!response.ok) throw new Error('خطا در دریافت داده‌ها');
+
         
+
         const patients = await response.json();
+
         const tbody = document.querySelector('#patientsTable tbody');
+
         tbody.innerHTML = '';
+
         
+
         patients.forEach((p, index) => {
+
           const tr = document.createElement('tr');
+
           tr.innerHTML = `
+
             <td>${index + 1}</td>
+
             <td>${p.fullName}</td>
+
             <td><span class="national-code-link" onclick="showPatientDetails('${p.nationalCode}')">${p.nationalCode}</span></td>
+
             <td>${p.birthDate}</td>
+
             <td>${p.visitDate}</td>
+
             <td>${p.recordNumber}</td>
+
             <td>${p.quota}</td>
+
             <td>${p.drug}</td>
+
             <td>${new Date(p.createdAt).toLocaleString('fa-IR')}</td>
+
           `;
+
           tbody.appendChild(tr);
+
         });
+
         
+
         showSection('patientsList');
+
       } catch (err) {
+
         showError('خطا در دریافت لیست بیماران: ' + err.message);
+
       }
+
     }
+
     
+
     // نمایش جزئیات بیمار
+
     async function showPatientDetails(nationalCode) {
+
       try {
+
         const response = await fetch(`/api/patients/search?nationalCode=${nationalCode}`);
+
         if (!response.ok) throw new Error('خطا در دریافت اطلاعات بیمار');
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           const patient = result.patient;
+
           AppState.currentPatientId = patient._id;
+
           
+
           document.getElementById('detail-fullName').textContent = patient.fullName;
+
           document.getElementById('detail-nationalCode').textContent = patient.nationalCode;
+
           document.getElementById('detail-birthDate').textContent = patient.birthDate;
+
           document.getElementById('detail-visitDate').textContent = patient.visitDate;
+
           document.getElementById('detail-recordNumber').textContent = patient.recordNumber;
+
           document.getElementById('detail-quota').textContent = patient.quota;
+
           document.getElementById('detail-drug').textContent = patient.drug;
+
           document.getElementById('detail-createdAt').textContent = new Date(patient.createdAt).toLocaleString('fa-IR');
+
           
+
           document.getElementById('patientDetails').classList.remove('hidden');
+
           showSection('trackPatient');
+
         } else {
+
           throw new Error(result.error || 'بیمار یافت نشد');
+
         }
+
       } catch (err) {
+
         showError('خطا: ' + err.message);
+
       }
+
     }
+
     
+
     // جستجوی بیمار
+
     async function searchPatient() {
+
       const searchInput = document.getElementById('searchInput').value.trim();
+
       if (!searchInput) {
+
         alert('لطفاً کد ملی یا کد رهگیری را وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         // ابتدا با کد ملی جستجو می‌کنیم
+
         let response = await fetch(`/api/patients/search?nationalCode=${searchInput}`);
+
         let result = await response.json();
+
         
+
         // اگر با کد ملی پیدا نشد، با کد رهگیری جستجو می‌کنیم
+
         if (!result.success) {
+
           response = await fetch(`/api/patients/search?recordNumber=${searchInput}`);
+
           result = await response.json();
+
         }
+
         
+
         if (result.success) {
+
           const patient = result.patient;
+
           AppState.currentPatientId = patient._id;
+
           
+
           document.getElementById('detail-fullName').textContent = patient.fullName;
+
           document.getElementById('detail-nationalCode').textContent = patient.nationalCode;
+
           document.getElementById('detail-birthDate').textContent = patient.birthDate;
+
           document.getElementById('detail-visitDate').textContent = patient.visitDate;
+
           document.getElementById('detail-recordNumber').textContent = patient.recordNumber;
+
           document.getElementById('detail-quota').textContent = patient.quota;
+
           document.getElementById('detail-drug').textContent = patient.drug;
+
           document.getElementById('detail-createdAt').textContent = new Date(patient.createdAt).toLocaleString('fa-IR');
+
           
+
           document.getElementById('patientDetails').classList.remove('hidden');
+
         } else {
+
           throw new Error(result.error || 'بیمار یافت نشد');
+
         }
+
       } catch (err) {
+
         showError('خطا: ' + err.message);
+
       }
+
     }
+
     
+
     // نمایش مدال ویرایش سهمیه
+
     function showEditQuotaModal() {
+
       if (!AppState.currentPatientId) {
+
         alert('لطفاً ابتدا بیمار را انتخاب کنید');
+
         return;
+
       }
+
       
+
       const currentQuota = document.getElementById('detail-quota').textContent;
+
       document.getElementById('editQuotaAmount').value = currentQuota;
+
       document.getElementById('editQuotaModal').style.display = 'flex';
+
     }
+
     
+
     // نمایش مدال ثبت سهمیه جدید
+
     function showAddQuotaModal() {
+
       if (!AppState.currentPatientId) {
+
         alert('لطفاً ابتدا بیمار را انتخاب کنید');
+
         return;
+
       }
+
       
+
       const today = new persianDate().format("YYYY/MM/DD");
+
       document.getElementById('quotaDate').value = today;
+
       
+
       document.getElementById('addQuotaModal').style.display = 'flex';
+
     }
+
     
+
     // نمایش مدال ویرایش اطلاعات بیمار
+
     function showEditPatientModal() {
+
       if (!AppState.currentPatientId) {
+
         alert('لطفاً ابتدا بیمار را انتخاب کنید');
+
         return;
+
       }
+
       
+
       // پر کردن فرم با اطلاعات فعلی بیمار
+
       document.getElementById('editFullName').value = document.getElementById('detail-fullName').textContent;
+
       document.getElementById('editNationalCode').value = document.getElementById('detail-nationalCode').textContent;
+
       document.getElementById('editBirthDate').value = document.getElementById('detail-birthDate').textContent;
+
       document.getElementById('editVisitDate').value = document.getElementById('detail-visitDate').textContent;
+
       document.getElementById('editRecordNumber').value = document.getElementById('detail-recordNumber').textContent;
+
       document.getElementById('editQuota').value = document.getElementById('detail-quota').textContent;
+
       document.getElementById('editDrug').value = document.getElementById('detail-drug').textContent;
+
       
+
       document.getElementById('editPatientModal').style.display = 'flex';
+
     }
+
     
+
     // بستن مدال
+
     function closeModal(modalId) {
+
       document.getElementById(modalId).style.display = 'none';
+
     }
+
     
+
     // به‌روزرسانی سهمیه بیمار
+
     async function updatePatientQuota() {
+
       const newQuota = parseInt(document.getElementById('editQuotaAmount').value);
+
       
+
       if (isNaN(newQuota) || newQuota < 0) {
+
         alert('لطفاً مقدار معتبری برای سهمیه وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/patients/${AppState.currentPatientId}`, {
+
           method: 'PUT',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({ quota: newQuota }),
+
         });
+
         
+
         if (response.ok) {
+
           alert('سهمیه با موفقیت به‌روزرسانی شد');
+
           document.getElementById('detail-quota').textContent = newQuota;
+
           closeModal('editQuotaModal');
+
           
+
           if (!document.getElementById('patientsList').classList.contains('hidden')) {
+
             loadPatients();
+
           }
+
         } else {
+
           throw new Error('خطا در به‌روزرسانی سهمیه');
+
         }
+
       } catch (err) {
+
         showError('خطا در به‌روزرسانی سهمیه: ' + err.message);
+
       }
+
     }
+
     
+
     // به‌روزرسانی اطلاعات بیمار
+
     async function updatePatientInfo() {
+
       const patientData = {
+
         fullName: document.getElementById('editFullName').value,
+
         nationalCode: document.getElementById('editNationalCode').value,
+
         birthDate: document.getElementById('editBirthDate').value,
+
         visitDate: document.getElementById('editVisitDate').value,
+
         recordNumber: document.getElementById('editRecordNumber').value,
+
         quota: parseInt(document.getElementById('editQuota').value),
+
         drug: document.getElementById('editDrug').value,
+
       };
+
       
+
       // اعتبارسنجی کد ملی
+
       if (!/^\d{10}$/.test(patientData.nationalCode)) {
+
         alert('کد ملی باید 10 رقم باشد');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/patients/${AppState.currentPatientId}`, {
+
           method: 'PUT',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify(patientData),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('اطلاعات بیمار با موفقیت به‌روزرسانی شد');
+
           
+
           // به‌روزرسانی اطلاعات نمایش داده شده
+
           document.getElementById('detail-fullName').textContent = patientData.fullName;
+
           document.getElementById('detail-nationalCode').textContent = patientData.nationalCode;
+
           document.getElementById('detail-birthDate').textContent = patientData.birthDate;
+
           document.getElementById('detail-visitDate').textContent = patientData.visitDate;
+
           document.getElementById('detail-recordNumber').textContent = patientData.recordNumber;
+
           document.getElementById('detail-quota').textContent = patientData.quota;
+
           document.getElementById('detail-drug').textContent = patientData.drug;
+
           
+
           closeModal('editPatientModal');
+
           
+
           if (!document.getElementById('patientsList').classList.contains('hidden')) {
+
             loadPatients();
+
           }
+
         } else {
+
           throw new Error(result.error || 'خطا در به‌روزرسانی اطلاعات بیمار');
+
         }
+
       } catch (err) {
+
         showError('خطا در به‌روزرسانی اطلاعات بیمار: ' + err.message);
+
       }
+
     }
+
     
+
     // ثبت سهمیه جدید برای بیمار
+
     async function addQuotaToPatient() {
+
       const month = document.getElementById('quotaMonth').value.trim();
+
       const date = document.getElementById('quotaDate').value;
+
       const amount = parseInt(document.getElementById('quotaAmount').value);
+
       const operation = document.getElementById('quotaOperation').value;
+
       
+
       if (!month || !date || isNaN(amount) || amount < 125 || !operation) {
+
         alert('لطفاً تمام فیلدها را به درستی پر کنید (حداقل سهمیه 125 واحد)');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/patients/${AppState.currentPatientId}/quota`, {
+
           method: 'POST',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({ month, date, amount, operation }),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('سهمیه با موفقیت ثبت شد');
+
           document.getElementById('detail-quota').textContent = result.patient.quota;
+
           closeModal('addQuotaModal');
+
           
+
           document.getElementById('quotaMonth').value = '';
+
           document.getElementById('quotaDate').value = '';
+
           document.getElementById('quotaAmount').value = '';
+
           
+
           if (!document.getElementById('patientsList').classList.contains('hidden')) {
+
             loadPatients();
+
           }
+
           
+
           if (!document.getElementById('quotaManagement').classList.contains('hidden')) {
+
             loadAllQuotaHistory();
+
           }
+
         } else {
+
           throw new Error(result.error || 'خطا در ثبت سهمیه');
+
         }
+
       } catch (err) {
+
         showError('خطا در ثبت سهمیه: ' + err.message);
+
       }
+
     }
+
     
+
     // جستجوی تاریخچه سهمیه
+
     async function searchQuotaHistory() {
+
       const searchInput = document.getElementById('historySearchInput').value.trim();
+
       if (!searchInput) {
+
         alert('لطفاً کد ملی یا کد رهگیری را وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         let response = await fetch(`/api/patients/search?nationalCode=${searchInput}`);
+
         let result = await response.json();
+
         
+
         if (!result?.success) {
+
           response = await fetch(`/api/patients/search?recordNumber=${searchInput}`);
+
           result = await response.json();
+
         }
+
         
+
         if (result?.success) {
+
           const patient = result.patient;
+
           AppState.currentPatientId = patient._id;
+
           
+
           const patientInfo = `
+
             <div class="patient-details" style="margin-bottom: 20px;">
+
               <h4>اطلاعات بیمار</h4>
+
               <div class="detail-row">
+
                 <div class="detail-label">نام و نام خانوادگی:</div>
+
                 <div class="detail-value">${patient.fullName}</div>
+
               </div>
+
               <div class="detail-row">
+
                 <div class="detail-label">کد ملی:</div>
+
                 <div class="detail-value">${patient.nationalCode}</div>
+
               </div>
+
               <div class="detail-row">
+
                 <div class="detail-label">شماره پرونده:</div>
+
                 <div class="detail-value">${patient.recordNumber}</div>
+
               </div>
+
               <div class="detail-row">
+
                 <div class="detail-label">سهمیه فعلی:</div>
+
                 <div class="detail-value">${patient.quota}</div>
+
               </div>
+
             </div>
+
           `;
+
           
+
           await loadAllQuotaHistory(patient._id);
+
           
+
           document.getElementById('quotaHistoryResults').classList.remove('hidden');
+
         } else {
+
           throw new Error(result.error || 'بیمار یافت نشد');
+
         }
+
       } catch (err) {
+
         showError('خطا: ' + err.message);
+
       }
+
     }
+
     
+
     // بارگیری تمام تاریخچه سهمیه
+
     async function loadAllQuotaHistory(patientId = null) {
+
       try {
+
         const response = await fetch('/api/quota-history');
+
         if (!response.ok) throw new Error('خطا در دریافت تاریخچه سهمیه‌ها');
+
         
+
         let history = await response.json();
+
         
+
         if (patientId) {
+
           history = history.filter(item => item.patientId === patientId);
+
         }
+
         
+
         const historyList = document.getElementById('allQuotaHistoryList');
+
         historyList.innerHTML = '';
+
         
+
         if (history.length > 0) {
+
           history.forEach(item => {
+
             const historyItem = document.createElement('div');
+
             historyItem.className = `quota-history-item ${item.operation}`;
+
             historyItem.innerHTML = `
+
               <div><strong>بیمار:</strong> ${item.patientName}</div>
+
               <div><strong>کد ملی:</strong> <span class="national-code-link" onclick="searchPatientByCode('${item.patientId}')">${item.patientId}</span></div>
+
               <div><strong>ماه:</strong> ${item.month}</div>
+
               <div><strong>تاریخ:</strong> ${item.date}</div>
+
               <div><strong>مقدار:</strong> ${item.amount} واحد (${item.operation === 'add' ? 'افزایش' : 'کاهش'})</div>
+
               <div><strong>زمان ثبت:</strong> ${new Date(item.createdAt).toLocaleString('fa-IR')}</div>
+
             `;
+
             historyList.appendChild(historyItem);
+
           });
+
         } else {
+
           historyList.innerHTML = '<p>هیچ تاریخچه سهمیه‌ای یافت نشد</p>';
+
         }
+
       } catch (err) {
+
         console.error('خطا در دریافت تاریخچه سهمیه‌ها:', err);
+
       }
+
     }
+
     
+
     // جستجوی بیمار با کد
+
     async function searchPatientByCode(patientId) {
+
       try {
+
         const response = await fetch(`/api/patients/${patientId}`);
+
         if (!response.ok) throw new Error('بیمار یافت نشد');
+
         
+
         const patient = await response.json();
+
         AppState.currentPatientId = patient._id;
+
         
+
         document.getElementById('detail-fullName').textContent = patient.fullName;
+
         document.getElementById('detail-nationalCode').textContent = patient.nationalCode;
+
         document.getElementById('detail-birthDate').textContent = patient.birthDate;
+
         document.getElementById('detail-visitDate').textContent = patient.visitDate;
+
         document.getElementById('detail-recordNumber').textContent = patient.recordNumber;
+
         document.getElementById('detail-quota').textContent = patient.quota;
+
         document.getElementById('detail-drug').textContent = patient.drug;
+
         document.getElementById('detail-createdAt').textContent = new Date(patient.createdAt).toLocaleString('fa-IR');
+
         
+
         document.getElementById('patientDetails').classList.remove('hidden');
+
         showSection('trackPatient');
+
       } catch (err) {
+
         showError('خطا: ' + err.message);
+
       }
+
     }
+
     
+
     // خروج بیمار از سیستم
+
     async function dischargePatient() {
+
       const nationalCode = document.getElementById('dischargeNationalCode').value.trim();
+
       const recordNumber = document.getElementById('dischargeRecordNumber').value.trim();
+
       
+
       if (!nationalCode && !recordNumber) {
+
         alert('لطفاً حداقل یکی از فیلدهای کد ملی یا کد رهگیری را پر کنید');
+
         return;
+
       }
+
       
+
       if (!confirm('آیا از حذف این بیمار از سیستم اطمینان دارید؟ این عمل غیرقابل بازگشت است.')) {
+
         return;
+
       }
+
       
+
       try {
+
         let response, result;
+
         
+
         if (nationalCode) {
+
           response = await fetch(`/api/patients/search?nationalCode=${nationalCode}`);
+
           result = await response.json();
+
         }
+
         
+
         if (!result?.success && recordNumber) {
+
           response = await fetch(`/api/patients/search?recordNumber=${recordNumber}`);
+
           result = await response.json();
+
         }
+
         
+
         if (result?.success) {
+
           const patientId = result.patient._id;
+
           
+
           const deleteResponse = await fetch(`/api/patients/${patientId}`, {
+
             method: 'DELETE'
+
           });
+
           
+
           if (deleteResponse.ok) {
+
             alert('بیمار با موفقیت از سیستم حذف شد');
+
             document.getElementById('dischargeNationalCode').value = '';
+
             document.getElementById('dischargeRecordNumber').value = '';
+
             
+
             if (!document.getElementById('patientsList').classList.contains('hidden')) {
+
               loadPatients();
+
             }
+
           } else {
+
             throw new Error('خطا در حذف بیمار');
+
           }
+
         } else {
+
           throw new Error('بیمار یافت نشد');
+
         }
+
       } catch (err) {
+
         showError('خطا در حذف بیمار: ' + err.message);
+
       }
+
     }
+
     
+
     // ==================== توابع مربوط به سهمیه کل ====================
+
     // بارگیری سهمیه دارویی
+
     async function loadDrugQuota() {
+
       try {
+
         const drug = document.getElementById('quotaDrugSelect').value;
+
         AppState.currentDrug = drug;
+
         
+
         document.getElementById('currentDrugName').textContent = `(${drug})`;
+
         document.getElementById('currentDrugName2').textContent = `(${drug})`;
+
         document.getElementById('currentDrugName3').textContent = `(${drug})`;
+
         
+
         const response = await fetch('/api/global-quota');
+
         if (!response.ok) throw new Error('خطا در دریافت سهمیه کل');
+
         
+
         const globalQuota = await response.json();
+
         const drugQuota = globalQuota.drugs[drug] || { totalQuota: 0 };
+
         
+
         document.getElementById('totalQuotaValue').textContent = drugQuota.totalQuota;
+
         
+
         // نمایش سهمیه‌های ماهانه
+
         const monthlyQuotasList = document.getElementById('monthlyQuotasList');
+
         monthlyQuotasList.innerHTML = '';
+
         
+
         if (drugQuota.monthlyQuotas && drugQuota.monthlyQuotas.length > 0) {
+
           drugQuota.monthlyQuotas.forEach(quota => {
+
             const quotaItem = document.createElement('div');
+
             quotaItem.className = 'monthly-quota-item';
+
             quotaItem.innerHTML = `
+
               <div><strong>ماه:</strong> ${quota.month}</div>
+
               <div><strong>مقدار:</strong> ${quota.amount} واحد</div>
+
               <div><strong>تاریخ ثبت:</strong> ${new Date(quota.addedAt).toLocaleString('fa-IR')}</div>
+
               <div><strong>تاریخ انقضا:</strong> ${new Date(quota.expiresAt).toLocaleString('fa-IR')}</div>
+
             `;
+
             monthlyQuotasList.appendChild(quotaItem);
+
           });
+
         } else {
+
           monthlyQuotasList.innerHTML = '<p>هیچ سهمیه ماهانه‌ای ثبت نشده است</p>';
+
         }
+
         
+
         // نمایش تغییرات دستی
+
         const manualAdjustmentsList = document.getElementById('manualAdjustmentsList');
+
         manualAdjustmentsList.innerHTML = '';
+
         
+
         if (drugQuota.manualAdjustments && drugQuota.manualAdjustments.length > 0) {
+
           drugQuota.manualAdjustments.forEach(adjustment => {
+
             const adjustmentItem = document.createElement('div');
+
             adjustmentItem.className = 'adjustment-item';
+
             
+
             let actionText = '';
+
             if (adjustment.action === 'add') {
+
               actionText = `افزایش ${adjustment.amount} واحد`;
+
             } else if (adjustment.action === 'subtract') {
+
               actionText = `کاهش ${adjustment.amount} واحد`;
+
             } else if (adjustment.action === 'set') {
+
               actionText = `تنظیم به ${adjustment.newQuota} واحد`;
+
             }
+
             
+
             adjustmentItem.innerHTML = `
+
               <div><strong>تاریخ:</strong> ${new Date(adjustment.date).toLocaleString('fa-IR')}</div>
+
               <div><strong>عملیات:</strong> ${actionText}</div>
+
               ${adjustment.description ? `<div><strong>توضیحات:</strong> ${adjustment.description}</div>` : ''}
+
               ${adjustment.previousQuota !== null ? `<div><strong>سهمیه قبلی:</strong> ${adjustment.previousQuota}</div>` : ''}
+
               <div><strong>سهمیه جدید:</strong> ${adjustment.newQuota}</div>
+
             `;
+
             manualAdjustmentsList.appendChild(adjustmentItem);
+
           });
+
         } else {
+
           manualAdjustmentsList.innerHTML = '<p>هیچ تغییر دستی ثبت نشده است</p>';
+
         }
+
         
+
         // نمایش خلاصه وضعیت سهمیه‌ها
+
         updateDrugSummary(globalQuota);
+
       } catch (err) {
+
         console.error('خطا در دریافت سهمیه دارویی:', err);
+
       }
+
     }
+
     
+
     // نمایش خلاصه وضعیت سهمیه‌ها
+
     function updateDrugSummary(globalQuota) {
+
       const drugSummary = document.getElementById('drugSummary');
+
       drugSummary.innerHTML = '';
+
       
+
       Object.keys(globalQuota.drugs).forEach(drug => {
+
         const summaryItem = document.createElement('div');
+
         summaryItem.className = 'drug-summary-item';
+
         summaryItem.innerHTML = `
+
           <h4>${drug}</h4>
+
           <div class="drug-summary-value">${globalQuota.drugs[drug].totalQuota}</div>
+
           <small>${drug.includes('شربت') ? 'سی‌سی' : 'عدد'}</small>
+
         `;
+
         drugSummary.appendChild(summaryItem);
+
       });
+
     }
+
     
+
     // نمایش مدال تنظیم سهمیه
+
     function showAdjustQuotaModal(action) {
+
       AppState.currentQuotaAction = action;
+
       
+
       let title = '';
+
       if (action === 'add') {
+
         title = 'افزایش سهمیه';
+
       } else if (action === 'subtract') {
+
         title = 'کاهش سهمیه';
+
       } else if (action === 'set') {
+
         title = 'تنظیم سهمیه';
+
       }
+
       
+
       document.getElementById('adjustQuotaModalTitle').textContent = title;
+
       document.getElementById('adjustQuotaAmount').value = '';
+
       document.getElementById('adjustQuotaDescription').value = '';
+
       document.getElementById('adjustQuotaModal').style.display = 'flex';
+
     }
+
     
+
     // تنظیم سهمیه کل
+
     async function adjustGlobalQuota() {
+
       const amount = parseInt(document.getElementById('adjustQuotaAmount').value);
+
       const description = document.getElementById('adjustQuotaDescription').value;
+
       
+
       if (isNaN(amount)) {
+
         alert('لطفاً مقدار معتبری وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch('/api/global-quota', {
+
           method: 'PUT',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({
+
             drug: AppState.currentDrug,
+
             action: AppState.currentQuotaAction,
+
             amount,
+
             description
+
           }),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('سهمیه با موفقیت به‌روزرسانی شد');
+
           closeModal('adjustQuotaModal');
+
           loadDrugQuota();
+
         } else {
+
           throw new Error(result.error || 'خطا در به‌روزرسانی سهمیه');
+
         }
+
       } catch (err) {
+
         showError('خطا در به‌روزرسانی سهمیه: ' + err.message);
+
       }
+
     }
+
     
+
     // انتخاب ماه برای سهمیه ماهانه
+
     function selectMonth(month) {
+
       AppState.selectedMonth = month;
+
       
+
       document.querySelectorAll('#monthSelector button').forEach(btn => {
+
         btn.classList.remove('active');
+
       });
+
       
+
       event.target.classList.add('active');
+
     }
+
     
+
     // نمایش مدال ثبت سهمیه ماهانه
+
     function showAddMonthlyQuotaModal() {
+
       document.getElementById('monthlyQuotaAmount').value = '';
+
       document.getElementById('monthlyQuotaExpiry').value = '30';
+
       document.getElementById('addMonthlyQuotaModal').style.display = 'flex';
+
     }
+
     
+
     // ثبت سهمیه ماهانه
+
     async function addMonthlyQuota() {
+
       const amount = parseInt(document.getElementById('monthlyQuotaAmount').value);
+
       const expiryDays = parseInt(document.getElementById('monthlyQuotaExpiry').value);
+
       
+
       if (!AppState.selectedMonth || isNaN(amount) || isNaN(expiryDays)) {
+
         alert('لطفاً تمام فیلدها را به درستی پر کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch('/api/global-quota/monthly', {
+
           method: 'POST',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({
+
             drug: AppState.currentDrug,
+
             month: AppState.selectedMonth,
+
             amount,
+
             expiryDays
+
           }),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('سهمیه ماهانه با موفقیت ثبت شد');
+
           closeModal('addMonthlyQuotaModal');
+
           loadDrugQuota();
+
         } else {
+
           throw new Error(result.error || 'خطا در ثبت سهمیه ماهانه');
+
         }
+
       } catch (err) {
+
         showError('خطا در ثبت سهمیه ماهانه: ' + err.message);
+
       }
+
     }
+
     
+
     // ==================== توابع مربوط به تحویل دارو ====================
+
     // جستجوی بیمار برای تحویل دارو
+
     async function searchForDelivery() {
+
       const searchInput = document.getElementById('deliverySearchInput').value.trim();
+
       if (!searchInput) {
+
         alert('لطفاً کد رهگیری یا شماره پرونده را وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         let response = await fetch(`/api/patients/search?recordNumber=${searchInput}`);
+
         let result = await response.json();
+
         
+
         if (!result.success) {
+
           response = await fetch(`/api/patients/search?nationalCode=${searchInput}`);
+
           result = await response.json();
+
         }
+
         
+
         if (result.success) {
+
           const patient = result.patient;
+
           AppState.currentDeliveryPatient = patient;
+
           
+
           document.getElementById('delivery-fullName').textContent = patient.fullName;
+
           document.getElementById('delivery-nationalCode').textContent = patient.nationalCode;
+
           document.getElementById('delivery-recordNumber').textContent = patient.recordNumber;
+
           document.getElementById('delivery-drug').textContent = patient.drug;
+
           
+
           document.getElementById('deliveryPatientInfo').classList.remove('hidden');
+
           document.getElementById('deliveryForm').classList.remove('hidden');
+
           
+
           await loadDeliveryHistory(patient.recordNumber);
+
         } else {
+
           throw new Error(result.error || 'بیمار یافت نشد');
+
         }
+
       } catch (err) {
+
         showError('خطا: ' + err.message);
+
       }
+
     }
+
     
+
     // بارگیری تاریخچه تحویل دارو
+
     async function loadDeliveryHistory(recordNumber) {
+
       try {
+
         const response = await fetch(`/api/drug-delivery?recordNumber=${recordNumber}`);
+
         if (!response.ok) throw new Error('خطا در دریافت تاریخچه تحویل دارو');
+
         
+
         const deliveries = await response.json();
+
         const historyList = document.getElementById('deliveryHistoryList');
+
         historyList.innerHTML = '';
+
         
+
         if (deliveries.length > 0) {
+
           deliveries.forEach(delivery => {
+
             const deliveryItem = document.createElement('div');
+
             deliveryItem.className = 'delivery-history-item';
+
             
+
             // ایجاد بخش اطلاعات
+
             const infoDiv = document.createElement('div');
+
             infoDiv.className = 'delivery-history-info';
+
             
+
             // افزودن تاریخ و زمان
+
             const dateField = document.createElement('div');
+
             dateField.className = 'delivery-history-field';
+
             dateField.innerHTML = `<strong>تاریخ:</strong> ${delivery.persianDate}`;
+
             infoDiv.appendChild(dateField);
+
             
+
             const timeField = document.createElement('div');
+
             timeField.className = 'delivery-history-field';
+
             timeField.innerHTML = `<strong>زمان:</strong> ${delivery.deliveryTime}`;
+
             infoDiv.appendChild(timeField);
+
             
+
             // افزودن داروها و مقادیر
+
             const drugsField = document.createElement('div');
+
             drugsField.className = 'delivery-history-field';
+
             drugsField.innerHTML = `<strong>داروها:</strong> ${delivery.drugs.join('، ')}`;
+
             infoDiv.appendChild(drugsField);
+
             
+
             // افزودن مقادیر
+
             const quantitiesField = document.createElement('div');
+
             quantitiesField.className = 'delivery-history-field';
+
             const quantitiesText = Object.entries(delivery.drugQuantities || {})
+
               .map(([drug, qty]) => `${drug}: ${qty} ${drug.includes('شربت') ? 'cc' : 'عدد'}`)
+
               .join('، ');
+
             quantitiesField.innerHTML = `<strong>مقادیر:</strong> ${quantitiesText}`;
+
             infoDiv.appendChild(quantitiesField);
+
             
+
             deliveryItem.appendChild(infoDiv);
+
             
+
             // ایجاد بخش دکمه‌ها
+
             const actionsDiv = document.createElement('div');
+
             actionsDiv.className = 'delivery-history-actions';
+
             
+
             const editBtn = document.createElement('button');
+
             editBtn.className = 'edit-btn';
+
             editBtn.innerHTML = '<i class="fas fa-edit"></i> ویرایش';
+
             editBtn.onclick = () => showEditDeliveryModal(delivery._id);
+
             actionsDiv.appendChild(editBtn);
+
             
+
             deliveryItem.appendChild(actionsDiv);
+
             
+
             historyList.appendChild(deliveryItem);
+
           });
+
           
+
           document.getElementById('deliveryHistory').classList.remove('hidden');
+
         } else {
+
           document.getElementById('deliveryHistory').classList.add('hidden');
+
         }
+
       } catch (err) {
+
         console.error('خطا در دریافت تاریخچه تحویل دارو:', err);
+
       }
+
     }
+
     
+
     // ثبت تحویل دارو
+
     async function submitDrugDelivery() {
+
       if (!AppState.currentDeliveryPatient) {
+
         alert('لطفاً ابتدا بیمار را جستجو کنید');
+
         return;
+
       }
+
       
+
       const deliveryDate = document.getElementById('deliveryDate').value;
+
       const reason = document.getElementById('deliveryReason').value.trim();
+
       
+
       if (!deliveryDate || !reason) {
+
         alert('لطفاً تاریخ و دلیل تحویل را وارد کنید');
+
         return;
+
       }
+
       
+
       // جمع‌آوری داروهای انتخاب شده
+
       const selectedDrugs = [];
+
       const drugQuantities = {};
+
       let hasError = false;
+
       
+
       document.querySelectorAll('input[name="deliveryDrugs"]:checked').forEach(checkbox => {
+
         const drug = checkbox.value;
+
         const quantity = parseInt(document.getElementById(`quantity-${drug}`).value);
+
         
+
         if (isNaN(quantity) || quantity <= 0) {
+
           alert(`لطفاً مقدار معتبری برای ${drug} وارد کنید`);
+
           hasError = true;
+
           return;
+
         }
+
         
+
         selectedDrugs.push(drug);
+
         drugQuantities[drug] = quantity;
+
       });
+
       
+
       if (hasError) return;
+
       
+
       if (selectedDrugs.length === 0) {
+
         alert('لطفاً حداقل یک دارو انتخاب کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch('/api/drug-delivery', {
+
           method: 'POST',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({
+
             recordNumber: AppState.currentDeliveryPatient.recordNumber,
+
             patientName: AppState.currentDeliveryPatient.fullName,
+
             nationalCode: AppState.currentDeliveryPatient.nationalCode,
+
             drugs: selectedDrugs,
+
             drugQuantities,
+
             reason
+
           }),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('تحویل دارو با موفقیت ثبت شد');
+
           
+
           // ریست فرم
+
           document.querySelectorAll('input[name="deliveryDrugs"]').forEach(checkbox => {
+
             checkbox.checked = false;
+
             document.getElementById(`quantity-${checkbox.value}`).style.display = 'none';
+
           });
+
           
+
           document.getElementById('deliveryReason').value = '';
+
           
+
           await loadDeliveryHistory(AppState.currentDeliveryPatient.recordNumber);
+
         } else {
+
           throw new Error(result.error || 'خطا در ثبت تحویل دارو');
+
         }
+
       } catch (err) {
+
         showError('خطا در ثبت تحویل دارو: ' + err.message);
+
       }
+
     }
+
     
+
     // نمایش مدال ویرایش تاریخچه تحویل دارو
+
     async function showEditDeliveryModal(deliveryId) {
+
       AppState.currentDeliveryId = deliveryId;
+
       
+
       try {
+
         const response = await fetch(`/api/drug-delivery/${deliveryId}`);
+
         if (!response.ok) throw new Error('خطا در دریافت اطلاعات تحویل دارو');
+
         
+
         const delivery = await response.json();
+
         
+
         // پر کردن فرم با اطلاعات فعلی تحویل دارو
+
         document.getElementById('editDeliveryDate').value = delivery.persianDate;
+
         document.getElementById('editDeliveryReason').value = delivery.reason;
+
         
+
         // ریست چک‌باکس‌ها
+
         document.querySelectorAll('input[name="editDeliveryDrugs"]').forEach(checkbox => {
+
           checkbox.checked = false;
+
           document.getElementById(`editQuantity-${checkbox.value}`).style.display = 'none';
+
         });
+
         
+
         // تنظیم داروها و مقادیر
+
         delivery.drugs.forEach(drug => {
+
           const checkbox = document.querySelector(`input[name="editDeliveryDrugs"][value="${drug}"]`);
+
           if (checkbox) {
+
             checkbox.checked = true;
+
             const quantityInput = document.getElementById(`editQuantity-${drug}`);
+
             quantityInput.style.display = 'inline-block';
+
             quantityInput.value = delivery.drugQuantities[drug] || 1;
+
           }
+
         });
+
         
+
         document.getElementById('editDeliveryModal').style.display = 'flex';
+
       } catch (err) {
+
         showError('خطا در بارگیری اطلاعات تحویل دارو: ' + err.message);
+
       }
+
     }
+
     
+
     // به‌روزرسانی تاریخچه تحویل دارو
+
     async function updateDeliveryRecord() {
+
       const deliveryDate = document.getElementById('editDeliveryDate').value;
+
       const reason = document.getElementById('editDeliveryReason').value.trim();
+
       
+
       if (!deliveryDate || !reason) {
+
         alert('لطفاً تاریخ و دلیل تحویل را وارد کنید');
+
         return;
+
       }
+
       
+
       // جمع‌آوری داروهای انتخاب شده
+
       const selectedDrugs = [];
+
       const drugQuantities = {};
+
       let hasError = false;
+
       
+
       document.querySelectorAll('input[name="editDeliveryDrugs"]:checked').forEach(checkbox => {
+
         const drug = checkbox.value;
+
         const quantity = parseInt(document.getElementById(`editQuantity-${drug}`).value);
+
         
+
         if (isNaN(quantity) || quantity <= 0) {
+
           alert(`لطفاً مقدار معتبری برای ${drug} وارد کنید`);
+
           hasError = true;
+
           return;
+
         }
+
         
+
         selectedDrugs.push(drug);
+
         drugQuantities[drug] = quantity;
+
       });
+
       
+
       if (hasError) return;
+
       
+
       if (selectedDrugs.length === 0) {
+
         alert('لطفاً حداقل یک دارو انتخاب کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/drug-delivery/${AppState.currentDeliveryId}`, {
+
           method: 'PUT',
+
           headers: { 'Content-Type': 'application/json' },
+
           body: JSON.stringify({
+
             drugs: selectedDrugs,
+
             drugQuantities,
+
             reason
+
           }),
+
         });
+
         
+
         const result = await response.json();
+
         if (result.success) {
+
           alert('تاریخچه تحویل دارو با موفقیت به‌روزرسانی شد');
+
           closeModal('editDeliveryModal');
+
           
+
           // بارگیری مجدد تاریخچه تحویل دارو
+
           if (AppState.currentDeliveryPatient) {
+
             await loadDeliveryHistory(AppState.currentDeliveryPatient.recordNumber);
+
           }
+
         } else {
+
           throw new Error(result.error || 'خطا در به‌روزرسانی تاریخچه تحویل دارو');
+
         }
+
       } catch (err) {
+
         showError('خطا در به‌روزرسانی تاریخچه تحویل دارو: ' + err.message);
+
       }
+
     }
+
     
+
     // ==================== توابع مربوط به گزارش ماهانه ====================
+
     // بارگیری گزارش ماهانه
+
     async function loadMonthlyReport() {
+
       const month = document.getElementById('reportMonth').value;
+
       const year = parseInt(document.getElementById('reportYear').value);
+
       
+
       if (!month || isNaN(year)) {
+
         alert('لطفاً ماه و سال را به درستی انتخاب کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/monthly-report?month=${month}&year=${year}`);
+
         if (!response.ok) throw new Error('خطا در دریافت گزارش ماهانه');
+
         
+
         const report = await response.json();
+
         const reportDetails = document.getElementById('monthlyReportDetails');
+
         reportDetails.innerHTML = '';
+
         
+
         // نمایش جزئیات داروها
+
         for (const drug in report.drugs) {
+
           const drugItem = document.createElement('div');
+
           drugItem.className = 'monthly-report-drug';
+
           drugItem.innerHTML = `
+
             <h4>${drug}</h4>
+
             <div><strong>مقدار مصرف شده:</strong> ${report.drugs[drug].quantity} ${report.drugs[drug].type}</div>
+
           `;
+
           reportDetails.appendChild(drugItem);
+
         }
+
         
+
         // نمایش خلاصه گزارش
+
         const summary = document.createElement('div');
+
         summary.className = 'monthly-report-summary';
+
         summary.innerHTML = `
+
           <h4>خلاصه گزارش ماهانه</h4>
+
           <div><strong>ماه:</strong> ${month} ${year}</div>
+
           <div><strong>کل مصرف شده:</strong> ${report.totalUsed} واحد</div>
+
         `;
+
         reportDetails.appendChild(summary);
+
         
+
         document.getElementById('monthlyReportResults').classList.remove('hidden');
+
       } catch (err) {
+
         showError('خطا در دریافت گزارش ماهانه: ' + err.message);
+
       }
+
     }
+
     
+
     // ==================== توابع مربوط به اعلانات ====================
+
     // بارگیری اعلانات
+
     async function loadNotifications() {
+
       try {
+
         const response = await fetch('/api/notifications');
+
         if (!response.ok) throw new Error('خطا در دریافت اعلانات');
+
         
+
         AppState.notifications = await response.json();
+
         updateNotificationBadge();
+
       } catch (err) {
+
         console.error('خطا در بارگیری اعلانات:', err);
+
       }
+
     }
+
     
+
     // به‌روزرسانی نشانگر اعلانات
+
     function updateNotificationBadge() {
+
       AppState.unreadNotifications = AppState.notifications.filter(n => !n.read).length;
+
       const badge = document.getElementById('notificationBadge');
+
       
+
       if (AppState.unreadNotifications > 0) {
+
         badge.textContent = AppState.unreadNotifications;
+
         badge.classList.remove('hidden');
+
       } else {
+
         badge.classList.add('hidden');
+
       }
+
     }
+
     
+
     // رهگیری تحویل دارو
+
     async function trackDelivery() {
+
       const searchInput = document.getElementById('trackDeliveryInput').value.trim();
+
       if (!searchInput) {
+
         alert('لطفاً کد ملی یا شماره پرونده را وارد کنید');
+
         return;
+
       }
+
       
+
       try {
+
         let response;
+
         if (/^\d{10}$/.test(searchInput)) {
+
           // جستجو با کد ملی
+
           response = await fetch(`/api/drug-delivery?nationalCode=${searchInput}`);
+
         } else {
+
           // جستجو با شماره پرونده
+
           response = await fetch(`/api/drug-delivery?recordNumber=${searchInput}`);
+
         }
+
         
+
         if (!response.ok) throw new Error('خطا در دریافت تاریخچه تحویل دارو');
+
         
+
         const deliveries = await response.json();
+
         const tbody = document.querySelector('#deliveryTrackingTable tbody');
+
         tbody.innerHTML = '';
+
         
+
         if (deliveries.length > 0) {
+
           deliveries.forEach(delivery => {
+
             const tr = document.createElement('tr');
+
             
+
             // بررسی وجود drugQuantities و معتبر بودن آن
+
             const drugQuantities = delivery.drugQuantities || {};
+
             
+
             // تبدیل مقادیر داروها به رشته
+
             const quantities = Object.entries(drugQuantities)
+
               .map(([drug, qty]) => `${drug}: ${qty} ${drug.includes('شربت') ? 'cc' : 'عدد'}`)
+
               .join('، ');
+
             
+
             tr.innerHTML = `
+
               <td>${delivery.patientName || '-'}</td>
+
               <td>${delivery.nationalCode || '-'}</td>
+
               <td>${delivery.recordNumber || '-'}</td>
+
               <td>${delivery.persianDate || '-'}</td>
+
               <td>${delivery.drugs ? delivery.drugs.join('، ') : '-'}</td>
+
               <td>${quantities || '-'}</td>
+
               <td>${delivery.reason || '-'}</td>
+
               <td>
+
                 <button class="edit-btn" onclick="showEditDeliveryModal('${delivery._id}')">
+
                   <i class="fas fa-edit"></i> ویرایش
+
                 </button>
+
               </td>
+
             `;
+
             tbody.appendChild(tr);
+
           });
+
           
+
           document.getElementById('deliveryTrackingResults').classList.remove('hidden');
+
         } else {
+
           alert('هیچ سابقه تحویل دارویی یافت نشد');
+
           document.getElementById('deliveryTrackingResults').classList.add('hidden');
+
         }
+
       } catch (err) {
+
         showError('خطا در رهگیری تحویل دارو: ' + err.message);
+
       }
+
     }
+
     
+
     // نمایش اعلانات
+
     function showNotifications() {
+
       const modal = document.getElementById('notificationsModal');
+
       const list = document.getElementById('notificationsList');
+
       
+
       list.innerHTML = '';
+
       
+
       if (AppState.notifications.length === 0) {
+
         list.innerHTML = '<p>هیچ اعلانی وجود ندارد</p>';
+
       } else {
+
         AppState.notifications.forEach(notification => {
+
           const notificationItem = document.createElement('div');
+
           notificationItem.className = `notification-item ${notification.read ? '' : 'unread'}`;
+
           notificationItem.innerHTML = `
+
             <h4>${notification.title}</h4>
+
             <p>${notification.message}</p>
+
             <div class="notification-date">
+
               ${new Date(notification.date).toLocaleString('fa-IR')}
+
             </div>
+
           `;
+
           
+
           notificationItem.addEventListener('click', () => {
+
             markNotificationAsRead(notification.id);
+
           });
+
           
+
           list.appendChild(notificationItem);
+
         });
+
       }
+
       
+
       modal.style.display = 'flex';
+
     }
+
     
+
     // علامت زدن اعلان به عنوان خوانده شده
+
     async function markNotificationAsRead(id) {
+
       try {
+
         const response = await fetch(`/api/notifications/${id}/read`, {
+
           method: 'PUT'
+
         });
+
         
+
         if (response.ok) {
+
           await loadNotifications();
+
           updateNotificationBadge();
+
           
+
           // به‌روزرسانی ظاهر اعلان در لیست
+
           const notificationItems = document.querySelectorAll('.notification-item');
+
           notificationItems.forEach(item => {
+
             if (item.querySelector('h4').textContent === 
+
                 AppState.notifications.find(n => n.id === id).title) {
+
               item.classList.remove('unread');
+
             }
+
           });
+
         }
+
       } catch (err) {
+
         console.error('خطا در علامت زدن اعلان به عنوان خوانده شده:', err);
+
       }
+
     }
+
     
+
     // ==================== توابع عمومی ====================
+
     // نمایش خطا به کاربر
+
     function showError(message) {
+
       alert(message);
+
       console.error(message);
+
     }
+
     
+
     // بررسی وضعیت دیتابیس
+
     async function checkDbStatus() {
+
       try {
+
         const response = await fetch('/api/patients');
+
         const dbStatus = document.getElementById('dbStatus');
+
         
+
        
+
       } catch (err) {
+
         const dbStatus = document.getElementById('dbStatus') || document.createElement('div');
+
         dbStatus.id = 'dbStatus';
+
         dbStatus.className = 'db-status disconnected';
+
         dbStatus.textContent = 'عدم اتصال به پایگاه داده';
+
         document.body.appendChild(dbStatus);
+
       }
+
     }
+
     
+
     // بستن هشدار سهمیه کم
+
     function closeQuotaAlert() {
+
       document.getElementById('quotaAlert').classList.add('hidden');
+
       AppState.quotaAlertShown = false;
+
     }
+
     
+
     // نمایش صفحه احراز هویت
+
     function showAuth() {
+
       document.getElementById('auth-section').classList.remove('hidden');
+
       document.getElementById('main').classList.add('hidden');
+
       AppState.isLoggedIn = false;
+
     }
+
     
+
     // ورود به سیستم
+
     function login() {
+
       const username = document.getElementById('username').value.trim();
+
       const password = document.getElementById('password').value.trim();
+
       
+
       if (!username || !password) {
+
         alert('لطفاً نام کاربری و رمز عبور را وارد کنید');
+
         return;
+
       }
+
       
+
       // در اینجا می‌توانید احراز هویت واقعی را پیاده‌سازی کنید
+
       if (username === '14400' && password === '9900') {
+
         AppState.isLoggedIn = true;
+
         AppState.currentUser = { username, role: 'admin' };
+
         
+
         document.getElementById('auth-section').classList.add('hidden');
+
         document.getElementById('main').classList.remove('hidden');
+
         showSection('dashboard');
+
         
+
         startQuotaCheck();
+
       } else {
+
         alert('نام کاربری یا رمز عبور اشتباه است');
+
       }
+
     }
+
     
+
     // خروج از سیستم
+
     function logout() {
+
       AppState.isLoggedIn = false;
+
       AppState.currentUser = null;
+
       showAuth();
+
       
+
       if (AppState.quotaCheckInterval) {
+
         clearInterval(AppState.quotaCheckInterval);
+
       }
+
     }
+
     
+
     // شروع بررسی دوره‌ای سهمیه
+
     function startQuotaCheck() {
+
       AppState.quotaCheckInterval = setInterval(async () => {
+
         try {
+
           const response = await fetch('/api/global-quota');
+
           if (!response.ok) return;
+
           
+
           const globalQuota = await response.json();
+
           let lowQuotaDrugs = [];
+
           
+
           for (const drug in globalQuota.drugs) {
+
             if (globalQuota.drugs[drug].totalQuota < 200 && !globalQuota.drugs[drug].warningSent) {
+
               lowQuotaDrugs.push(drug);
+
             }
+
           }
+
           
+
           if (lowQuotaDrugs.length > 0 && !AppState.quotaAlertShown) {
+
             document.getElementById('quotaAlert').querySelector('span').textContent = 
+
               `هشدار: سهمیه داروهای زیر به زیر 200 واحد رسیده است: ${lowQuotaDrugs.join(', ')}`;
+
             document.getElementById('quotaAlert').classList.remove('hidden');
+
             AppState.quotaAlertShown = true;
+
           }
+
         } catch (err) {
+
           console.error('خطا در بررسی سهمیه:', err);
+
         }
+
       }, 30000);
+
     }
+
     
+
     // ==================== توابع مربوط به گزارش‌گیری و خروجی اکسل ====================
+
     // دانلود لیست بیماران به صورت اکسل
+
     async function exportPatientsToExcel() {
+
       try {
+
         const response = await fetch('/api/patients/export');
+
         if (!response.ok) throw new Error('خطا در تولید فایل اکسل');
+
         
+
         const blob = await response.blob();
+
         const url = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
+
         a.href = url;
+
         a.download = 'patients.xlsx';
+
         document.body.appendChild(a);
+
         a.click();
+
         document.body.removeChild(a);
+
         window.URL.revokeObjectURL(url);
+
       } catch (err) {
+
         showError('خطا در دانلود فایل اکسل: ' + err.message);
+
       }
+
     }
+
     
+
     // دانلود تاریخچه تحویل دارو به صورت اکسل
+
     async function exportDrugDeliveriesToExcel() {
+
       try {
+
         const response = await fetch('/api/drug-delivery/export');
+
         if (!response.ok) throw new Error('خطا در تولید فایل اکسل');
+
         
+
         const blob = await response.blob();
+
         const url = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
+
         a.href = url;
+
         a.download = 'drug_deliveries.xlsx';
+
         document.body.appendChild(a);
+
         a.click();
+
         document.body.removeChild(a);
+
         window.URL.revokeObjectURL(url);
+
       } catch (err) {
+
         showError('خطا در دانلود فایل اکسل: ' + err.message);
+
       }
+
     }
+
     
+
     // دانلود گزارش ماهانه به صورت اکسل
+
     async function exportMonthlyReportToExcel() {
+
       const month = document.getElementById('reportMonth').value;
+
       const year = document.getElementById('reportYear').value;
+
       
+
       if (!month || !year) {
+
         alert('لطفاً ماه و سال را انتخاب کنید');
+
         return;
+
       }
+
       
+
       try {
+
         const response = await fetch(`/api/monthly-report/export?month=${month}&year=${year}`);
+
         if (!response.ok) throw new Error('خطا در تولید فایل اکسل');
+
         
+
         const blob = await response.blob();
+
         const url = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
+
         a.href = url;
+
         a.download = `monthly_report_${month}_${year}.xlsx`;
+
         document.body.appendChild(a);
+
         a.click();
+
         document.body.removeChild(a);
+
         window.URL.revokeObjectURL(url);
+
       } catch (err) {
+
         showError('خطا در دانلود فایل اکسل: ' + err.message);
+
       }
+
     }
+
     
+
     // دانلود تاریخچه سهمیه به صورت اکسل
+
     async function exportQuotaHistoryToExcel() {
+
       try {
+
         const response = await fetch('/api/quota-history/export');
+
         if (!response.ok) throw new Error('خطا در تولید فایل اکسل');
+
         
+
         const blob = await response.blob();
+
         const url = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
+
         a.href = url;
+
         a.download = 'quota_history.xlsx';
+
         document.body.appendChild(a);
+
         a.click();
+
         document.body.removeChild(a);
+
         window.URL.revokeObjectURL(url);
+
       } catch (err) {
+
         showError('خطا در دانلود فایل اکسل: ' + err.message);
+
       }
+
     }
+
     
+
     // دانلود تاریخچه تحویل دارو (رهگیری) به صورت اکسل
+
     async function exportTrackDeliveryToExcel() {
+
       try {
+
         const searchInput = document.getElementById('trackDeliveryInput').value.trim();
+
         let url = '/api/drug-delivery/export';
+
         
+
         if (searchInput) {
+
           if (/^\d{10}$/.test(searchInput)) {
+
             url += `?nationalCode=${searchInput}`;
+
           } else {
+
             url += `?recordNumber=${searchInput}`;
+
           }
+
         }
+
         
+
         const response = await fetch(url);
+
         if (!response.ok) throw new Error('خطا در تولید فایل اکسل');
+
         
+
         const blob = await response.blob();
+
         const downloadUrl = window.URL.createObjectURL(blob);
+
         const a = document.createElement('a');
+
         a.href = downloadUrl;
+
         a.download = 'track_delivery.xlsx';
+
         document.body.appendChild(a);
+
         a.click();
+
         document.body.removeChild(a);
+
         window.URL.revokeObjectURL(downloadUrl);
+
       } catch (err) {
+
         showError('خطا در دانلود فایل اکسل: ' + err.message);
+
       }
+
     }
+
   </script>
+
 </body>
+
 </html>
+
