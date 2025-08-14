@@ -1471,5 +1471,19 @@ async function startServer() {
   }
 }
 
+app.get('/api/patients/:id/quota-history', async (req, res) => {
+  try {
+    const quotaHistory = await loadFromJsonFile(DATA_FILES.quotaHistory);
+    const patientHistory = quotaHistory.filter(item => item.patientId === req.params.id);
+    
+    res.json(patientHistory);
+  } catch (err) {
+    res.status(500).json({ 
+      success: false, 
+      error: err.message 
+    });
+  }
+});
+
 // شروع برنامه
 startServer();
