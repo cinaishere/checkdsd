@@ -1,0 +1,869 @@
+[
+  {
+    "recordNumber": "107",
+    "patientName": "علی ملک پور",
+    "nationalCode": "4610841258",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 14
+    },
+    "reason": "-",
+    "_id": "1755004476912",
+    "deliveryDate": "2025-07-20T00:00:00.000Z",
+    "persianDate": "۲۹ تیر ۱۴۰۴",
+    "month": "تیر",
+    "year": 2025,
+    "gregorianMonth": 7,
+    "gregorianYear": 2025,
+    "deliveryTime": "۰۰:۰۰:۰۰",
+    "updatedAt": "2025-08-16T12:43:38.361Z"
+  },
+  {
+    "recordNumber": "047",
+    "patientName": "دلاور نوروزی",
+    "nationalCode": "4620167843",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 10
+    },
+    "reason": "تعداد 10T",
+    "_id": "1755004858242",
+    "deliveryDate": "2025-08-05T00:00:00.000Z",
+    "persianDate": "۱۴ مرداد ۱۴۰۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۰۰:۰۰:۰۰",
+    "updatedAt": "2025-08-13T13:37:04.126Z"
+  },
+  {
+    "recordNumber": "042",
+    "patientName": "خدایار امینی",
+    "nationalCode": "4679182709",
+    "drugs": [
+      "قرص متادون 5"
+    ],
+    "drugQuantities": {
+      "قرص متادون 5": 45
+    },
+    "reason": "تعداد 45t",
+    "_id": "1755006566268",
+    "deliveryDate": "2025-08-05T00:00:00.000Z",
+    "persianDate": "۱۴ مرداد ۱۴۰۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۰۰:۰۰:۰۰"
+  },
+  {
+    "recordNumber": "029",
+    "patientName": "ابوالقاسم مرادی",
+    "nationalCode": "4621335065",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 500
+    },
+    "reason": "سایرر",
+    "_id": "1755004476913",
+    "deliveryDate": "2025-08-09T14:55:00.000Z",
+    "persianDate": "۱۸ مرداد ۱۴۰۴ ساعت ۱۸:۲۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۸:۲۵:۰۰"
+  },
+  {
+    "recordNumber": "084",
+    "patientName": "یاسین بهرامی",
+    "nationalCode": "4679777753",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004858243",
+    "deliveryDate": "2025-08-09T15:05:00.000Z",
+    "persianDate": "۱۸ مرداد ۱۴۰۴ ساعت ۱۸:۳۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۸:۳۵:۰۰"
+  },
+  {
+    "recordNumber": "097",
+    "patientName": "سجاد اسکندری",
+    "nationalCode": "4610061708",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755006566269",
+    "deliveryDate": "2025-08-09T15:07:00.000Z",
+    "persianDate": "۱۸ مرداد ۱۴۰۴ ساعت ۱۸:۳۷",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۸:۳۷:۰۰",
+    "updatedAt": "2025-08-16T12:43:02.850Z"
+  },
+  {
+    "recordNumber": "082",
+    "patientName": "هادی نوروزی",
+    "nationalCode": "4679917989",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004476914",
+    "deliveryDate": "2025-08-09T15:08:00.000Z",
+    "persianDate": "۱۸ مرداد ۱۴۰۴ ساعت ۱۸:۳۸",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۸:۳۸:۰۰"
+  },
+  {
+    "recordNumber": "001",
+    "patientName": "علی بابا ملکپور",
+    "nationalCode": "6339530885",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004858244",
+    "deliveryDate": "2025-08-10T12:57:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۲۷",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۷:۰۰"
+  },
+  {
+    "recordNumber": "002",
+    "patientName": "پروانه صفی",
+    "nationalCode": "6339545777",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755006566270",
+    "deliveryDate": "2025-08-10T13:04:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۳۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۳۴:۰۰"
+  },
+  {
+    "recordNumber": "019",
+    "patientName": "فریبرز خاکسار حقانی",
+    "nationalCode": "6421422146",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 330
+    },
+    "reason": "تحویل 250 سی سی |+ 80 سی سی سهیمه کلی",
+    "_id": "1755004476915",
+    "deliveryDate": "2025-08-10T13:21:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۵۱",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۱:۰۰"
+  },
+  {
+    "recordNumber": "063",
+    "patientName": "قاسم حسینی",
+    "nationalCode": "6339720439",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004858245",
+    "deliveryDate": "2025-08-10T13:23:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۵۳",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۳:۰۰"
+  },
+  {
+    "recordNumber": "104",
+    "patientName": "مهدی پورعباس",
+    "nationalCode": "6339758959",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755006566271",
+    "deliveryDate": "2025-08-10T13:24:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۵۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۴:۰۰"
+  },
+  {
+    "recordNumber": "017",
+    "patientName": "صادق عبدالهی",
+    "nationalCode": "4610196085",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004476916",
+    "deliveryDate": "2025-08-10T13:24:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۵۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۴:۰۰"
+  },
+  {
+    "recordNumber": "103",
+    "patientName": "کوروش میرزایی",
+    "nationalCode": "6339713335",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004858246",
+    "deliveryDate": "2025-08-10T13:25:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۶:۵۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۵:۰۰"
+  },
+  {
+    "recordNumber": "011",
+    "patientName": "سید علی رضوی",
+    "nationalCode": "4621544225",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755006566272",
+    "deliveryDate": "2025-08-10T13:39:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۷:۰۹",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۷:۰۹:۰۰"
+  },
+  {
+    "recordNumber": "008",
+    "patientName": "جواد همتی",
+    "nationalCode": "4620147419",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 330
+    },
+    "reason": "سهمیه کلی 250 |+ 80 سی سی",
+    "_id": "1755004476917",
+    "deliveryDate": "2025-08-10T13:41:00.000Z",
+    "persianDate": "۱۹ مرداد ۱۴۰۴ ساعت ۱۷:۱۱",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۷:۱۱:۰۰"
+  },
+  {
+    "recordNumber": "062",
+    "patientName": "محسن اسکندری",
+    "nationalCode": "6339950779",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004858247",
+    "deliveryDate": "2025-08-11T12:46:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۱۶",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۱۶:۰۰"
+  },
+  {
+    "recordNumber": "090",
+    "patientName": "حیدرعلی اسکندری",
+    "nationalCode": "6339622266",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755006566273",
+    "deliveryDate": "2025-08-11T12:48:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۱۸",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۱۸:۰۰"
+  },
+  {
+    "recordNumber": "079",
+    "patientName": "اسماعیل منصوری",
+    "nationalCode": "4622693526",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004476918",
+    "deliveryDate": "2025-08-11T12:50:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۲۰",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۰:۰۰"
+  },
+  {
+    "recordNumber": "003",
+    "patientName": "علی درویشی",
+    "nationalCode": "1270978373",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 170
+    },
+    "reason": "سایرر",
+    "_id": "1755004858248",
+    "deliveryDate": "2025-08-11T12:54:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۲۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۴:۰۰"
+  },
+  {
+    "recordNumber": "092",
+    "patientName": "عبدالرضا اسدی",
+    "nationalCode": "6339762484",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755006566274",
+    "deliveryDate": "2025-08-11T12:54:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۲۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۴:۰۰"
+  },
+  {
+    "recordNumber": "004",
+    "patientName": "قدم خیر عزت پناه",
+    "nationalCode": "6339640257",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "سایرر",
+    "_id": "1755004476919",
+    "deliveryDate": "2025-08-11T12:56:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۲۶",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۶:۰۰"
+  },
+  {
+    "recordNumber": "107",
+    "patientName": "علی ملک پور",
+    "nationalCode": "4610841258",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 20
+    },
+    "reason": "-",
+    "_id": "1755004858249",
+    "deliveryDate": "2025-08-11T13:11:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۶:۴۱",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۴۱:۰۰",
+    "updatedAt": "2025-08-13T14:03:29.426Z"
+  },
+  {
+    "recordNumber": "047",
+    "patientName": "دلاور نوروزی",
+    "nationalCode": "4620167843",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 10
+    },
+    "reason": "سایرر",
+    "_id": "1755004476920",
+    "deliveryDate": "2025-08-11T13:45:00.000Z",
+    "persianDate": "۲۰ مرداد ۱۴۰۴ ساعت ۱۷:۱۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۷:۱۵:۰۰"
+  },
+  {
+    "recordNumber": "110",
+    "patientName": "فتح الله عبدالغنی",
+    "nationalCode": "4620124230",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 100
+    },
+    "reason": "1",
+    "_id": "1755089396180",
+    "deliveryDate": "2025-08-13T12:49:56.180Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۱۹",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۱۹:۵۶",
+    "updatedAt": "2025-08-13T12:52:13.644Z"
+  },
+  {
+    "recordNumber": "038",
+    "patientName": "روح الامین قربانی",
+    "nationalCode": "4621952595",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755089587951",
+    "deliveryDate": "2025-08-13T12:53:07.951Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۲۳",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۳:۰۷"
+  },
+  {
+    "recordNumber": "072",
+    "patientName": "اکبر انصاری",
+    "nationalCode": "4679676353",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755089639123",
+    "deliveryDate": "2025-08-13T12:53:59.123Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۲۳",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۳:۵۹"
+  },
+  {
+    "recordNumber": "088",
+    "patientName": "سوسن نوذری",
+    "nationalCode": "4679688467",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 170
+    },
+    "reason": "-",
+    "_id": "1755089707118",
+    "deliveryDate": "2025-08-13T12:55:07.118Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۲۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۵:۰۷"
+  },
+  {
+    "recordNumber": "054",
+    "patientName": "محمدعلی محمدی",
+    "nationalCode": "4689458161",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755089731510",
+    "deliveryDate": "2025-08-13T12:55:31.510Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۲۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۲۵:۳۱"
+  },
+  {
+    "recordNumber": "086",
+    "patientName": "تورنج نوروزی",
+    "nationalCode": "4679460768",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755091249200",
+    "deliveryDate": "2025-08-13T13:20:49.200Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۶:۵۰",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۰:۴۹"
+  },
+  {
+    "recordNumber": "013",
+    "patientName": "بهمن خاکسار حقانی",
+    "nationalCode": "4621351397",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 170
+    },
+    "reason": "-",
+    "_id": "1755093408780",
+    "deliveryDate": "2025-08-13T13:56:48.780Z",
+    "persianDate": "۲۲ مرداد ۱۴۰۴ ساعت ۱۷:۲۶",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۷:۲۶:۴۸"
+  },
+  {
+    "recordNumber": "058",
+    "patientName": "فتح الله جهانبخشی",
+    "nationalCode": "4621554093",
+    "drugs": [
+      "شربت اپیوم",
+      "قرص متادون 20"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250,
+      "قرص متادون 20": 20
+    },
+    "reason": "-",
+    "_id": "1755345921063",
+    "deliveryDate": "2025-08-16T12:05:21.063Z",
+    "persianDate": "۲۵ مرداد ۱۴۰۴ ساعت ۱۵:۳۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۵:۳۵:۲۱"
+  },
+  {
+    "recordNumber": "007",
+    "patientName": "بهزاد حبیبی",
+    "nationalCode": "5559786101",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 140
+    },
+    "reason": "-",
+    "_id": "1755347460976",
+    "deliveryDate": "2025-08-16T12:31:00.976Z",
+    "persianDate": "۲۵ مرداد ۱۴۰۴ ساعت ۱۶:۰۱",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۰۱:۰۰"
+  },
+  {
+    "recordNumber": "093",
+    "patientName": "حسین حسین زاده ",
+    "nationalCode": "4621423568",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 20
+    },
+    "reason": "-",
+    "_id": "1755347598513",
+    "deliveryDate": "2025-08-16T12:33:18.513Z",
+    "persianDate": "۲۵ مرداد ۱۴۰۴ ساعت ۱۶:۰۳",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۰۳:۱۸"
+  },
+  {
+    "recordNumber": "072",
+    "patientName": "اکبر انصاری",
+    "nationalCode": "4679676353",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755350771912",
+    "deliveryDate": "2025-08-16T13:26:11.912Z",
+    "persianDate": "۲۵ مرداد ۱۴۰۴ ساعت ۱۶:۵۶",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۶:۵۶:۱۱"
+  },
+  {
+    "recordNumber": "109",
+    "patientName": "ابراهیم دهقانی",
+    "nationalCode": "4621453343",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755351286496",
+    "deliveryDate": "2025-08-16T13:34:46.496Z",
+    "persianDate": "۲۵ مرداد ۱۴۰۴ ساعت ۱۷:۰۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۷:۰۴:۴۶"
+  },
+  {
+    "recordNumber": "001",
+    "patientName": "علی بابا ملکپور",
+    "nationalCode": "6339530885",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "1404-05-26",
+    "_id": "1755514440271",
+    "deliveryDate": "2025-08-18T10:54:00.271Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۴:۲۳",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۴:۲۴:۰۰"
+  },
+  {
+    "recordNumber": "002",
+    "patientName": "پروانه صفی",
+    "nationalCode": "6339545777",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "1404-05-26",
+    "_id": "1755514454008",
+    "deliveryDate": "2025-08-18T10:54:14.008Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۴:۲۴",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۴:۲۴:۱۴"
+  },
+  {
+    "recordNumber": "004",
+    "patientName": "قدم خیر عزت پناه",
+    "nationalCode": "6339640257",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 330
+    },
+    "reason": "1404-05-26",
+    "_id": "1755514500263",
+    "deliveryDate": "2025-08-18T10:55:00.263Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۴:۲۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۴:۲۵:۰۰"
+  },
+  {
+    "recordNumber": "107",
+    "patientName": "علی ملک پور",
+    "nationalCode": "4610841258",
+    "drugs": [
+      "قرص متادون 40"
+    ],
+    "drugQuantities": {
+      "قرص متادون 40": 20
+    },
+    "reason": "1404-05-26",
+    "_id": "1755514540813",
+    "deliveryDate": "2025-08-18T10:55:40.813Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۴:۲۵",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۴:۲۵:۴۰"
+  },
+  {
+    "recordNumber": "103",
+    "patientName": "کوروش میرزایی",
+    "nationalCode": "6339713335",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755519471513",
+    "deliveryDate": "2025-08-18T12:17:51.513Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۵:۴۷",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۵:۴۷:۵۱"
+  },
+  {
+    "recordNumber": "104",
+    "patientName": "مهدی پورعباس",
+    "nationalCode": "6339758959",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755519489978",
+    "deliveryDate": "2025-08-18T12:18:09.978Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۵:۴۸",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۵:۴۸:۰۹"
+  },
+  {
+    "recordNumber": "063",
+    "patientName": "قاسم حسینی",
+    "nationalCode": "6339720439",
+    "drugs": [
+      "شربت اپیوم"
+    ],
+    "drugQuantities": {
+      "شربت اپیوم": 250
+    },
+    "reason": "-",
+    "_id": "1755519716347",
+    "deliveryDate": "2025-08-18T12:21:56.347Z",
+    "persianDate": "۲۷ مرداد ۱۴۰۴ ساعت ۱۵:۵۱",
+    "month": "مرداد",
+    "year": 2025,
+    "gregorianMonth": 8,
+    "gregorianYear": 2025,
+    "deliveryTime": "۱۵:۵۱:۵۶"
+  }
+]

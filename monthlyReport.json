@@ -1,0 +1,64 @@
+[
+  {
+    "month": "مرداد",
+    "year": 2025,
+    "drugs": {
+      "شربت متادون": {
+        "quantity": 0,
+        "type": "cc"
+      },
+      "شربت اپیوم": {
+        "quantity": 9240,
+        "type": "cc"
+      },
+      "قرص متادون 5": {
+        "quantity": 45,
+        "type": "عدد"
+      },
+      "قرص متادون 30": {
+        "quantity": 0,
+        "type": "عدد"
+      },
+      "قرص متادون 40": {
+        "quantity": 110,
+        "type": "عدد"
+      },
+      "قرص متادون 20": {
+        "quantity": 20,
+        "type": "عدد"
+      }
+    },
+    "totalUsed": 9415,
+    "remaining": 0,
+    "exceeded": 0
+  },
+  {
+    "month": "تیر",
+    "year": 2025,
+    "drugs": {
+      "شربت متادون": {
+        "quantity": 0,
+        "type": "cc"
+      },
+      "شربت اپیوم": {
+        "quantity": 0,
+        "type": "cc"
+      },
+      "قرص متادون 5": {
+        "quantity": 0,
+        "type": "عدد"
+      },
+      "قرص متادون 30": {
+        "quantity": 0,
+        "type": "عدد"
+      },
+      "قرص متادون 40": {
+        "quantity": 56,
+        "type": "عدد"
+      }
+    },
+    "totalUsed": 56,
+    "remaining": 0,
+    "exceeded": 0
+  }
+]
